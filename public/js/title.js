@@ -29,15 +29,18 @@ gsap.to(".navbar", {
   scrollTrigger: {
     trigger: ".navbar",
     start: "+=400",
-    end: "max",
-    onToggle: () => {
+    end: () => {
+      return `${window.outerHeight}`;
+    },
+    onEnter: () => {
       const navbar = document.querySelector(".navbar");
-      navbar.classList.toggle("normal");
-      if (navbar.classList.contains("normal")) {
-        navbar.querySelector("img").src = "Logo-Black.png";
-      } else {
-        navbar.querySelector("img").src = "Logo-white.png";
-      }
+      navbar.classList.add("normal");
+      navbar.querySelector("img").src = "Logo-Black.png";
+    },
+    onLeaveBack: () => {
+      const navbar = document.querySelector(".navbar");
+      navbar.classList.remove("normal");
+      navbar.querySelector("img").src = "Logo-white.png";
     },
   },
 });
