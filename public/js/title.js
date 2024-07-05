@@ -4,6 +4,7 @@ gsap.from(".title", {
   x: "-5%",
   y: "50%",
   duration: 1,
+  delay: 0.5,
   ease: "power2.out",
 });
 
@@ -12,6 +13,7 @@ gsap.to(".title", {
   x: 0,
   y: 0,
   duration: 2,
+  delay: 0.5,
   ease: "back.out(1.7)",
 });
 
@@ -19,6 +21,7 @@ gsap.from(".subheading", { x: 0, duration: 2 });
 gsap.from(".subheading", {
   x: "-30%",
   duration: 2,
+  delay: 0.5,
   ease: "elastic.out(1, 0.3)",
 });
 

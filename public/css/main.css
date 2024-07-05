@@ -1,80 +1,138 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;600&display=swap");
 
 * {
-    margin: 0;
-    padding: 0
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    width: 100%;
+  width: 100%;
 }
-.background, .foreground {
-    object-position: 0 -50px;
+.background,
+.foreground {
+  object-position: 0 -50px;
 }
 .background {
-    position: relative;
-    width: 100%;
-    height: 800px;
-    z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 800px;
+  z-index: 1;
 }
 .foreground {
-    position: absolute;
-    width: 100%;
-    height: 800px;
+  position: absolute;
+  width: 100%;
+  height: 800px;
 
-    z-index: 10;
-    top: 0;
-    left: 0;
+  z-index: 10;
+  top: 0;
+  left: 0;
 }
 
-/* .title-div {
-    position: absolute;
-    z-index: 5;
-    height: 100vh;
-    width: 100%;
-    top: 0
-} */
 .title {
-    position: absolute;
-    z-index: 5;
-    top: 0%;
-    left: 33%;
-    
-    font-family: "DM Serif Display", serif;
-    font-optical-sizing: auto;
-    letter-spacing: 20px;
-    font-style: normal;
-    font-size: 300px;
-    color: white;
+  position: absolute;
+  z-index: 5;
+  top: 0%;
+  left: 33%;
+
+  font-family: "DM Serif Display", serif;
+  font-optical-sizing: auto;
+  letter-spacing: 20px;
+  font-style: normal;
+  font-size: 300px;
+  color: white;
 }
 
 .subheader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    position: absolute;
-    z-index: 50;
-    right: 3%;
-    top: 78%;
-    width: 500px;
-    height: 72.2px;
-    background: linear-gradient(90deg, #522789, #580db8, #b25288);
-    border-radius: calc(72.2px/2);
-    padding-left: 30px;
-    padding-right: 20px
+  position: absolute;
+  z-index: 50;
+  right: 3%;
+  top: 78%;
+  width: 500px;
+  height: 72.2px;
+
+  border-radius: calc(72.2px / 2);
+  padding-left: 30px;
+  padding-right: 20px;
+
+  transition: all 0.3s;
+}
+
+.subheader {
+  background: linear-gradient(270deg, #580db8, #891367);
+  background-size: 800% 800%;
+
+  -webkit-animation: background-pan 7s ease infinite;
+  -moz-animation: background-pan 7s ease infinite;
+  -o-animation: background-pan 7s ease infinite;
+  animation: background-pan 7s ease infinite;
+}
+
+@-webkit-keyframes background-pan {
+  0% {
+    background-position: 0% 11%;
+  }
+  50% {
+    background-position: 100% 90%;
+  }
+  100% {
+    background-position: 0% 11%;
+  }
+}
+@-moz-keyframes background-pan {
+  0% {
+    background-position: 0% 11%;
+  }
+  50% {
+    background-position: 100% 90%;
+  }
+  100% {
+    background-position: 0% 11%;
+  }
+}
+@-o-keyframes background-pan {
+  0% {
+    background-position: 0% 11%;
+  }
+  50% {
+    background-position: 100% 90%;
+  }
+  100% {
+    background-position: 0% 11%;
+  }
+}
+@keyframes background-pan {
+  0% {
+    background-position: 0% 11%;
+  }
+  50% {
+    background-position: 100% 90%;
+  }
+  100% {
+    background-position: 0% 11%;
+  }
+}
+.subheader:hover {
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.4);
 }
 
 .subheading {
-    font-size: 18px;
-    color: white;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  font-size: 18px;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .buttonWrapper {
-    font-family: "Poppins", sans-serif;
-    font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  transition: all 0.3s;
 }
 
+.buttonWrapper:hover {
+  text-shadow: #522789;
+}
