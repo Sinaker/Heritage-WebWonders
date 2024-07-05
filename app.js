@@ -9,8 +9,14 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
 //Express serves these contents as if they were in the root
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "images")));
+
+app.get("/", (req, res, next) => {
+  res.status(404).render("heropage", { pageTitle: "Darshan", path: "/" });
+});
 
 app.use(errorController.get404);
 

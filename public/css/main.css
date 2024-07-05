@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    width: 100%;
+}
+.background, .foreground {
+    object-position: 0 -50px;
+}
+.background {
+    position: relative;
+    width: 100%;
+    height: 800px;
+    z-index: 1;
+}
+.foreground {
+    position: absolute;
+    width: 100%;
+    height: 800px;
+
+    z-index: 10;
+    top: 0;
+    left: 0;
+}
+
+/* .title-div {
+    position: absolute;
+    z-index: 5;
+    height: 100vh;
+    width: 100%;
+    top: 0
+} */
+.title {
+    position: absolute;
+    z-index: 5;
+    top: 0%;
+    left: 33%;
+    
+    font-family: "DM Serif Display", serif;
+    font-optical-sizing: auto;
+    letter-spacing: 20px;
+    font-style: normal;
+    font-size: 300px;
+    color: white;
+}
+
+.subheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: absolute;
+    z-index: 50;
+    right: 3%;
+    top: 78%;
+    width: 500px;
+    height: 72.2px;
+    background: linear-gradient(90deg, #522789, #580db8, #b25288);
+    border-radius: calc(72.2px/2);
+    padding-left: 30px;
+    padding-right: 20px
+}
+
+.subheading {
+    font-size: 18px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.buttonWrapper {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+}
+

@@ -1,1 +1,31 @@
 <!-- Insert navbar code here-->
+<link href="/css/nav.css" rel="stylesheet" />
+</head>
+<nav class="navbar">
+    <div class="logo">
+        <img width=69 src="Logo-White.png" />
+    </div>
+    <div class="links">
+        <span>Home</span>
+        <span>About</span>
+        <span>Contribute</span>
+        <div class="buttonWrapper">
+            <a href="#" class="btn-link">
+                <span class="btn-fill">
+                    <span class="btn-ripple v1"></span>
+                    <span class="btn-ripple v2"></span>
+                </span>
+                <span class="btn-title">
+                    <span class="btn-content">Explore</span>
+                </span>
+            </a>
+        </div>
+    </div>
+</nav>
+<script>
+    const navbar = document.querySelector(".navbar");
+    
+    if(navbar.classList.contains("normal")) {
+        document.querySelector("img").src = "Logo-Black.png"
+    }
+</script>

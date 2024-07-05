@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
 * {
     padding: 0; 
     margin: 0;
@@ -10,6 +11,7 @@
     width: 90%;
     margin: 2%;
     padding: 2%;
+    position: relative;
 }
 
 .logo {
@@ -101,38 +103,67 @@
     
 }
 
-.navBar {
-    width: 50%;
-    display: flex;
-    justify-content: space-evenly;
-    /* margin: 2%; */
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+
+html,
+body {
+    margin: 0;
+    padding: 0;
 }
 
-/* .heading{
-    align-self: center;
-    text-align: center;
-    font-size: 1140;
-} */
- 
-
-.header {
+.navbar {
+    height: 69px;
+    width: 100%;
+    position: fixed;
     display: flex;
     justify-content: space-between;
- 
-    height: 10%;
-    position: absolute;
-    z-index: 1;
-
-
+    z-index: 100;
 }
-.header a{
-    text-decoration: none;
-    color: aliceblue;
-}
-.subNav{
-    /* width: 10%; */
 
+.logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    flex: 1;
+
+    font-family: "Anton SC", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    font-size: 2.2rem;
+    letter-spacing: 3px;
 }
+
+.logo-img {
+    flex: 0 0 auto;
+}
+
+.links {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    flex: 1;
+    color: white
+}
+
+.links {
+    font-size: 23px;
+    font-family: sans-serif;
+}
+
+.explore-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 49px;
+    width: 130px;
+
+    border-radius: 30px;
+    background: linear-gradient(90deg, #ff3131, #ff914d);
+}
+
 #gradient_effect_button_orange{
     background-image: linear-gradient(to right,red ,orange);
     border-radius: 30%;
