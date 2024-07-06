@@ -34,8 +34,8 @@ body {
 }
 
 .navbar.normal {
-  left: 7.5%;
-  width: 85%;
+  left: 5%;
+  width: 91%;
   background-color: var(--main-bg-color);
 }
 

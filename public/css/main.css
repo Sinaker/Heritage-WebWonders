@@ -15,7 +15,17 @@
 
 body {
   width: 100%;
+  overflow-x: hidden;
+  background-color: var(--main-bg-color);
 }
+.pageBreak {
+  width: 91%;
+  margin: 6rem auto; /* Center the hr and add space around it */
+  border: none; /* Remove default border */
+  height: 2px;
+  background-color: var(--main-text-color);
+}
+
 .background {
   position: relative;
   width: 100%;
@@ -145,11 +155,10 @@ body {
 
 .mission-div {
   position: relative;
-  height: 100vh;
   width: 100%;
   background-color: var(--main-bg-color);
   padding: 0 5%;
-  padding-top: 12rem;
+  padding-top: 8rem;
 }
 
 .mission-title {
@@ -246,6 +255,7 @@ body {
   font-family: "PlayFair Display";
   text-align: center;
   font-size: 5rem;
+  color: var(--main-text-color);
 }
 .photoGallery {
   height: 100vh;
