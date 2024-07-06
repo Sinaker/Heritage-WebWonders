@@ -1,16 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;600&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap");
+
+:root {
+  --main-text-color: #262733;
+  --main-bg-color: #faf1ca;
+}
+
 * {
   margin: 0;
   padding: 0;
+  font-family: Comfortaa;
 }
 
 body {
   width: 100%;
-}
-.background,
-.foreground {
-  object-position: 0 -50px;
 }
 .background {
   position: relative;
@@ -135,4 +139,95 @@ body {
 
 .buttonWrapper:hover {
   text-shadow: #522789;
+}
+
+/* MISSION PAGE */
+
+.mission-div {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--main-bg-color);
+  padding: 0 5%;
+  padding-top: 12rem;
+}
+
+.mission-title {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 5rem;
+  color: var(--main-text-color);
+}
+
+.mission-textbox {
+  margin-top: 4rem;
+  margin-right: 3rem;
+  width: 40%;
+  font-size: 1.25rem;
+}
+
+.btn-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  padding: 0.8em 0.5em;
+  border: 2px solid var(--main-text-color);
+  border-radius: 3rem;
+
+  font-size: 1.2rem;
+
+  background-image: linear-gradient(
+    to left,
+    #f1be60 50%,
+    var(--main-text-color) 50%
+  );
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-in-out;
+}
+.btn-2:hover {
+  background-position: left bottom;
+  color: #f1be60;
+}
+
+.mission-image {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 40vw;
+  object-fit: contain;
+
+  transition: all 0.3s;
+}
+
+.mission-image img {
+  position: relative;
+  /* z-index: 5; */
+}
+
+.image-caption {
+  position: absolute;
+  display: block;
+  width: 100%;
+
+  opacity: 0;
+  z-index: 1;
+
+  bottom: 10%; /* Start off-screen from the top */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 0;
+  background-color: var(--main-text-color);
+  color: #f1be60;
+  transition: all 0.5s ease; /* Smooth transition for the top property */
+
+  text-align: center;
+}
+
+.mission-image:hover .image-caption {
+  opacity: 1;
+  bottom: 0%; /* Slide in from the top on hover */
 }

@@ -1,4 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton+SC&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
+
+:root {
+  --main-text-color: #262733;
+  --main-bg-color: #faf1ca;
+}
 
 html,
 body {
@@ -6,6 +11,16 @@ body {
   padding: 0;
 }
 
+.navbar-divider {
+  position: fixed;
+  left: 5%;
+  margin-top: 75px;
+  height: 2px;
+  width: 0%;
+  background-color: #262733;
+
+  transition: all 0.3s;
+}
 .navbar {
   height: 69px;
   width: 100%;
@@ -14,16 +29,18 @@ body {
   justify-content: space-between;
   background-color: transparent;
   z-index: 100;
-
+  padding-bottom: 0.5rem;
   transition: all 0.3s;
 }
 
 .navbar.normal {
-  background-color: beige;
+  left: 7.5%;
+  width: 85%;
+  background-color: var(--main-bg-color);
 }
 
 .navbar.normal .links {
-  color: black;
+  color: var(--main-text-color);
 }
 
 .logo {
@@ -52,15 +69,15 @@ body {
 
 .links span {
   font-size: 23px;
-  font-family: sans-serif;
+  font-family: "Comfortaa", sans-serif;
   transition: all 0.3s;
 }
 hr {
   border: none;
   background-color: white;
-  height: 3px;
+  height: 2px;
   width: 0%;
-  border-radius: 1.5px;
+  border-radius: 2px;
   transition: all 0.3s;
 }
 
@@ -68,6 +85,7 @@ hr {
   cursor: pointer;
   hr {
     width: 100%;
+    background-color: var(--main-text-color);
   }
 }
 .explore-btn {
@@ -87,6 +105,7 @@ hr {
   align-items: center;
   height: 49px;
   width: 130px;
+  color: white;
 }
 
 .btn-link {
@@ -125,11 +144,12 @@ hr {
   justify-content: center;
   height: 100%;
   transform: translateZ(0);
+  color: white;
 }
 
 .btn-content {
   font-weight: normal;
-  color: white;
+  color: white !important;
 }
 
 .btn-ripple {

@@ -1,10 +1,7 @@
 // Select all elements with class ".btn-link"
 const buttons = document.querySelectorAll(".btn-link");
-console.log(buttons);
 
-// Loop through each button element
 buttons.forEach((button) => {
-  // Select the related elements within each button container
   const title = button.querySelector(".btn-title");
   const ripple = button.querySelectorAll(".btn-ripple");
 
