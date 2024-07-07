@@ -12,9 +12,13 @@
   padding: 0;
   font-family: Comfortaa;
 }
-
+html,
 body {
   width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
   overflow-x: hidden;
   background-color: var(--main-bg-color);
 }
@@ -154,14 +158,22 @@ body {
 /* MISSION PAGE */
 
 .mission-div {
+  display: grid;
+
+  grid-template-areas: "title" "image" "textbox" "button";
+
   position: relative;
-  width: 100%;
+  width: 100vw;
   background-color: var(--main-bg-color);
+
+  box-sizing: border-box;
   padding: 0 5%;
   padding-top: 8rem;
 }
 
 .mission-title {
+  grid-area: title;
+
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   font-weight: 900;
@@ -171,17 +183,18 @@ body {
 }
 
 .mission-textbox {
-  margin-top: 4rem;
-  margin-right: 3rem;
-  width: 40%;
+  grid-area: textbox;
+
+  width: 80%;
   font-size: 1.25rem;
 }
 
 .btn-2 {
+  width: 12%;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 4rem;
   padding: 0.8em 0.5em;
   border: 2px solid var(--main-text-color);
   border-radius: 3rem;
@@ -203,12 +216,10 @@ body {
 }
 
 .mission-image {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  width: 40vw;
-  object-fit: contain;
+  grid-area: image;
 
+  margin-top: 7%;
+  object-fit: contain;
   transition: all 0.3s;
 }
 
@@ -218,20 +229,20 @@ body {
 }
 
 .image-caption {
-  position: absolute;
+  position: relative;
   display: block;
   width: 100%;
 
   opacity: 0;
   z-index: 1;
 
-  bottom: 10%; /* Start off-screen from the top */
+  bottom: 10%; /* Start off-screen from the bottom */
   left: 50%;
   transform: translateX(-50%);
   padding: 1rem 0;
   background-color: var(--main-text-color);
   color: #f1be60;
-  transition: all 0.5s ease; /* Smooth transition for the top property */
+  transition: all 0.5s ease; /* Smooth transition for the bottom property */
 
   text-align: center;
 }
@@ -241,8 +252,68 @@ body {
   bottom: 0%; /* Slide in from the top on hover */
 }
 
-/* PHOTOGALLERY PAGE */
+@media (1152px < width < 1430px) {
+  .mission-title {
+    font-size: 4rem;
+  }
+  .mission-textbox,
+  .btn-2 {
+    font-size: 1.125rem;
+  }
+}
+@media (885px < width < 1152px) {
+  .mission-title {
+    font-size: 3rem;
+  }
+  .mission-textbox,
+  .btn-2 {
+    font-size: 1rem;
+  }
+  .btn-2 {
+    width: 15%;
+  }
+}
+@media (width < 885px) {
+  .mission-title {
+    font-size: 2.5rem;
+  }
+  .mission-textbox,
+  .btn-2 {
+    font-size: 0.825rem;
+  }
+  .btn-2 {
+    width: 15%;
+  }
+}
+@media (min-width: 768px) {
+  .mission-div {
+    grid-template-columns: 2.5fr 2fr;
+    row-gap: 2rem;
+    grid-template-areas:
+      "title image"
+      "textbox image"
+      "button button";
+  }
+}
+@media (max-width: 768px) {
+  .mission-div {
+    grid-template-columns: 100%;
+    gap: 0.75rem;
+    grid-template-areas:
+      "title"
+      "image"
+      "textbox"
+      "button";
+  }
+  .mission-title {
+    display: inline-block;
+  }
+  .mission-image {
+    margin: 0;
+  }
+}
 
+/* PHOTOGALLERY PAGE */
 .photoGalleryPage {
   position: relative;
   overflow: hidden;
