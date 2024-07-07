@@ -5,6 +5,11 @@
 :root {
   --main-text-color: #262733;
   --main-bg-color: #faf1ca;
+
+  --heading-font-family: "Playfair Display";
+  --body-font-family: "Poppins";
+  --content-font-family: "Comfortaa";
+  --heading-font-size: 2.5rem;
 }
 
 * {
@@ -23,7 +28,7 @@ body {
   background-color: var(--main-bg-color);
 }
 .pageBreak {
-  width: 91%;
+  width: 90%;
   margin: 6rem auto; /* Center the hr and add space around it */
   border: none; /* Remove default border */
   height: 2px;
@@ -376,4 +381,104 @@ figure:hover {
   left: 50%;
   top: 50%;
   transform: translate(0%, -50%);
+}
+
+/* FEATURES PAGE */
+
+#featured {
+  background-color: var(--main-bg-color);
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-weight: 900;
+  margin-bottom: 7rem;
+  color: #262733;
+}
+.heading h1 {
+  font-family: var(--heading-font-family);
+  font-size: 5rem;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+
+  scale: 1.2;
+}
+
+.card {
+  border: 10px solid #dfd3b0;
+  margin: 30px;
+  border-radius: 5px;
+}
+.card img {
+  object-fit: cover;
+  transition: all 0.3s;
+}
+.card {
+  background-color: var(--light-color);
+  width: 300px;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+.card > img {
+  width: 100%;
+  height: 100%;
+}
+.card h2 {
+  width: 100%;
+  height: 100%;
+  font-family: var(--heading-font-family);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 15px 0;
+}
+.content {
+  font-family: var(--content-font-family);
+  position: absolute;
+  bottom: -50rem;
+  left: 1rem;
+  line-height: 0.8rem;
+  color: white;
+  padding: 0 1rem;
+  transition: all 0.3s;
+}
+.content p {
+  font-size: 0.8rem;
+  margin: 8px 0;
+  font-weight: 300;
+}
+.card:hover .content {
+  bottom: 1rem;
+}
+.card:hover img {
+  filter: brightness(0.4);
+}
+
+.featured-btn {
+  color: var(--main-text-color);
+  width: 80px;
+  height: 30px;
+  border: 2px solid var(--main-text-color);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(to left, #f1be60 50%, var(--main-text-color) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-in-out;
+}
+
+.featured-btn:hover {
+  background-position: left bottom;
+  color: #f1be60;
 }
