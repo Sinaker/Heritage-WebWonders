@@ -57,8 +57,7 @@ gsap.to(".navbar", {
 
       navbar.classList.add("normal");
       navbar.querySelector("img").src = "Logo-Black.png";
-      hr.style.left = "5%";
-      hr.style.width = "90%";
+      hr.style.width = "100%";
     },
     onLeaveBack: () => {
       const navbar = document.querySelector(".navbar");

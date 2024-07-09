@@ -3,30 +3,41 @@
 </head>
 <nav class="navbar">
     <div class="logo">
-        <img width=69 src="Logo-White.png" />
+        <img style="max-height: 100%;" src="Logo-White.png" />
     </div>
-    <div class="links">
+    <div class="links" style="margin: 0 auto;">
         <span>Home <hr /></span>
         <span>About <hr /></span>
         <span>Contribute <hr /></span>
-        <div class="buttonWrapper">
-            <a href="#" class="btn-link">
-                <span class="btn-fill">
-                    <span class="btn-ripple v1"></span>
-                    <span class="btn-ripple v2"></span>
-                </span>
-                <span class="btn-title">
-                    <span class="btn-content">Explore</span>
-                </span>
-            </a>
-        </div>
+        <span class="explore">Explore 
+                <span class="left-icon"></span>
+            <span class="right-icon"></span>
+            <div class="items">
+                <a href="#" style="--i:1;"><span></span>Explore The Hype</a>
+                <a href="#" style="--i:2;"><span></span>Explore Near Me</a>
+                <a href="#" style="--i:3;"><span></span>Explore By Category</a>
+            </div>
+            </span>
     </div>
+    <div class="account">
+          <a style = "padding: 0.8rem 1.5rem;" class="btn-2 invert"> Login
+          </a>
+          <a style="padding: 0.8rem 1.5rem;" class="btn-2"> SignUp
+          </a>
+        </div>
     <hr class="navbar-divider" />
 </nav>
 <script>
+    // Handle the logo change based on the navbar class
     const navbar = document.querySelector(".navbar");
-    
-    if(navbar.classList.contains("normal")) {
-        document.querySelector("img").src = "Logo-Black.png";
+
+    if (navbar.classList.contains("normal")) {
+        document.querySelector(".logo img").src = "Logo-Black.png";
     }
+
+    const dropdown = document.querySelector('.explore');
+
+    dropdown.addEventListener('click', () => {
+        dropdown.classList.toggle('active');
+    });
 </script>

@@ -12,9 +12,10 @@ body {
 }
 
 .navbar-divider {
-  position: fixed;
-  left: 5%;
-  margin-top: 75px;
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
   height: 2px;
   width: 0%;
   background-color: #262733;
@@ -30,6 +31,9 @@ body {
   background-color: transparent;
   z-index: 100;
   padding-bottom: 0.5rem;
+
+  padding: 0.5rem 0.75rem;
+  box-sizing: border-box;
   transition: all 0.3s;
 }
 
@@ -44,13 +48,9 @@ body {
 }
 
 .logo {
-  display: flex;
-  align-items: center;
   height: 100%;
 
   flex: 1;
-
-  padding-left: 23px;
   font-family: "Anton SC", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -62,9 +62,9 @@ body {
   justify-content: space-evenly;
   align-items: center;
   height: 100%;
-  flex: 1;
+  flex: 2;
+
   color: white;
-  width: 115%;
 }
 
 .links span {
@@ -81,91 +81,161 @@ hr {
   transition: all 0.3s;
 }
 
-.links span:hover {
+.navbar .links span:hover {
+  cursor: pointer;
+  hr {
+    width: 100%;
+    background-color: white;
+  }
+}
+.navbar.normal .links span:hover {
   cursor: pointer;
   hr {
     width: 100%;
     background-color: var(--main-text-color);
   }
 }
-.explore-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 49px;
-  width: 130px;
-
-  border-radius: 30px;
-  background: linear-gradient(90deg, #ff3131, #ff914d);
+.navbar.normal .explore {
+  color: var(--main-text-color);
 }
-
-.buttonWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 49px;
-  width: 130px;
-  color: white;
+.navbar.normal .explore:hover .left-icon,
+.navbar.normal .explore:hover .right-icon {
+  background: #262733;
 }
-
-.btn-link {
-  height: 49px;
-  width: 130px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 70px;
-  font-size: 23px;
+.explore {
   position: relative;
+  color: #fff;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.left-icon,
+.right-icon {
+  width: 0;
+  transition: all 0.3s;
+}
+.explore:hover .left-icon,
+.explore:hover .right-icon {
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  width: 12px;
+  height: 4px;
+  background: #fff;
+  border-radius: 40px;
+  transition: all 0.5s;
+}
+
+.explore .left-icon {
+  left: 5px;
+  transform: rotate(45deg);
+}
+
+.explore.active .left-icon {
+  transform: rotate(135deg);
+}
+
+.explore .right-icon {
+  transform: rotate(-45deg);
+}
+
+.explore.active .right-icon {
+  transform: rotate(-135deg);
+}
+
+.explore .items {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 180%;
+  margin-top: 30px;
+  overflow: hidden;
+  visibility: hidden;
+  transition: 0.5s;
+}
+
+.explore.active .items {
+  visibility: visible;
+}
+
+.explore .items a {
+  position: relative;
+  left: 100%;
+  display: flex;
+  font-size: 16px;
+  background: rgba(38, 39, 51, 0.8);
+  color: #f1be60;
   text-decoration: none;
-  position: relative;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-top: 2.5px;
+  z-index: 1;
+  overflow: hidden;
+  transition: 0.5s;
+  transition-delay: calc(60ms * var(--i));
 }
 
-.btn-fill {
-  background: linear-gradient(90deg, #ff3131, #ff914d);
+.explore.active .items a {
+  left: 0;
+}
+
+.explore .items a:hover {
+  color: var(--main-text-color);
+}
+
+.explore .items a span {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  transform: translateZ(0);
-  border-radius: inherit;
-  transition: background 1s;
-}
-
-.btn-title {
-  font-size: 23px;
-  position: relative;
-  top: -1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
   height: 100%;
-  transform: translateZ(0);
-  color: white;
-}
-
-.btn-content {
-  font-weight: normal;
-  color: white !important;
-}
-
-.btn-ripple {
-  display: none;
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  right: -1px;
-  bottom: -1px;
+  background: #f1be60;
+  z-index: -1;
   border-radius: inherit;
+  transform: rotate(160deg);
+  transform-origin: right;
+  transition: 0.5s;
 }
 
-.btn-ripple.v1 {
-  background: #fa673e;
+.explore .items a:hover span {
+  transform: rotate(0deg);
 }
 
-.btn-ripple.v2 {
-  background: #ff3131;
+.account {
+  display: flex;
+  justify-content: end;
+  gap: 2rem;
+  align-items: center;
+
+  flex: 1;
+}
+
+.btn-2 {
+  background-image: linear-gradient(
+    to left,
+    #eca655 50%,
+    var(--main-text-color) 50%
+  );
+  color: var(--main-text-color);
+}
+
+.btn-2:hover {
+  color: #eca655;
+}
+
+.btn-2.invert {
+  background-image: linear-gradient(
+    to left,
+    var(--main-text-color) 50%,
+    #eca655 50%
+  );
+  color: #eca655;
+}
+
+.btn-2.invert:hover {
+  background-position: left bottom;
+  color: var(--main-text-color);
 }
