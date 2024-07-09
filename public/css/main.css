@@ -6,10 +6,11 @@
   --main-text-color: #262733;
   --main-bg-color: #faf1ca;
 
-  --heading-font-family: "Playfair Display";
-  --body-font-family: "Poppins";
+  --heading-font-family: "Playfair Display", serif;
+  --sub-heading-font-family: "Poppins", sans-serif;
   --content-font-family: "Comfortaa";
   --heading-font-size: 2.5rem;
+  --input-change-color: orange;
 }
 
 .buttonWrapper {
@@ -100,7 +101,7 @@ body {
 }
 .pageBreak {
   width: 90%;
-  margin: 6rem auto; /* Center the hr and add space around it */
+  margin: 4rem auto; /* Center the hr and add space around it */
   border: none; /* Remove default border */
   height: 2px;
   background-color: var(--main-text-color);
@@ -478,13 +479,13 @@ figure:hover {
   position: absolute;
   bottom: -50rem;
   left: 1rem;
-  line-height: 0.8rem;
+  line-height: 1rem;
   color: white;
   padding: 0 1rem;
   transition: all 0.3s;
 }
 .content p {
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin: 8px 0;
   font-weight: 300;
 }
@@ -501,7 +502,7 @@ figure:hover {
   height: 30px;
   border: 2px solid var(--main-text-color);
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   background: linear-gradient(to left, #f1be60 50%, var(--main-text-color) 50%);
@@ -513,4 +514,95 @@ figure:hover {
 .featured-btn:hover {
   background-position: left bottom;
   color: #f1be60;
+}
+
+/* FEEDBACK PAGE */
+
+#feedback {
+  background-color: var(--main-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 50vw;
+  box-sizing: border-box;
+}
+
+.main-heading {
+  font-family: var(--heading-font-family);
+  color: var(--main-text-color);
+  font-size: 4.5rem;
+}
+
+.feedback-content {
+  font-family: var(--sub-heading-font-family);
+  font-size: 2rem;
+}
+
+.name {
+  display: flex;
+}
+
+#feedback-form {
+  margin: 5% 0;
+  width: 85%;
+}
+
+input,
+select,
+textarea {
+  background-color: var(--main-bg-color);
+  border: none;
+  padding: 5px;
+  width: 100%;
+  margin: 10px;
+  border-bottom: 2px solid var(--main-text-color);
+  font-family: var(--sub-heading-font-family);
+  font-size: 1rem;
+
+  transition: all 0.3s;
+}
+
+input:focus,
+input:active,
+select:focus,
+select:active,
+textarea:focus,
+textarea:active {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid var(--input-change-color);
+}
+
+#feedback-submit {
+  margin: 20px 10px;
+  color: var(--main-text-color);
+  width: 90px;
+  height: 40px;
+  border: 2px solid var(--main-text-color);
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(to left, #f1be60 50%, var(--main-text-color) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-in-out;
+}
+
+#feedback-submit:hover {
+  background-position: left bottom;
+  color: #f1be60;
+}
+
+#map-svnit {
+  width: 400px;
+  height: 350px;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
