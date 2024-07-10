@@ -3,7 +3,7 @@
 </head>
 <nav class="navbar">
     <div class="logo">
-        <img style="max-height: 100%;" src="Logo-White.png" />
+        <img class="exclude-animation" loading="lazy" style="max-height: 100%;" src="Logo-White.png" />
     </div>
     <div class="links" style="margin: 0 auto;">
         <span>Home <hr /></span>
@@ -28,13 +28,6 @@
     <hr class="navbar-divider" />
 </nav>
 <script>
-    // Handle the logo change based on the navbar class
-    const navbar = document.querySelector(".navbar");
-
-    if (navbar.classList.contains("normal")) {
-        document.querySelector(".logo img").src = "Logo-Black.png";
-    }
-
     const dropdown = document.querySelector('.explore');
 
     dropdown.addEventListener('click', () => {
