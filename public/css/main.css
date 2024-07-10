@@ -554,9 +554,9 @@ figure:hover {
   width: 85%;
 }
 
-input,
-select,
-textarea {
+#feedback-form input,
+#feedback-form select,
+#feedback-form textarea {
   background-color: var(--main-bg-color);
   border: none;
   padding: 5px;

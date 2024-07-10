@@ -109,17 +109,20 @@ gsap.from(".feedback-content", {
   y: -50,
 });
 
-gsap.from("input, select, textarea", {
-  scrollTrigger: {
-    trigger: ".main-heading",
-    start: "top 90%", // when the top of the h1 reaches 90% of the viewport height
-    toggleActions: "restart pause resume reverse",
-  },
-  duration: 0.5,
-  opacity: 0,
-  y: -100,
-  ease: "bounce",
-});
+gsap.from(
+  "#feedback-form input, #feedback-form select, #feedback-form textarea",
+  {
+    scrollTrigger: {
+      trigger: ".main-heading",
+      start: "top 90%", // when the top of the h1 reaches 90% of the viewport height
+      toggleActions: "restart pause resume reverse",
+    },
+    duration: 0.5,
+    opacity: 0,
+    y: -100,
+    ease: "bounce.out",
+  }
+);
 
 gsap.from("iframe", {
   scrollTrigger: {
