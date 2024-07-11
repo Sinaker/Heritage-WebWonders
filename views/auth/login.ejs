@@ -1,0 +1,76 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="css/auth/login.css">
+    <link rel="stylesheet" href="css/auth/errors.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="icon" style="border-radius: 50%;" type="image/x-icon" href="/Assets/Images/icon.png">
+    <%- include('../includes/navigation.ejs') %>
+</head>
+<body>
+    <% if(errors.length > 0 ) {%>
+        <div class="alert danger">
+            <div class="alert__icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="alert__content">
+            <h1 style="font-size: 1.125rem;">Invalid Input</h1>
+            <p style="font-size: 0.8rem;"> <%= errors[0].msg %> </p>
+            </div>
+            <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+        </div>
+    <%}%>
+        <div class="login">
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            <div class="input username">
+                <input 
+                class="<%= errors.length > 0 ? (errors.find(error => error.path ==='username') ? 'danger' : 'success') : '' %>" name="username" 
+                type="text" 
+                placeholder="Username" 
+                value="<%= oldInput.username %>"
+                />
+                <i class="bx bx-user"></i>
+            </div>
+
+            <div class="input password">
+                <input
+                name="password"
+                    type="password"
+                    class="<%= errors.length > 0 ? (errors.find(error => error.path ==='password') ? 'danger' : 'success') : '' %>"
+                    id="pass"
+                    placeholder="Password"
+                    value="<%= oldInput.password %>"
+                />
+                <i style="top:44%" class="bi bi-eye" id="togglePassword" onClick="togglePasswordVisibility.call(this)"></i>
+                <span id="vaild-pass"></span>
+            </div>
+
+            <div class="remember-me">
+            <label for="remember"><input type="checkbox" />Remember Me</label>
+            <a href="#">Forgot Password?</a>
+            </div>
+
+            <div>
+            <button type="submit" class="btn">Login</button>
+            <p class="message"></p>
+            </div>
+
+
+            <div class="noaccount">
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+            </div>
+        </form>
+        </div>
+        <script>
+            function togglePasswordVisibility()
+            {
+                const input = this.parentElement.querySelector("input");
+                if(input.type ==="password") {
+                input.type = "text";
+                this.className = "bi bi-eye-slash"
+                }
+                else {
+                input.type = "password";
+                this.className = "bi bi-eye"
+                }
+            }
+</script>
+</body>

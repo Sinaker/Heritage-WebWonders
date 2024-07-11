@@ -53,21 +53,16 @@ gsap.to(".navbar", {
     onEnter: () => {
       const navbar = document.querySelector(".navbar");
       const hr = document.querySelector(".navbar-divider");
-      const img = navbar.querySelector("img");
 
       navbar.classList.add("normal");
-
       gsap.to(hr, { width: "100%", duration: 0.15 });
-      img.style.filter = "invert(85%) hue-rotate(180deg)";
     },
     onLeaveBack: () => {
       const navbar = document.querySelector(".navbar");
       const hr = document.querySelector(".navbar-divider");
-      const img = navbar.querySelector("img");
 
       navbar.classList.remove("normal");
       gsap.to(hr, { width: "0", duration: 0.15 });
-      img.style.filter = "invert(0)";
     },
   },
 });

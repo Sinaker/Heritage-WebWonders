@@ -1,36 +1,48 @@
 <!-- Insert navbar code here-->
-<link href="/css/nav.css" rel="stylesheet" />
-</head>
-<nav class="navbar">
-    <div class="logo">
-        <img class="exclude-animation" loading="lazy" style="max-height: 100%;" src="Logo-White.png" />
-    </div>
-    <div class="links" style="margin: 0 auto;">
-        <span>Home <hr /></span>
-        <span>About <hr /></span>
-        <span>Contribute <hr /></span>
-        <span class="explore">Explore 
-                <span class="left-icon"></span>
-            <span class="right-icon"></span>
-            <div class="items">
-                <a href="#" style="--i:1;"><span></span>Explore The Hype</a>
-                <a href="#" style="--i:2;"><span></span>Explore Near Me</a>
-                <a href="#" style="--i:3;"><span></span>Explore By Category</a>
-            </div>
-            </span>
-    </div>
-    <div class="account">
-          <a style = "padding: 0.8rem 1.5rem;" class="btn-2 invert"> Login
-          </a>
-          <a style="padding: 0.8rem 1.5rem;" class="btn-2"> SignUp
-          </a>
-        </div>
-    <hr class="navbar-divider" />
+
+<nav class="navbar <%= normal ? 'normal' : ''%>" style=<%=dark ? "background-color:#141419": ""%>>
+  <div class="logo">
+    <a href="/">
+      <img
+        class="exclude-animation"
+        loading="lazy"
+        style="max-height: 100%"
+        src="Logo-White.png"
+      />
+    </a>
+  </div>
+  <div class="links" style="margin: 0 auto">
+    <span><a href="/" style="text-decoration: none; color: white">Home</a>
+      <hr/></span>
+    <span
+      >About
+      <hr
+    /></span>
+    <span
+      >Contribute
+      <hr
+    /></span>
+    <span class="explore"
+      >Explore
+      <span class="left-icon"></span>
+      <span class="right-icon"></span>
+      <div class="items">
+        <a href="#" style="--i: 1"><span></span>Explore The Hype</a>
+        <a href="#" style="--i: 2"><span></span>Explore Near Me</a>
+        <a href="#" style="--i: 3"><span></span>Explore By Category</a>
+      </div>
+    </span>
+  </div>
+  <div class="account">
+    <a href="/login" style="padding: 0.8rem 1.5rem" class="btn-2 invert"> Login </a>
+    <a href="/signup" style="padding: 0.8rem 1.5rem" class="btn-2"> SignUp </a>
+  </div>
+  <hr class="navbar-divider" />
 </nav>
 <script>
-    const dropdown = document.querySelector('.explore');
+  const dropdown = document.querySelector(".explore");
 
-    dropdown.addEventListener('click', () => {
-        dropdown.classList.toggle('active');
-    });
+  dropdown.addEventListener("click", () => {
+    dropdown.classList.toggle("active");
+  });
 </script>

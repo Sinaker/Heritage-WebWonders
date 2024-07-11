@@ -9,6 +9,9 @@ html,
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 .navbar-divider {
@@ -26,6 +29,8 @@ body {
   height: 69px;
   width: 100%;
   position: fixed;
+  top: 0;
+
   display: flex;
   justify-content: space-between;
   background-color: transparent;
@@ -47,6 +52,9 @@ body {
   color: var(--main-text-color);
 }
 
+.navbar.normal .logo {
+  filter: invert(85%) hue-rotate(180deg);
+}
 .logo {
   height: 100%;
 
@@ -220,6 +228,7 @@ hr {
     var(--main-text-color) 50%
   );
   color: var(--main-text-color);
+  text-decoration: none;
 }
 
 .btn-2:hover {
