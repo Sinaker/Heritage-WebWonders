@@ -52,16 +52,25 @@ exports.postLogin = async (req, res, next) => {
         oldInput: { username, password },
       });
     }
-    //If passwords match, allow login
-    // req.session.isLoggedIn = true;
-    // req.session.user = user;
-    console.log("LOGGED IN ", user);
+    //If passwords match, use sessions to make logins persis
+    req.session.isLoggedIn = true;
+    req.session.user = user;
+    await req.session.save(); //Save user session
+
+    console.log("LOGGED IN SUCCESSFUL");
     return res.redirect("/");
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
     next(error); //Activated error middleware
   }
+};
+
+exports.postLogout = (req, res, next) => {
+  //Delete session
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
 };
 
 exports.getSignUp = (req, res, next) => {

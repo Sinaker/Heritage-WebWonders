@@ -25,6 +25,9 @@ router.post(
   ],
   authController.postLogin
 );
+
+router.post("/logout", authController.postLogout);
+
 router.get("/signup", authController.getSignUp);
 router.post(
   "/signup",
