@@ -13,7 +13,6 @@ body {
   /* display: flex;
   flex-direction: column; */
 }
-
 .navbar-divider {
   position: absolute;
 
@@ -48,7 +47,9 @@ body {
   background-color: var(--main-bg-color);
 }
 
-.navbar.normal .links {
+.navbar.normal .links a,
+.navbar.normal .links a:visited {
+  text-decoration: none;
   color: var(--main-text-color);
 }
 
@@ -71,11 +72,12 @@ body {
   align-items: center;
   height: 100%;
   flex: 2;
-
-  color: white;
 }
 
-.links span {
+.links a,
+.links a:visited {
+  text-decoration: none;
+  color: white;
   font-size: 23px;
   font-family: "Comfortaa", sans-serif;
   transition: all 0.3s;
@@ -89,14 +91,14 @@ hr {
   transition: all 0.3s;
 }
 
-.navbar .links span:hover {
+.navbar .links a:hover {
   cursor: pointer;
   hr {
     width: 100%;
     background-color: white;
   }
 }
-.navbar.normal .links span:hover {
+.navbar.normal .links a:hover {
   cursor: pointer;
   hr {
     width: 100%;
@@ -222,6 +224,31 @@ hr {
 }
 
 .btn-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.8em 0.5em;
+  border: 2px solid var(--main-text-color);
+  border-radius: 3rem;
+  font-size: 1.2rem;
+  background-image: linear-gradient(
+    to left,
+    #f1be60 50%,
+    var(--main-text-color) 50%
+  );
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-in-out;
+  overflow: hidden; /* Ensures the text stays within the button */
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+.btn-2:hover {
+  background-position: left bottom;
+  color: #eca655;
+}
+
+.btn-2 {
   background-image: linear-gradient(
     to left,
     #eca655 50%,
@@ -229,10 +256,6 @@ hr {
   );
   color: var(--main-text-color);
   text-decoration: none;
-}
-
-.btn-2:hover {
-  color: #eca655;
 }
 
 .btn-2.invert {
@@ -247,4 +270,29 @@ hr {
 .btn-2.invert:hover {
   background-position: left bottom;
   color: var(--main-text-color);
+}
+
+/* FOR LOGOUT */
+
+.logout-text {
+  margin-left: 0.5rem;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.btn-2.logout {
+  width: auto;
+  transition: all 0.5s ease-in-out; /* Transition for width change */
+}
+
+.btn-2.logout:hover {
+  /* color: var(--main-text-color);
+  background-position: right bottom; */
+  width: max-content; /* Adjust width as necessary */
+}
+
+.btn-2.logout:hover .logout-text {
+  display: inline;
+  opacity: 1;
 }

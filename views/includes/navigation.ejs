@@ -12,16 +12,16 @@
     </a>
   </div>
   <div class="links" style="margin: 0 auto">
-    <span><a href="/" style="text-decoration: none; color: white">Home</a>
-      <hr/></span>
-    <span
+    <a href="/">Home
+      <hr/></a>
+    <a
       >About
       <hr
-    /></span>
-    <span
+    /></a>
+    <a
       >Contribute
       <hr
-    /></span>
+    /></a>
     <span class="explore"
       >Explore
       <span class="left-icon"></span>
@@ -32,10 +32,24 @@
         <a href="#" style="--i: 3"><span></span>Explore By Category</a>
       </div>
     </span>
+
+    <% if(isLoggedIn) { %>
+      <a>My Posts <hr></a>
+    <%}%>
   </div>
   <div class="account">
-    <a href="/login" style="padding: 0.8rem 1.5rem" class="btn-2 invert"> Login </a>
-    <a href="/signup" style="padding: 0.8rem 1.5rem" class="btn-2"> SignUp </a>
+    <% if(!isLoggedIn) { %>
+      <a href="/login" style="padding: 0.8rem 1.5rem" class="btn-2 invert"> Login </a>
+      <a href="/signup" style="padding: 0.8rem 1.5rem" class="btn-2"> SignUp </a>
+    <%} else {%>
+      <form action="/logout" method="POST">
+        <button style="padding: 0.8rem 1.5rem" class="btn-2 logout"> 
+          <i class="fa-solid fa-right-from-bracket"></i> 
+          <span style="margin-right: 0.5rem;" class="logout-text">Logout</span> 
+        </button>
+      </form>
+    <%}%>
+
   </div>
   <hr class="navbar-divider" />
 </nav>

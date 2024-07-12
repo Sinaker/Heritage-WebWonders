@@ -230,30 +230,6 @@ body {
   font-size: 1.25rem;
 }
 
-.btn-2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.8em 0.5em;
-  border: 2px solid var(--main-text-color);
-  border-radius: 3rem;
-
-  font-size: 1.2rem;
-
-  background-image: linear-gradient(
-    to left,
-    #f1be60 50%,
-    var(--main-text-color) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 0.5s ease-in-out;
-}
-.btn-2:hover {
-  background-position: left bottom;
-  color: #f1be60;
-}
-
 .mission-image {
   grid-area: image;
 
