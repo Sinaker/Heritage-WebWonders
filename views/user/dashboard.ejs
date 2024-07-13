@@ -1,0 +1,44 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/users/MyPosts.css">
+</head>
+
+<body style="position: absolute; top: 10%;">
+    <%- include('../includes/navigation.ejs') %>
+  <!-- header  -->
+  <h1 id="main_heading_user">Hi, <%= username %></h1>
+  <div class="user_posts">
+    <div class="sub_heading_posts">
+      <h3>Your Posts</h3>
+      <a href="/user/add-post" class="new_post"
+        ><span>New Post <i class="fa-solid fa-circle-plus"></i></span
+      ></a>
+    </div>
+
+    <% for(let post of posts) { %>
+    <div class="user_post_card">
+      <div class="user_post_body">
+        <div class="user_post_title">
+          <span><%= post.title %> </span>
+        </div>
+        <div class="user_post_content">
+          <%= post.description %>
+        </div>
+      </div>
+      <div class="user_post_buttons">
+        <div class="user_post_edit">
+          <a href="/user/edit-post/<%= post._id %>" class="edit_post"
+            ><span>Edit <i class="fa-solid fa-pen-to-square"></i></span
+          ></a>
+        </div>
+        <div class="user_post_delete">
+            <form action="/delete/post/<%= post._id %>" method="POST">
+            <button type="submit" class="delete_post">
+                <span>Delete<i class="fa-solid fa-trash-can"></i></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+</body>

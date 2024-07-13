@@ -1,0 +1,73 @@
+  <%- include('../includes/head.ejs') %>
+  <link rel="stylesheet" href="/css/users/addPost.css">
+  <link rel="stylesheet" href="/css/auth/errors.css">
+</head>
+<body style="padding-top:10%;">
+  <%- include('../includes/navigation.ejs') %>
+  <% if(errors.length > 0 ) {%>
+        <div class="alert danger">
+            <div class="alert__icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="alert__content">
+            <h1 style="font-size: 1.125rem;">Invalid Post Details</h1>
+            <p style="font-size: 0.8rem;"> <%= errors[0].msg %> </p>
+            </div>
+            <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+        </div>
+    <%}%>
+
+  <form action="<%= editing ? `/user/edit-post/${postID}` : '/user/add-post' %>", method="POST" enctype="multipart/form-data">
+    <h1 id="main_heading"><%= editing ? 'Edit' : 'New' %> Post</h1>
+    <div class="new_post_temp">
+      <input name='title' type="text" placeholder="Title" class="post_title" value=<%= oldInput.title %>>
+      <select name="category" id="post_category">
+        <option value="">Select Category</option>
+        <option value="Heritage Sites" <%= oldInput.category === 'Heritage Sites' ? 'selected' : '' %>>Heritage Sites</option>
+        <option value="Indian Festivals" <%= oldInput.category === 'Indian Festivals' ? 'selected' : '' %>>Indian Festivals</option>
+        <option value="Indian Culture" <%= oldInput.category === 'Indian Culture' ? 'selected' : '' %>>Indian Culture</option>
+        <option value="Ancient Arts" <%= oldInput.category === 'Ancient Arts' ? 'selected' : '' %>>Ancient Arts</option>
+        <option value="Indian Mythology" <%= oldInput.category === 'Indian Mythology' ? 'selected' : '' %>>Indian Mythology</option>
+      </select>
+
+      <select name="state" id="state">
+        <option value="">Select State</option>
+        <option value="Andhra Pradesh" <%= oldInput.state === 'Andhra Pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
+        <option value="Arunachal Pradesh" <%= oldInput.state === 'Arunachal Pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
+        <option value="Assam" <%= oldInput.state === 'Assam' ? 'selected' : '' %>>Assam</option>
+        <option value="Bihar" <%= oldInput.state === 'Bihar' ? 'selected' : '' %>>Bihar</option>
+        <option value="Chandigarh" <%= oldInput.state === 'Chandigarh' ? 'selected' : '' %>>Chandigarh</option>
+        <option value="Chhattisgarh" <%= oldInput.state === 'Chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
+        <option value="Dadra and Nagar Haveli and Daman and Diu" <%= oldInput.state === 'Dadra and Nagar Haveli and Daman and Diu' ? 'selected' : '' %>>Dadra and Nagar Haveli and Daman and Diu</option>
+        <option value="Delhi" <%= oldInput.state === 'Delhi' ? 'selected' : '' %>>Delhi</option>
+        <option value="Goa" <%= oldInput.state === 'Goa' ? 'selected' : '' %>>Goa</option>
+        <option value="Gujarat" <%= oldInput.state === 'Gujarat' ? 'selected' : '' %>>Gujarat</option>
+        <option value="Haryana" <%= oldInput.state === 'Haryana' ? 'selected' : '' %>>Haryana</option>
+        <option value="Himachal Pradesh" <%= oldInput.state === 'Himachal Pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
+        <option value="Jammu and Kashmir" <%= oldInput.state === 'Jammu and Kashmir' ? 'selected' : '' %>>Jammu and Kashmir</option>
+        <option value="Jharkhand" <%= oldInput.state === 'Jharkhand' ? 'selected' : '' %>>Jharkhand</option>
+        <option value="Karnataka" <%= oldInput.state === 'Karnataka' ? 'selected' : '' %>>Karnataka</option>
+        <option value="Kerala" <%= oldInput.state === 'Kerala' ? 'selected' : '' %>>Kerala</option>
+        <option value="Lakshadweep" <%= oldInput.state === 'Lakshadweep' ? 'selected' : '' %>>Lakshadweep</option>
+        <option value="Madhya Pradesh" <%= oldInput.state === 'Madhya Pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
+        <option value="Maharashtra" <%= oldInput.state === 'Maharashtra' ? 'selected' : '' %>>Maharashtra</option>
+        <option value="Manipur" <%= oldInput.state === 'Manipur' ? 'selected' : '' %>>Manipur</option>
+        <option value="Meghalaya" <%= oldInput.state === 'Meghalaya' ? 'selected' : '' %>>Meghalaya</option>
+        <option value="Mizoram" <%= oldInput.state === 'Mizoram' ? 'selected' : '' %>>Mizoram</option>
+        <option value="Nagaland" <%= oldInput.state === 'Nagaland' ? 'selected' : '' %>>Nagaland</option>
+        <option value="Odisha" <%= oldInput.state === 'Odisha' ? 'selected' : '' %>>Odisha</option>
+        <option value="Tamil Nadu" <%= oldInput.state === 'Tamil Nadu' ? 'selected' : '' %>>Tamil Nadu</option>
+        <option value="Telangana" <%= oldInput.state === 'Telangana' ? 'selected' : '' %>>Telangana</option>
+        <option value="Tripura" <%= oldInput.state === 'Tripura' ? 'selected' : '' %>>Tripura</option>
+        <option value="Uttar Pradesh" <%= oldInput.state === 'Uttar Pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
+        <option value="Uttarakhand" <%= oldInput.state === 'Uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
+        <option value="West Bengal" <%= oldInput.state === 'West Bengal' ? 'selected' : '' %>>West Bengal</option>
+      </select>
+      <textarea name="description" placeholder="Description" class="post_content" rows="3"><%= oldInput.description %></textarea>
+      <div class="new_post_file">
+        <label for="post_img">Image</label>
+        <input name="post_img" type="file" id="post_img">
+      </div>
+      
+      <button type='submit'><%= editing ? 'Edit' : 'Add'%> Post</button>
+    </div>
+  </form>  
+</body>

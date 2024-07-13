@@ -1,0 +1,100 @@
+#main_heading_user {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size);
+  color: var(--main-text-color);
+  text-align: center;
+  margin: 40px 0;
+}
+.user_posts {
+  width: 80vw;
+  margin: auto;
+}
+.sub_heading_posts {
+  width: 100%;
+  font-family: var(--heading-font-family);
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0;
+}
+
+.new_post {
+  border: 2px solid black;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: "Poppins";
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: var(--main-text-color);
+  background: linear-gradient(to left, #f1be60 50%, var(--main-text-color) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-in-out;
+}
+.new_post:hover {
+  background-position: left bottom;
+  color: #f1be60;
+}
+
+.new_post span {
+  margin-right: 5px;
+}
+
+/* post lists  */
+.user_post_card {
+  width: 100%;
+  background-color: #c8b99f;
+  border-radius: 15px;
+  padding: 15px 20px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  font-family: "Poppins";
+}
+.user_post_body {
+  width: 80%;
+}
+.user_post_title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 5px 0;
+}
+.user_post_title span {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.user_post_content {
+  font-size: 0.85rem;
+  font-family: var(--content-font-family);
+}
+
+.user_post_buttons {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  gap: 15px;
+}
+
+.edit_post,
+.delete_post {
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--main-text-color);
+  background-color: #70ba5a;
+  font-weight: 600;
+  border: 1.5px solid var(--main-text-color);
+  padding: 3px 7px;
+  border-radius: 15px;
+  margin: 5px 0;
+}
+.delete_post {
+  background-color: red;
+}
+.edit_post {
+  padding: 3px 13px;
+}
