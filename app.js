@@ -1,9 +1,13 @@
+const fs = require("node:fs");
 const path = require("path");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const multer = require("multer");
+const ULID = require("ulid"); //Unique Idenifier
 
 const errorController = require("./controllers/errorController");
 
@@ -15,11 +19,31 @@ const MONGODB_URI = process.env.MONGODB_CONNECTION; //Using env variables
 const app = express();
 const store = new MongoDBStore({ uri: MONGODB_URI, collection: "session" });
 
-app.set("view engine", "ejs");
-app.set("views", "views");
-
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = `images/PostImages/${req.user ? req.user.username : "default"}`;
+    fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, ULID.ulid() + `.${file.originalname.split(".")[1]}`);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  )
+    cb(null, true);
+  else cb(null, false);
+};
+
+app.set("view engine", "ejs");
+app.set("views", "views");
 //Express serves these contents as if they were in the root
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "images")));
@@ -58,6 +82,9 @@ app.use((req, res, next) => {
   next();
 }); //Such variables will be available to every rendered view
 
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("post_img")
+);
 app.use(authRoutes);
 app.use(homeRoutes);
 
