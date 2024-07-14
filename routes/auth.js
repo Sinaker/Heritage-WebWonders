@@ -2,6 +2,7 @@ const express = require("express");
 const { check } = require("express-validator");
 
 const authController = require("../controllers/auth");
+const User = require("../models/user");
 const router = express.Router();
 
 router.get("/login", authController.getLogin);
@@ -60,4 +61,22 @@ router.post(
   authController.postSignUp
 );
 
+router.get("/resetpassword", authController.getResetPass);
+router.post(
+  "/resetpassword",
+  [
+    check("username")
+      .isLength({ min: 1 })
+      .withMessage("Username field cannot be empty")
+      .custom(async (value, { req }) => {
+        const user = await User.findOne({ username: req.body.username });
+
+        if (!user) throw new Error("User does not exist!");
+      }),
+  ],
+  authController.postResetPass
+);
+
+router.get("/setpassword/:token", authController.getNewPass);
+router.post("/setpassword", authController.postNewPass);
 module.exports = router;

@@ -20,6 +20,8 @@ const userSchema = new Schema({
       ref: "Post",
     },
   ],
+  resetToken: String,
+  resetTokenExpiry: Date,
 });
 
 module.exports = mongoose.model("User", userSchema);

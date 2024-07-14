@@ -6,9 +6,16 @@ const Post = require("../models/post");
 const { validationResult } = require("express-validator");
 
 exports.getHome = (req, res, next) => {
-  res
-    .status(200)
-    .render("heropage", { pageTitle: "Darshan", normal: false, dark: false });
+  const login = req.query.login;
+  const email = req.query.mailSent;
+
+  res.status(200).render("heropage", {
+    pageTitle: "Darshan",
+    normal: false,
+    dark: false,
+    login: login ?? false,
+    email: email ?? false,
+  });
 };
 
 exports.getDashboard = async (req, res, next) => {
