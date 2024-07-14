@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Post</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+            /* font-family: Arial, sans-serif; */
+            /* background-color: #f4f4f4; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+            /* margin: 0; */
+        }
+
+        /* .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        } */
+
+
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 
+        input,
+        select,
+        textarea,
+        button {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        } */
+
+        /* 
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+         */
+        .add-post-form {
+            margin: 5% 0;
+            width: 85%;
+        }
+
+        .add-post-form input,
+        .add-post-form select,
+        .add-post-form textarea {
+            background-color: var(--main-bg-color);
+            border: none;
+            padding: 5px;
+            width: 100%;
+            margin: 10px;
+            border-bottom: 2px solid var(--main-text-color);
+            font-family: var(--sub-heading-font-family);
+            font-size: 1rem;
+
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        input:active,
+        select:focus,
+        select:active,
+        textarea:focus,
+        textarea:active {
+            outline: none;
+            border: none;
+            border-bottom: 2px solid var(--input-change-color);
+        }
+
+        /*  */
+        .wrapper {
+            display: flex;
+        }
+
+        #previous-post {
+            display: flex;
+            width: 100%;
+            /* flex-wrap: wrap; */
+            overflow-x: hidden;
+        }
+
+        .add-post-heading {
+            text-align: center;
+            margin-bottom: 12%;
+        }
+
+        /*  */
+        .card {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /*  */
+        .add-post-recent-name {
+            display: block;
+            position: absolute;
+            bottom: 1rem;
+            left: .5rem;
+            line-height: 1.2rem;
+            font-size: x-large;
+            font-weight: bold;
+            color: white;
+        }
+
+        #add-post-submit {
+            margin: 20px 10px;
+            color: var(--main-text-color);
+            width: 90px;
+            height: 40px;
+            border: 2px solid var(--main-text-color);
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(to left, #f1be60 50%, var(--main-text-color) 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all 0.5s ease-in-out;
+        }
+
+        #add-post-submit:hover {
+            background-position: left bottom;
+            color: #f1be60;
+        }
+    </style>
+    <link rel="stylesheet" href="../../public/css/main.css">
+</head>
+
+<body>
+    <!-- <h2 class="main-heading">New Post</h2> -->
+    <div class="container">
+        <h2 class="main-heading add-post-heading">New Post</h2>
+        <div class="wrapper">
+
+            <div id="previous-post">
+                <!-- <div class="cards"> -->
+                <div style="position: absolute; left: 32%;">
+                    <h2>Recent Posts</h2>
+                </div>
+                <div class="card c1">
+
+                    <img src="../../images/addPostCards/jaisalmerfort.jpg" alt="" />
+                    <div class="add-post-recent-name">Aman Raj <br>BIHAR</div>
+                    <div class="content">
+
+                        <h2>Jaisalmer Fort</h2>
+                        <p>A golden sandstone fort perched atop a hill, offering breathtaking views of the Thar Desert.
+                        </p>
+                        <button class="featured-btn">Explore</button>
+                    </div>
+                </div>
+                <div class="card c2">
+                    <img src="../../images/addPostCards/hampi.jpg" alt="" />
+                    <div class="content">
+                        <h2>Hampi</h2>
+                        <p>Home to ancient ruins and temples, reflecting the grandeur of the Vijayanagara Empire.</p>
+                        <button class="featured-btn">Explore</button>
+                    </div>
+                </div>
+                <div class="card c3">
+                    <img src="../../images/addPostCards/kerala.jpg" alt="" />
+                    <div class="content">
+                        <h2>Backwaters of Kerala</h2>
+                        <p>Serene waterways lined with lush greenery and traditional houseboats, offering a tranquil
+                            escape into nature's embrace.</p>
+                        <button class="featured-btn">Explore</button>
+                    </div>
+
+                    <!-- </div> -->
+                </div>
+                <div id="form">
+                    <form id="postForm" class="add-post-form">
+                        <input type="text" id="title" name="title" placeholder="Title" required>
+                        <select id="category" name="category" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="festival">Festival</option>
+                            <option value="hill">Hill</option>
+                            <option value="monument">Monument</option>
+                            <option value="cave">Cave</option>
+                        </select>
+                        <select id="month" name="month" style="display:none;">
+                            <option value="" disabled selected>Select Month</option>
+                            <option value="january">January</option>
+                            <option value="february">February</option>
+                            <option value="march">March</option>
+                            <option value="april">April</option>
+                            <option value="may">May</option>
+                            <option value="june">June</option>
+                            <option value="july">July</option>
+                            <option value="august">August</option>
+                            <option value="september">September</option>
+                            <option value="october">October</option>
+                            <option value="november">November</option>
+                            <option value="december">December</option>
+                        </select>
+                        <select id="state" name="state" required>
+                            <option value="" disabled selected>Select State</option>
+                            <option value="andhra-pradesh">Andhra Pradesh</option>
+                            <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                            <option value="assam">Assam</option>
+                            <option value="bihar">Bihar</option>
+                            <option value="chhattisgarh">Chhattisgarh</option>
+                            <option value="goa">Goa</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="haryana">Haryana</option>
+                            <option value="himachal-pradesh">Himachal Pradesh</option>
+                            <option value="jharkhand">Jharkhand</option>
+                            <option value="karnataka">Karnataka</option>
+                            <option value="kerala">Kerala</option>
+                            <option value="madhya-pradesh">Madhya Pradesh</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="manipur">Manipur</option>
+                            <option value="meghalaya">Meghalaya</option>
+                            <option value="mizoram">Mizoram</option>
+                            <option value="nagaland">Nagaland</option>
+                            <option value="odisha">Odisha</option>
+                            <option value="punjab">Punjab</option>
+                            <option value="rajasthan">Rajasthan</option>
+                            <option value="sikkim">Sikkim</option>
+                            <option value="tamil-nadu">Tamil Nadu</option>
+                            <option value="telangana">Telangana</option>
+                            <option value="tripura">Tripura</option>
+                            <option value="uttar-pradesh">Uttar Pradesh</option>
+                            <option value="uttarakhand">Uttarakhand</option>
+                            <option value="west-bengal">West Bengal</option>
+                        </select>
+                        <input type="file" id="image" name="image" required>
+                        <textarea id="description" name="description" placeholder="Description" rows="4"
+                            required></textarea>
+                        <button type="submit" id="add-post-submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            document.getElementById('category').addEventListener('change', function (event) {
+                const monthSelect = document.getElementById('month');
+                if (event.target.value === 'festival') {
+                    monthSelect.style.display = 'block';
+                } else {
+                    monthSelect.style.display = 'none';
+                }
+            });
+
+            document.getElementById('postForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const title = document.getElementById('title').value;
+                const category = document.getElementById('category').value;
+                const month = document.getElementById('month').value;
+                const state = document.getElementById('state').value;
+                const image = document.getElementById('image').files[0];
+                const description = document.getElementById('description').value;
+
+                if (title && category && state && image && description) {
+                    if (category === 'festival' && !month) {
+                        alert('Please select a month for the festival.');
+                    } else {
+                        alert('Form submitted successfully!');
+
+                    }
+                } else {
+                    alert('Please fill out all fields.');
+                }
+            });
+
+            // 
+            let currentIndex = 0;
+            const cards = document.querySelectorAll('#previous-post .card');
+
+            function showCard(index) {
+                cards.forEach((card, i) => {
+                    card.classList.remove('active');
+                    if (i === index) {
+                        card.classList.add('active');
+                    }
+                });
+            }
+
+            function nextCard() {
+                currentIndex = (currentIndex + 1) % cards.length;
+                showCard(currentIndex);
+            }
+
+            showCard(currentIndex);
+            setInterval(nextCard, 3000); // Change slide every 3 seconds
+        </script>
+</body>
+
+</html>
