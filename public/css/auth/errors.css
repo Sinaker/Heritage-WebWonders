@@ -17,6 +17,7 @@
   opacity: 1;
 
   transition: opacity 0.3s;
+  z-index: 1000;
 }
 .alert__content {
   display: flex;
@@ -33,6 +34,31 @@
 }
 .alert__icon.danger {
   color: rgb(182, 5, 49);
+}
+
+.alert.success {
+  border-left: 5px solid rgb(3, 91, 44);
+  background-color: rgb(219, 249, 221);
+}
+.alert__icon.success {
+  color: rgb(3, 91, 44);
+}
+.alert__content.success h1 {
+  color: rgb(6, 65, 10);
+}
+
+.alert.info {
+  border-left: 5px solid rgb(3, 66, 91);
+  background-color: rgb(219, 236, 249);
+}
+.alert__icon.info {
+  color: rgb(3, 66, 91);
+}
+.alert__content.info h1 {
+  color: rgb(2, 44, 60);
+}
+.alert__content.info p {
+  color: rgb(2, 52, 71);
 }
 
 .fade {

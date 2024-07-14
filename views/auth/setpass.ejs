@@ -1,0 +1,33 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/users/forgotPassword.css">
+<link rel="stylesheet" href="/css/auth/forgotPassword.css">
+<link rel="stylesheet" href="/css/auth/errors.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="position: absolute; top: 10%;">
+  <%- include('../includes/navigation.ejs') %>
+    <% if(errors.length > 0 ) {%>
+        <div class="alert danger">
+            <div class="alert__icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="alert__content">
+            <h1 style="font-size: 1.125rem;"><%= errorHeading %></h1>
+            <p style="font-size: 0.8rem;"> <%= errors[0].msg %> </p>
+            </div>
+            <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+        </div>
+    <%}%>
+  <section id="resetPassword">
+  <div class="reset_password_container">
+    <i class="fa-solid fa-unlock"></i>
+    <h2>New Password</h2>
+    <p>Enter Your New Password</p>
+    <form action="/setpassword" method="POST" id="forgotPassword">
+      <input type="password" name="password" placeholder="New Password" required>
+      <input type="hidden" id="resetToken" name="resetToken" value="<%=resetToken%>" >
+      <input type="hidden" id="userID" name="userID" value="<%= userID %>" >
+      <input type="submit" value="Set Password">
+    </form>
+    <!-- <p><span>Remember Your Password ? </span><a href="#">Go Back</a></p> -->
+  </div>
+</section>
+</body>

@@ -1,7 +1,28 @@
 <%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/auth/errors.css">
     </head>
 
     <body>
+        <% if (login) { %>
+            <div class="alert success">
+                <div class="alert__icon success"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="alert__content success">
+                    <h1 style="font-size: 1.125rem;"><%= login ? 'Login Successful' : 'Email Sent' %></h1>
+                </div>
+                <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+            </div>
+        <% } %>
+
+        <% if(email) {%>
+            <div class="alert info">
+                <div class="alert__icon info"><i class="fa-solid fa-circle-info"></i></div>
+                <div class="alert__content info">
+                <h1 style="font-size: 1.125rem;">Email Sent!</h1>
+                <p style="font-size: 0.8rem;"> Make sure to check spam! </p>
+                </div>
+                <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+            </div>
+        <%}%>
         <%- include('includes/navigation.ejs') %>
         <img style="display: inline-block;" class="background exclude-animation" src="RawHero.png"/>
         <h1 class="title exclude-animation">INDIA</h1>
