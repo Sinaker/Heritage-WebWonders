@@ -5,72 +5,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Post</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="../../public/css/main.css">
     <style>
         body {
-            /* font-family: Arial, sans-serif; */
-            /* background-color: #f4f4f4; */
+            font-family: Arial, sans-serif;
+            background-color: #f8f4e5;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* height: 100vh; */
-            /* margin: 0; */
+            height: 100vh;
+            margin: 0;
         }
 
-        /* .container {
-            background-color: white;
+        .container {
+            display: flex;
+            background-color: #ded3b6;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-upload {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            width: 20rem;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-top: 0;
+            margin-right: 20px;
+            flex-wrap: wrap;
+            /* height: 100%; */
+        }
+
+        .image-label {
+            /* height: 100%; */
+            /* width: 10px; */
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #ccc;
+            border-radius: 4px;
+        }
+
+        .image-input {
+            display: none;
+            /* height: 100%; */
+        }
+
+        .form-container {
+            background-color: #c2b59b;
+            padding: 20px;
+            border-radius: 8px;
             width: 300px;
-        } */
+        }
 
-
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
         form {
             display: flex;
             flex-direction: column;
         }
 
-        /* 
-        input,
-        select,
-        textarea,
+        
         button {
             margin-bottom: 10px;
-            padding: 10px;
+            
+            
             border: 1px solid #ccc;
             border-radius: 4px;
-        } */
+        }
+        input::placeholder,textarea::placeholder{
+            color: black;
 
-        /* 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
         }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-         */
-        .add-post-form {
-            margin: 5% 0;
-            width: 85%;
-        }
-
-        .add-post-form input,
-        .add-post-form select,
-        .add-post-form textarea {
-            background-color: var(--main-bg-color);
+        input,
+        select,
+        textarea {
+            background-color:  #c2b59b;
             border: none;
             padding: 5px;
-            width: 100%;
+            width: 95%;
             margin: 10px;
             border-bottom: 2px solid var(--main-text-color);
             font-family: var(--sub-heading-font-family);
@@ -90,227 +108,195 @@
             border-bottom: 2px solid var(--input-change-color);
         }
 
-        /*  */
-        .wrapper {
-            display: flex;
-        }
+        
 
-        #previous-post {
-            display: flex;
-            width: 100%;
-            /* flex-wrap: wrap; */
-            overflow-x: hidden;
-        }
-
-        .add-post-heading {
-            text-align: center;
-            margin-bottom: 12%;
-        }
-
-        /*  */
-        .card {
-            display: none;
-        }
-
-        .active {
-            display: block;
-        }
-
-        /*  */
-        .add-post-recent-name {
-            display: block;
-            position: absolute;
-            bottom: 1rem;
-            left: .5rem;
-            line-height: 1.2rem;
-            font-size: x-large;
-            font-weight: bold;
+        button {
+            background-color: #f0a500;
             color: white;
-        }
-
-        #add-post-submit {
-            margin: 20px 10px;
-            color: var(--main-text-color);
-            width: 90px;
-            height: 40px;
-            border: 2px solid var(--main-text-color);
-            border-radius: 20px;
-            font-size: 1rem;
-            font-weight: bold;
+            border: none;
             cursor: pointer;
-            background: linear-gradient(to left, #f1be60 50%, var(--main-text-color) 50%);
-            background-size: 200% 100%;
-            background-position: right bottom;
-            transition: all 0.5s ease-in-out;
+            font-size: large; 
+            padding: .5rem;
         }
 
-        #add-post-submit:hover {
-            background-position: left bottom;
-            color: #f1be60;
+        button:hover {
+            background-color: #d48806;
+        }
+
+        .image-preview {
+            /* margin-top: 10px; */
+            max-width: 100%;
+            /* max-height: 200px; */
+            border-radius: 4px;
+        }
+        .file_buttons{
+            /* display: flex; */
+            /* justify-content: space-evenly; */
+            margin-top: 1rem;
+            gap: 3rem;
         }
     </style>
-    <link rel="stylesheet" href="../../public/css/main.css">
 </head>
 
 <body>
-    <!-- <h2 class="main-heading">New Post</h2> -->
     <div class="container">
-        <h2 class="main-heading add-post-heading">New Post</h2>
-        <div class="wrapper">
-
-            <div id="previous-post">
-                <!-- <div class="cards"> -->
-                <div style="position: absolute; left: 32%;">
-                    <h2>Recent Posts</h2>
-                </div>
-                <div class="card c1">
-
-                    <img src="../../images/addPostCards/jaisalmerfort.jpg" alt="" />
-                    <div class="add-post-recent-name">Aman Raj <br>BIHAR</div>
-                    <div class="content">
-
-                        <h2>Jaisalmer Fort</h2>
-                        <p>A golden sandstone fort perched atop a hill, offering breathtaking views of the Thar Desert.
-                        </p>
-                        <button class="featured-btn">Explore</button>
-                    </div>
-                </div>
-                <div class="card c2">
-                    <img src="../../images/addPostCards/hampi.jpg" alt="" />
-                    <div class="content">
-                        <h2>Hampi</h2>
-                        <p>Home to ancient ruins and temples, reflecting the grandeur of the Vijayanagara Empire.</p>
-                        <button class="featured-btn">Explore</button>
-                    </div>
-                </div>
-                <div class="card c3">
-                    <img src="../../images/addPostCards/kerala.jpg" alt="" />
-                    <div class="content">
-                        <h2>Backwaters of Kerala</h2>
-                        <p>Serene waterways lined with lush greenery and traditional houseboats, offering a tranquil
-                            escape into nature's embrace.</p>
-                        <button class="featured-btn">Explore</button>
-                    </div>
-
-                    <!-- </div> -->
-                </div>
-                <div id="form">
-                    <form id="postForm" class="add-post-form">
-                        <input type="text" id="title" name="title" placeholder="Title" required>
-                        <select id="category" name="category" required>
-                            <option value="" disabled selected>Select Category</option>
-                            <option value="festival">Festival</option>
-                            <option value="hill">Hill</option>
-                            <option value="monument">Monument</option>
-                            <option value="cave">Cave</option>
-                        </select>
-                        <select id="month" name="month" style="display:none;">
-                            <option value="" disabled selected>Select Month</option>
-                            <option value="january">January</option>
-                            <option value="february">February</option>
-                            <option value="march">March</option>
-                            <option value="april">April</option>
-                            <option value="may">May</option>
-                            <option value="june">June</option>
-                            <option value="july">July</option>
-                            <option value="august">August</option>
-                            <option value="september">September</option>
-                            <option value="october">October</option>
-                            <option value="november">November</option>
-                            <option value="december">December</option>
-                        </select>
-                        <select id="state" name="state" required>
-                            <option value="" disabled selected>Select State</option>
-                            <option value="andhra-pradesh">Andhra Pradesh</option>
-                            <option value="arunachal-pradesh">Arunachal Pradesh</option>
-                            <option value="assam">Assam</option>
-                            <option value="bihar">Bihar</option>
-                            <option value="chhattisgarh">Chhattisgarh</option>
-                            <option value="goa">Goa</option>
-                            <option value="gujarat">Gujarat</option>
-                            <option value="haryana">Haryana</option>
-                            <option value="himachal-pradesh">Himachal Pradesh</option>
-                            <option value="jharkhand">Jharkhand</option>
-                            <option value="karnataka">Karnataka</option>
-                            <option value="kerala">Kerala</option>
-                            <option value="madhya-pradesh">Madhya Pradesh</option>
-                            <option value="maharashtra">Maharashtra</option>
-                            <option value="manipur">Manipur</option>
-                            <option value="meghalaya">Meghalaya</option>
-                            <option value="mizoram">Mizoram</option>
-                            <option value="nagaland">Nagaland</option>
-                            <option value="odisha">Odisha</option>
-                            <option value="punjab">Punjab</option>
-                            <option value="rajasthan">Rajasthan</option>
-                            <option value="sikkim">Sikkim</option>
-                            <option value="tamil-nadu">Tamil Nadu</option>
-                            <option value="telangana">Telangana</option>
-                            <option value="tripura">Tripura</option>
-                            <option value="uttar-pradesh">Uttar Pradesh</option>
-                            <option value="uttarakhand">Uttarakhand</option>
-                            <option value="west-bengal">West Bengal</option>
-                        </select>
-                        <input type="file" id="image" name="image" required>
-                        <textarea id="description" name="description" placeholder="Description" rows="4"
-                            required></textarea>
-                        <button type="submit" id="add-post-submit">Submit</button>
-                    </form>
-                </div>
+        <div class="image-upload">
+            <div>
+            <label for="image" class="image-label">Upload Image</label>
+            <input type="file" id="image" name="image" class="image-input" required>
+            <img id="preview" class="image-preview" alt="Image Preview" style="display:none;">
+        </div>
+            <div class="file_buttons">
+                <!-- <button id="deleteButton" style="display: none;">Delete Image</button> -->
+                <button id="uploadNewButton" style="display: none;">Upload New Image</button>
             </div>
 
+            <!-- <input type="file" id="image" name="image" required> -->
+
         </div>
-        <script>
-            document.getElementById('category').addEventListener('change', function (event) {
-                const monthSelect = document.getElementById('month');
-                if (event.target.value === 'festival') {
-                    monthSelect.style.display = 'block';
-                } else {
-                    monthSelect.style.display = 'none';
-                }
-            });
-
-            document.getElementById('postForm').addEventListener('submit', function (event) {
-                event.preventDefault();
-                const title = document.getElementById('title').value;
-                const category = document.getElementById('category').value;
-                const month = document.getElementById('month').value;
-                const state = document.getElementById('state').value;
-                const image = document.getElementById('image').files[0];
-                const description = document.getElementById('description').value;
-
-                if (title && category && state && image && description) {
-                    if (category === 'festival' && !month) {
-                        alert('Please select a month for the festival.');
-                    } else {
-                        alert('Form submitted successfully!');
-
-                    }
-                } else {
-                    alert('Please fill out all fields.');
-                }
-            });
-
-            // 
-            let currentIndex = 0;
-            const cards = document.querySelectorAll('#previous-post .card');
-
-            function showCard(index) {
-                cards.forEach((card, i) => {
-                    card.classList.remove('active');
-                    if (i === index) {
-                        card.classList.add('active');
-                    }
-                });
+        <div class="form-container">
+            <h2 class="main-heading" style="font-size: 2.5rem; text-align: left; margin-left: .7rem; margin-top: .5rem;">New Post</h2>
+            <form id="postForm">
+                <input type="text" id="title" name="title" placeholder="Title" required>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="festival">Festival</option>
+                    <option value="hill">Hill</option>
+                    <option value="monument">Monument</option>
+                    <option value="cave">Cave</option>
+                </select>
+                <select id="month" name="month" style="display:none;">
+                    <option value="" disabled selected>Select Month</option>
+                    <option value="january">January</option>
+                    <option value="february">February</option>
+                    <option value="march">March</option>
+                    <option value="april">April</option>
+                    <option value="may">May</option>
+                    <option value="june">June</option>
+                    <option value="july">July</option>
+                    <option value="august">August</option>
+                    <option value="september">September</option>
+                    <option value="october">October</option>
+                    <option value="november">November</option>
+                    <option value="december">December</option>
+                </select>
+                <select id="state" name="state" required>
+                    <option value="" disabled selected>Select State</option>
+                    <option value="andhra-pradesh">Andhra Pradesh</option>
+                    <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                    <option value="assam">Assam</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="chhattisgarh">Chhattisgarh</option>
+                    <option value="goa">Goa</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="himachal-pradesh">Himachal Pradesh</option>
+                    <option value="jharkhand">Jharkhand</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="kerala">Kerala</option>
+                    <option value="madhya-pradesh">Madhya Pradesh</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="manipur">Manipur</option>
+                    <option value="meghalaya">Meghalaya</option>
+                    <option value="mizoram">Mizoram</option>
+                    <option value="nagaland">Nagaland</option>
+                    <option value="odisha">Odisha</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="rajasthan">Rajasthan</option>
+                    <option value="sikkim">Sikkim</option>
+                    <option value="tamil-nadu">Tamil Nadu</option>
+                    <option value="telangana">Telangana</option>
+                    <option value="tripura">Tripura</option>
+                    <option value="uttar-pradesh">Uttar Pradesh</option>
+                    <option value="uttarakhand">Uttarakhand</option>
+                    <option value="west-bengal">West Bengal</option>
+                </select>
+                <textarea id="description" name="description" placeholder="Description" rows="4" required></textarea>
+                <button type="submit" style="padding: .7rem;">Post</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('category').addEventListener('change', function (event) {
+            const monthSelect = document.getElementById('month');
+            if (event.target.value === 'festival') {
+                monthSelect.style.display = 'block';
+            } else {
+                monthSelect.style.display = 'none';
             }
+        });
 
-            function nextCard() {
-                currentIndex = (currentIndex + 1) % cards.length;
-                showCard(currentIndex);
+        document.getElementById('postForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const category = document.getElementById('category').value;
+            const month = document.getElementById('month').value;
+            const state = document.getElementById('state').value;
+            const image = document.getElementById('image').files[0];
+            const description = document.getElementById('description').value;
+
+            if (title && category && state && image && description) {
+                if (category === 'festival' && !month) {
+                    alert('Please select a month for the festival.');
+                } else {
+                    alert('Form submitted successfully!');
+                    // You can add form submission logic here
+                }
+            } else {
+                alert('Please fill out all fields.');
             }
+        });
+        document.getElementById('image').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('preview');
+            // const image_label=document.getElementsByClassName('image-label')
 
-            showCard(currentIndex);
-            setInterval(nextCard, 3000); // Change slide every 3 seconds
-        </script>
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    document.querySelector('.image-label').style.display = 'none';
+                    // document.querySelector('#deleteButton').style.display = 'block';
+                    document.querySelector('#uploadNewButton').style.display = 'block';
+                    // image_label.style.display='none';
+
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        // ... your existing JavaScript code ...
+
+        // const deleteButton = document.getElementById('deleteButton');
+        const uploadNewButton = document.getElementById('uploadNewButton');
+
+        // deleteButton.addEventListener('click', () => {
+        //     document.getElementById('image').value = '';
+        //     document.getElementById('preview').src = '';
+        //     document.getElementById('preview').style.display = 'none';
+        //     document.querySelector('.image-label').style.display = 'block';
+        //     deleteButton.style.display = 'none';
+        //     uploadNewButton.style.display = 'none';
+        // });
+
+        uploadNewButton.addEventListener('click', () => {
+            document.getElementById('image').value = '';
+            document.getElementById('preview').src = '';
+            document.getElementById('preview').style.display = 'none';
+            document.querySelector('.image-label').style.display = 'block';
+           
+            uploadNewButton.style.display = 'none';
+            // Trigger the click event on the file input
+            document.getElementById('image').click();
+
+
+        });
+
+
+    </script>
 </body>
 
 </html>
