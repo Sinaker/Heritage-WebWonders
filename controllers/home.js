@@ -50,6 +50,8 @@ exports.postAddPost = async (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
   const state = req.body.state;
+  const month = req.body.month ?? "";
+
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -59,7 +61,7 @@ exports.postAddPost = async (req, res, next) => {
       dark: true,
       editing: false,
       errors: errors.array(),
-      oldInput: { title, category, state, description },
+      oldInput: { title, category, state, description, month },
     });
   }
   if (!req.file) {
@@ -74,14 +76,24 @@ exports.postAddPost = async (req, res, next) => {
   }
 
   const imageUrl = file.path.replace(/\\/g, "/");
-  const post = new Post({
-    title,
-    category,
-    state,
-    imageUrl,
-    description,
-    user: req.user,
-  });
+  const post = month
+    ? new Post({
+        title,
+        category,
+        state,
+        imageUrl,
+        description,
+        user: req.user,
+        month,
+      })
+    : new Post({
+        title,
+        category,
+        state,
+        imageUrl,
+        description,
+        user: req.user,
+      });
   //We should also update user model
   try {
     const user = await User.findById(req.user._id);

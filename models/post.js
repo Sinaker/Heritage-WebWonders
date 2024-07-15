@@ -10,6 +10,9 @@ const postSchema = new Schema({
     type: String,
     required: true,
   },
+  month: {
+    type: String,
+  },
   state: {
     type: String,
     required: true,
