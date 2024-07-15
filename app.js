@@ -46,7 +46,7 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 //Express serves these contents as if they were in the root
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "images")));
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use(
   session({

@@ -1,73 +1,271 @@
-  <%- include('../includes/head.ejs') %>
-  <link rel="stylesheet" href="/css/users/addPost.css">
-  <link rel="stylesheet" href="/css/auth/errors.css">
+<%- include('../includes/head.ejs') %>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--main-bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            background-color: #ded3b6;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .image-upload {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            width: 20rem;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-top: 0;
+            margin-right: 20px;
+            flex-wrap: wrap;
+        }
+
+        .image-label {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #ccc;
+            border-radius: 4px;
+        }
+
+        .image-input {
+            display: none;
+        }
+
+        .form-container {
+            background-color: #c2b59b;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        button {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: black;
+        }
+
+        input,
+        select,
+        textarea {
+            background-color: #c2b59b;
+            border: none;
+            padding: 5px;
+            width: 95%;
+            margin: 10px;
+            border-bottom: 2px solid var(--main-text-color);
+            font-family: var(--sub-heading-font-family);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        input:active,
+        select:focus,
+        select:active,
+        textarea:focus,
+        textarea:active {
+            outline: none;
+            border: none;
+            border-bottom: 2px solid var(--input-change-color);
+        }
+
+        option {
+            padding: 0.6rem 0.6rem;
+            background-color: #fcd9be;
+            color: black;
+        }
+
+        button {
+            background-color: #f0a500;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: large;
+            padding: .5rem;
+        }
+
+        button:hover {
+            background-color: #d48806;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        .file_buttons {
+            margin-top: 1rem;
+            gap: 3rem;
+        }
+    </style>
+    <link rel="stylesheet" href="/css/auth/errors.css" />
 </head>
-<body style="padding-top:10%;">
-  <%- include('../includes/navigation.ejs') %>
-  <% if(errors.length > 0 ) {%>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <% if(errors.length > 0 ) { %>
         <div class="alert danger">
             <div class="alert__icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="alert__content">
-            <h1 style="font-size: 1.125rem;">Invalid Post Details</h1>
-            <p style="font-size: 0.8rem;"> <%= errors[0].msg %> </p>
+                <h1 style="font-size: 1.125rem;">Invalid Input</h1>
+                <p style="font-size: 0.8rem;"><%= errors[0].msg %></p>
             </div>
             <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
         </div>
-    <%}%>
+    <% } %>
+    <div class="container">
+        <div class="image-upload">
+            <div>
+                <label for="post_img" class="image-label" style="<%= editing ? 'display:none' : '' %>">Upload Image</label>
+                <img id="preview" class="image-preview" alt="Image Preview" style="<%= editing ? 'display:block;' : 'display:none;' %>" src="<%= editing ? '/'+oldInput.imageUrl : '' %>">
 
-  <form action="<%= editing ? `/user/edit-post/${postID}` : '/user/add-post' %>", method="POST" enctype="multipart/form-data">
-    <h1 id="main_heading"><%= editing ? 'Edit' : 'New' %> Post</h1>
-    <div class="new_post_temp">
-      <input name='title' type="text" placeholder="Title" class="post_title" value=<%= oldInput.title %>>
-      <select name="category" id="post_category">
-        <option value="">Select Category</option>
-        <option value="Heritage Sites" <%= oldInput.category === 'Heritage Sites' ? 'selected' : '' %>>Heritage Sites</option>
-        <option value="Indian Festivals" <%= oldInput.category === 'Indian Festivals' ? 'selected' : '' %>>Indian Festivals</option>
-        <option value="Indian Culture" <%= oldInput.category === 'Indian Culture' ? 'selected' : '' %>>Indian Culture</option>
-        <option value="Ancient Arts" <%= oldInput.category === 'Ancient Arts' ? 'selected' : '' %>>Ancient Arts</option>
-        <option value="Indian Mythology" <%= oldInput.category === 'Indian Mythology' ? 'selected' : '' %>>Indian Mythology</option>
-      </select>
+            </div>
+            <div class="file_buttons">
+                <button id="uploadNewButton" style="<%= editing ? 'display:block;' : 'display:none;' %>">Upload New Image</button>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <h2 class="main-heading" style="font-size: 2.5rem; text-align: left; margin-left: .7rem; margin-top: .5rem;">
+              <%= editing ? 'Edit' : 'New' %> Post
+            </h2>
+            <form action="<%= editing ? `/user/edit-post/${postID}` : '/user/add-post' %>" method="POST" id="postForm" enctype="multipart/form-data">
+                <input type="text" id="title" name="title" placeholder="Title" value="<%= oldInput.title %>" >
+                <select id="category" name="category" >
+                    <option value="">Select Category</option>
+                    <option value="festival" <%= oldInput.category === 'festival' ? 'selected' : '' %>>Festival</option>
+                    <option value="hill" <%= oldInput.category === 'hill' ? 'selected' : '' %>>Hill</option>
+                    <option value="monument" <%= oldInput.category === 'monument' ? 'selected' : '' %>>Monument</option>
+                    <option value="cave" <%= oldInput.category === 'cave' ? 'selected' : '' %>>Cave</option>
+                </select>
+                <select id="month" name="month" style="display:none;">
+                    <option value="">Select Month</option>
+                    <option value="january" <%= oldInput.month === 'january' ? 'selected' : '' %>>January</option>
+                    <option value="february" <%= oldInput.month === 'february' ? 'selected' : '' %>>February</option>
+                    <option value="march" <%= oldInput.month === 'march' ? 'selected' : '' %>>March</option>
+                    <option value="april" <%= oldInput.month === 'april' ? 'selected' : '' %>>April</option>
+                    <option value="may" <%= oldInput.month === 'may' ? 'selected' : '' %>>May</option>
+                    <option value="june" <%= oldInput.month === 'june' ? 'selected' : '' %>>June</option>
+                    <option value="july" <%= oldInput.month === 'july' ? 'selected' : '' %>>July</option>
+                    <option value="august" <%= oldInput.month === 'august' ? 'selected' : '' %>>August</option>
+                    <option value="september" <%= oldInput.month === 'september' ? 'selected' : '' %>>September</option>
+                    <option value="october" <%= oldInput.month === 'october' ? 'selected' : '' %>>October</option>
+                    <option value="november" <%= oldInput.month === 'november' ? 'selected' : '' %>>November</option>
+                    <option value="december" <%= oldInput.month === 'december' ? 'selected' : '' %>>December</option>
+                </select>
+                <select id="state" name="state" >
+                    <option value="">Select State</option>
+                    <option value="andhra-pradesh" <%= oldInput.state === 'andhra-pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
+                    <option value="arunachal-pradesh" <%= oldInput.state === 'arunachal-pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
+                    <option value="assam" <%= oldInput.state === 'assam' ? 'selected' : '' %>>Assam</option>
+                    <option value="bihar" <%= oldInput.state === 'bihar' ? 'selected' : '' %>>Bihar</option>
+                    <option value="chhattisgarh" <%= oldInput.state === 'chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
+                    <option value="goa" <%= oldInput.state === 'goa' ? 'selected' : '' %>>Goa</option>
+                    <option value="gujarat" <%= oldInput.state === 'gujarat' ? 'selected' : '' %>>Gujarat</option>
+                    <option value="haryana" <%= oldInput.state === 'haryana' ? 'selected' : '' %>>Haryana</option>
+                    <option value="himachal-pradesh" <%= oldInput.state === 'himachal-pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
+                    <option value="jharkhand" <%= oldInput.state === 'jharkhand' ? 'selected' : '' %>>Jharkhand</option>
+                    <option value="karnataka" <%= oldInput.state === 'karnataka' ? 'selected' : '' %>>Karnataka</option>
+                    <option value="kerala" <%= oldInput.state === 'kerala' ? 'selected' : '' %>>Kerala</option>
+                    <option value="madhya-pradesh" <%= oldInput.state === 'madhya-pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
+                    <option value="maharashtra" <%= oldInput.state === 'maharashtra' ? 'selected' : '' %>>Maharashtra</option>
+                    <option value="manipur" <%= oldInput.state === 'manipur' ? 'selected' : '' %>>Manipur</option>
+                    <option value="meghalaya" <%= oldInput.state === 'meghalaya' ? 'selected' : '' %>>Meghalaya</option>
+                    <option value="mizoram" <%= oldInput.state === 'mizoram' ? 'selected' : '' %>>Mizoram</option>
+                    <option value="nagaland" <%= oldInput.state === 'nagaland' ? 'selected' : '' %>>Nagaland</option>
+                    <option value="odisha" <%= oldInput.state === 'odisha' ? 'selected' : '' %>>Odisha</option>
+                    <option value="punjab" <%= oldInput.state === 'punjab' ? 'selected' : '' %>>Punjab</option>
+                    <option value="rajasthan" <%= oldInput.state === 'rajasthan' ? 'selected' : '' %>>Rajasthan</option>
+                    <option value="sikkim" <%= oldInput.state === 'sikkim' ? 'selected' : '' %>>Sikkim</option>
+                    <option value="tamil-nadu" <%= oldInput.state === 'tamil-nadu' ? 'selected' : '' %>>Tamil Nadu</option>
+                    <option value="telangana" <%= oldInput.state === 'telangana' ? 'selected' : '' %>>Telangana</option>
+                    <option value="tripura" <%= oldInput.state === 'tripura' ? 'selected' : '' %>>Tripura</option>
+                    <option value="uttar-pradesh" <%= oldInput.state === 'uttar-pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
+                    <option value="uttarakhand" <%= oldInput.state === 'uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
+                    <option value="west-bengal" <%= oldInput.state === 'west-bengal' ? 'selected' : '' %>>West Bengal</option>
+                </select>
+                <textarea id="description" name="description" placeholder="Description" rows="4" ><%= oldInput.description %></textarea>
 
-      <select name="state" id="state">
-        <option value="">Select State</option>
-        <option value="Andhra Pradesh" <%= oldInput.state === 'Andhra Pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
-        <option value="Arunachal Pradesh" <%= oldInput.state === 'Arunachal Pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
-        <option value="Assam" <%= oldInput.state === 'Assam' ? 'selected' : '' %>>Assam</option>
-        <option value="Bihar" <%= oldInput.state === 'Bihar' ? 'selected' : '' %>>Bihar</option>
-        <option value="Chandigarh" <%= oldInput.state === 'Chandigarh' ? 'selected' : '' %>>Chandigarh</option>
-        <option value="Chhattisgarh" <%= oldInput.state === 'Chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
-        <option value="Dadra and Nagar Haveli and Daman and Diu" <%= oldInput.state === 'Dadra and Nagar Haveli and Daman and Diu' ? 'selected' : '' %>>Dadra and Nagar Haveli and Daman and Diu</option>
-        <option value="Delhi" <%= oldInput.state === 'Delhi' ? 'selected' : '' %>>Delhi</option>
-        <option value="Goa" <%= oldInput.state === 'Goa' ? 'selected' : '' %>>Goa</option>
-        <option value="Gujarat" <%= oldInput.state === 'Gujarat' ? 'selected' : '' %>>Gujarat</option>
-        <option value="Haryana" <%= oldInput.state === 'Haryana' ? 'selected' : '' %>>Haryana</option>
-        <option value="Himachal Pradesh" <%= oldInput.state === 'Himachal Pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
-        <option value="Jammu and Kashmir" <%= oldInput.state === 'Jammu and Kashmir' ? 'selected' : '' %>>Jammu and Kashmir</option>
-        <option value="Jharkhand" <%= oldInput.state === 'Jharkhand' ? 'selected' : '' %>>Jharkhand</option>
-        <option value="Karnataka" <%= oldInput.state === 'Karnataka' ? 'selected' : '' %>>Karnataka</option>
-        <option value="Kerala" <%= oldInput.state === 'Kerala' ? 'selected' : '' %>>Kerala</option>
-        <option value="Lakshadweep" <%= oldInput.state === 'Lakshadweep' ? 'selected' : '' %>>Lakshadweep</option>
-        <option value="Madhya Pradesh" <%= oldInput.state === 'Madhya Pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
-        <option value="Maharashtra" <%= oldInput.state === 'Maharashtra' ? 'selected' : '' %>>Maharashtra</option>
-        <option value="Manipur" <%= oldInput.state === 'Manipur' ? 'selected' : '' %>>Manipur</option>
-        <option value="Meghalaya" <%= oldInput.state === 'Meghalaya' ? 'selected' : '' %>>Meghalaya</option>
-        <option value="Mizoram" <%= oldInput.state === 'Mizoram' ? 'selected' : '' %>>Mizoram</option>
-        <option value="Nagaland" <%= oldInput.state === 'Nagaland' ? 'selected' : '' %>>Nagaland</option>
-        <option value="Odisha" <%= oldInput.state === 'Odisha' ? 'selected' : '' %>>Odisha</option>
-        <option value="Tamil Nadu" <%= oldInput.state === 'Tamil Nadu' ? 'selected' : '' %>>Tamil Nadu</option>
-        <option value="Telangana" <%= oldInput.state === 'Telangana' ? 'selected' : '' %>>Telangana</option>
-        <option value="Tripura" <%= oldInput.state === 'Tripura' ? 'selected' : '' %>>Tripura</option>
-        <option value="Uttar Pradesh" <%= oldInput.state === 'Uttar Pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
-        <option value="Uttarakhand" <%= oldInput.state === 'Uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
-        <option value="West Bengal" <%= oldInput.state === 'West Bengal' ? 'selected' : '' %>>West Bengal</option>
-      </select>
-      <textarea name="description" placeholder="Description" class="post_content" rows="3"><%= oldInput.description %></textarea>
-      <div class="new_post_file">
-        <label for="post_img">Image</label>
-        <input name="post_img" type="file" id="post_img">
-      </div>
-      
-      <button type='submit'><%= editing ? 'Edit' : 'Add'%> Post</button>
+                <input type="file" id="post_img" name="post_img" class="image-input">
+
+                
+                <button type="submit" style="padding: .7rem;">Post</button>
+            </form>
+        </div>
     </div>
-  </form>  
+    <script>
+        document.getElementById('category').addEventListener('change', function (event) {
+            const monthSelect = document.getElementById('month');
+            if (event.target.value === 'festival') {
+                monthSelect.style.display = 'block';
+            } else {
+                monthSelect.style.display = 'none';
+            }
+        });
+
+        document.getElementById('post_img').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('preview');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    document.querySelector('.image-label').style.display = 'none';
+                    document.querySelector('#uploadNewButton').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        const uploadNewButton = document.getElementById('uploadNewButton');
+
+        uploadNewButton.addEventListener('click', () => {
+            document.getElementById('post_img').value = '';
+            document.getElementById('preview').src = '';
+            document.getElementById('preview').style.display = 'none';
+            document.querySelector('.image-label').style.display = 'block';
+            uploadNewButton.style.display = 'none';
+            document.getElementById('post_img').click();
+        });
+
+        window.onload = function() {
+            const categorySelect = document.getElementById('category');
+            const monthSelect = document.getElementById('month');
+
+            if (categorySelect.value === 'festival') {
+                monthSelect.style.display = 'block';
+            }
+        };
+    </script>
 </body>
+</html>

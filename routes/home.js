@@ -22,18 +22,22 @@ router.post(
       .matches(/^[A-Za-z\s]+$/)
       .withMessage(`Title must contain only alphabetic characters`),
 
-    check("description", "Description should be between 10 and 400 characters")
-      .trim()
-      .isLength({ min: 10, max: 400 }),
-
     check("category").custom((value, { req }) => {
       if (!value) throw new Error("Please select category");
       else return true;
+    }),
+    check("month").custom((value, { req }) => {
+      if (req.body.category === "festival" && !value) {
+        throw new Error("Please select Month");
+      } else return true;
     }),
     check("state").custom((value, { req }) => {
       if (!value) throw new Error("Please select State");
       else return true;
     }),
+    check("description", "Description should be between 10 and 400 characters")
+      .trim()
+      .isLength({ min: 10, max: 400 }),
   ],
   homeController.postAddPost
 );
