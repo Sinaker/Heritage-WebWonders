@@ -289,7 +289,10 @@ exports.postNewPass = async (req, res, next) => {
 
   if (!errors.isEmpty()) {
     return res.status(422).render("auth/setpass", {
+      pageTitle: "Set your new Password",
       path: "/setpassword",
+      normal: false,
+      dark: true,
       errors: errors.array(),
       errorHeading: "Invalid Password",
       userID: userID,

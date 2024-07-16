@@ -14,7 +14,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url(/auth.jpg);
+  background-image: url(/images/auth.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

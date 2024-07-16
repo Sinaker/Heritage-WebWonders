@@ -15,7 +15,7 @@
     </div>
 
     <% for(let post of posts) { %>
-    <div class="user_post_card">
+    <div onClick="clickHandler(event, '<%= post._id %>')" style="cursor: pointer;" class="user_post_card">
       <div class="user_post_body">
         <div class="user_post_title">
           <span><%= post.title %> </span>
@@ -41,4 +41,17 @@
     </div>
     <% } %>
 
+    <script>
+      function clickHandler(event, postID) {
+        // Check if the click originated from a child element within user_post_card
+        if (event.target.closest('.user_post_edit') || event.target.closest('.user_post_delete')) {
+          return; // Do nothing if clicked on Edit or Delete links/buttons
+        }
+        event.preventDefault();
+
+        //Redirecting to post details
+        window.location.href = `http://localhost:3000/user/post/${postID}`;
+      }
+    </script>
 </body>
+</html>

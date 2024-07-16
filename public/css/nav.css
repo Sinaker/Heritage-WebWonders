@@ -177,7 +177,7 @@ hr {
   display: flex;
   font-size: 16px;
   background: rgba(38, 39, 51, 0.8);
-  color: #f1be60;
+  color: #f1be60 !important;
   text-decoration: none;
   border-radius: 5px;
   padding: 10px 15px;

@@ -13,16 +13,24 @@ router.post(
       .trim()
       .isLength({ min: 6 })
       .withMessage("Username must be more than 5 characters")
-      .isAlphanumeric()
-      .withMessage("Username must consist of alphanumeric characters"),
+      .matches(/^[a-zA-Z0-9_.]+$/)
+      .withMessage("Username can only contain letters, numbers, _ and .")
+      .matches(/(.*[a-zA-Z].*){3,}/)
+      .withMessage("The Username must contain at least 3 letters"),
     check("password")
       .trim()
       .isLength({ min: 8 })
       .withMessage("Password must be at least 8 characters long.")
-      .matches(/^[a-zA-Z0-9_$]*$/)
+      .matches(/^[a-zA-Z0-9!@#$^&*\s]+$/)
       .withMessage(
-        "Password can only contain letters, numbers, and special characters (_ and $)."
-      ),
+        "Password can only contain letters, numbers, spaces, and the symbols (!@#$^&*)"
+      )
+      .matches(/[a-zA-Z]/)
+      .withMessage("Password must contain at least one letter")
+      .matches(/\d/)
+      .withMessage("Password must contain at least one number")
+      .matches(/[!@#$^&*]/)
+      .withMessage("Password must contain at least one symbol from !@#$^&*"),
   ],
   authController.postLogin
 );
@@ -37,8 +45,10 @@ router.post(
       .trim()
       .isLength({ min: 6 })
       .withMessage("Username must be more than 5 characters")
-      .isAlphanumeric()
-      .withMessage("Username must consist of alphanumeric characters"),
+      .matches(/^[a-zA-Z0-9_.]+$/)
+      .withMessage("Username can only contain letters, numbers, _ and .")
+      .matches(/(.*[a-zA-Z].*){3,}/)
+      .withMessage("The Username must contain at least 3 letters"),
     check("email", "Email must be a valid email")
       .trim()
       .isEmail()
@@ -47,14 +57,20 @@ router.post(
       .trim()
       .isLength({ min: 8 })
       .withMessage("Password must be at least 8 characters long.")
-      .matches(/^[a-zA-Z0-9_$]*$/)
+      .matches(/^[a-zA-Z0-9!@#$^&*\s]+$/)
       .withMessage(
-        "Password can only contain letters, numbers, and special characters (_ and $)."
-      ),
+        "Password can only contain letters, numbers, spaces, and the symbols (!@#$^&*)"
+      )
+      .matches(/[a-zA-Z]/)
+      .withMessage("Password must contain at least one letter")
+      .matches(/\d/)
+      .withMessage("Password must contain at least one number")
+      .matches(/[!@#$^&*]/)
+      .withMessage("Password must contain at least one symbol from !@#$^&*"),
     check("cnfPassword").custom((value, { req }) => {
-      if (value !== req.body.password)
+      if (value !== req.body.password) {
         throw new Error("Passwords do not match");
-
+      }
       return true;
     }),
   ],
@@ -66,17 +82,40 @@ router.post(
   "/resetpassword",
   [
     check("username")
+      .trim()
       .isLength({ min: 1 })
       .withMessage("Username field cannot be empty")
       .custom(async (value, { req }) => {
         const user = await User.findOne({ username: req.body.username });
-
-        if (!user) throw new Error("User does not exist!");
+        if (!user) {
+          throw new Error("User does not exist!");
+        }
+        return true;
       }),
   ],
   authController.postResetPass
 );
 
 router.get("/setpassword/:token", authController.getNewPass);
-router.post("/setpassword", authController.postNewPass);
+router.post(
+  "/setpassword",
+  [
+    check("password")
+      .trim()
+      .isLength({ min: 8 })
+      .withMessage("Password must be at least 8 characters long.")
+      .matches(/^[a-zA-Z0-9!@#$^&*\s]+$/)
+      .withMessage(
+        "Password can only contain letters, numbers, spaces, and the symbols (!@#$^&*)"
+      )
+      .matches(/[a-zA-Z]/)
+      .withMessage("Password must contain at least one letter")
+      .matches(/\d/)
+      .withMessage("Password must contain at least one number")
+      .matches(/[!@#$^&*]/)
+      .withMessage("Password must contain at least one symbol from !@#$^&*"),
+  ],
+  authController.postNewPass
+);
+
 module.exports = router;
