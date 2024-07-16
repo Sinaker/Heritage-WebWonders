@@ -57,7 +57,7 @@ exports.postAddPost = async (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
   const state = req.body.state;
-  const month = req.body.month ?? "";
+  const month = +req.body.month ?? 0;
 
   const errors = validationResult(req);
 
@@ -78,7 +78,7 @@ exports.postAddPost = async (req, res, next) => {
       dark: true,
       editing: false,
       errors: [{ path: "post_img", msg: "Please add an image to the post." }],
-      oldInput: { title, category, state, description },
+      oldInput: { title, category, state, description, month },
     });
   }
 

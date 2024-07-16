@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+:root {
+  --heading-font-family: "Playfair Display", serif;
+  --body-font-family: "Poppins", sans-serif;
+  --content-font-family: "Comfortaa";
+  --heading-font-size: 2.5rem;
+  --bcg-main-color: #faf1ca;
+  --main-text-color: #262733;
+}
+
+body {
+  background-color: var(--bcg-main-color);
+  font-family: var(--body-font-family);
+}
+
+/* hero section */
+.er {
+  width: 95vw;
+  height: 100vh;
+  background-color: var(--bcg-main-color);
+  margin: auto;
+}
+.festival-container {
+  display: flex;
+  width: 90vw;
+  height: 100%;
+  /* gap: 1rem; */
+}
+.festival-hero-content {
+  margin-left: 3%;
+  text-align: left;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+}
+.festival-hero-content .main-heading {
+  font-family: var(--heading-font-family);
+  font-size: 5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+#see {
+  scroll-behavior: smooth;
+}
+#see-more {
+  margin: 3rem 0;
+  color: var(--main-text-color);
+  width: 90px;
+  height: 40px;
+  border: 2px solid var(--main-text-color);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(to left, #f1be60 50%, var(--main-text-color) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-in-out;
+}
+
+#see-more:hover {
+  background-position: left bottom;
+  color: #f1be60;
+}
+
+.festival-hero-content .sub-heading {
+  font-size: 1.25rem;
+  width: 80%;
+  margin-bottom: 2rem;
+}
+
+.festival-hero-img {
+  flex: 1;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#main-img {
+  margin-top: 2rem;
+  width: auto;
+  /* height: 80vh; */
+  max-width: 100%;
+}
+
+/* timeline  */
+#timeline {
+  width: 80vw;
+  margin: auto;
+  position: relative;
+  z-index: -3;
+}
+.timeline-wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.timeline-content {
+  display: grid;
+  grid-template-columns: 70px 0.5fr 1fr;
+  grid-template-rows: 1fr;
+  min-height: 50vh;
+  margin: 10vh;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+.timeline-left,
+.timeline-center,
+.timeline-right {
+  height: 100%;
+  width: 100%;
+}
+.timeline-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+.timeline-left .month-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.37);
+  transition: background-color 1s linear;
+  position: sticky;
+  top: 50vh;
+}
+
+.timeline-center {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  font-family: var(--heading-font-family);
+  font-size: 30px;
+  font-weight: bold;
+}
+.months {
+  position: sticky;
+  top: 48vh;
+}
+.timeline-right {
+  color: rgba(0, 0, 0, 0.37);
+}
+/* timeline progress */
+.timeline-progress {
+  width: 3px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.37);
+  position: absolute;
+  z-index: -2;
+  left: 33px;
+}
+.timeline-progress-bar {
+  width: 3px;
+  height: 50vh;
+  position: fixed;
+  bottom: 50vh;
+  background: black;
+  z-index: -1;
+}
+
+/* inner cards */
+.festival-card {
+  display: flex;
+  background-color: #c8b99f;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 7px 8px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  margin-bottom: 20px; /* Add margin to separate the cards */
+}
+.festival-card img {
+  width: 40%;
+  object-fit: cover;
+}
+.festival-card-content {
+  padding: 20px;
+  text-align: left;
+  width: 60%;
+}
+.festival-card-content h2 {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #262733;
+}
+.festival-card-content h3 {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+.festival-card-content p {
+  margin-top: 10px;
+  color: #262733;
+  font-size: 0.85rem;
+  font-family: "Poppins";
+}

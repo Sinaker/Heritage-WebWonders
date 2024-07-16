@@ -166,21 +166,22 @@
                 </select>
                 <select id="month" name="month" style="display:none;">
                     <option value="">Select Month</option>
-                    <option value="january" <%= oldInput.month === 'january' ? 'selected' : '' %>>January</option>
-                    <option value="february" <%= oldInput.month === 'february' ? 'selected' : '' %>>February</option>
-                    <option value="march" <%= oldInput.month === 'march' ? 'selected' : '' %>>March</option>
-                    <option value="april" <%= oldInput.month === 'april' ? 'selected' : '' %>>April</option>
-                    <option value="may" <%= oldInput.month === 'may' ? 'selected' : '' %>>May</option>
-                    <option value="june" <%= oldInput.month === 'june' ? 'selected' : '' %>>June</option>
-                    <option value="july" <%= oldInput.month === 'july' ? 'selected' : '' %>>July</option>
-                    <option value="august" <%= oldInput.month === 'august' ? 'selected' : '' %>>August</option>
-                    <option value="september" <%= oldInput.month === 'september' ? 'selected' : '' %>>September</option>
-                    <option value="october" <%= oldInput.month === 'october' ? 'selected' : '' %>>October</option>
-                    <option value="november" <%= oldInput.month === 'november' ? 'selected' : '' %>>November</option>
-                    <option value="december" <%= oldInput.month === 'december' ? 'selected' : '' %>>December</option>
+                    <option value="1" <%= oldInput.month == '1' ? 'selected' : '' %>>January</option>
+                    <option value="2" <%= oldInput.month == '2' ? 'selected' : '' %>>February</option>
+                    <option value="3" <%= oldInput.month == '3' ? 'selected' : '' %>>March</option>
+                    <option value="4" <%= oldInput.month == '4' ? 'selected' : '' %>>April</option>
+                    <option value="5" <%= oldInput.month == '5' ? 'selected' : '' %>>May</option>
+                    <option value="6" <%= oldInput.month == '6' ? 'selected' : '' %>>June</option>
+                    <option value="7" <%= oldInput.month == '7' ? 'selected' : '' %>>July</option>
+                    <option value="8" <%= oldInput.month == '8' ? 'selected' : '' %>>August</option>
+                    <option value="9" <%= oldInput.month == '9' ? 'selected' : '' %>>September</option>
+                    <option value="10" <%= oldInput.month == '10' ? 'selected' : '' %>>October</option>
+                    <option value="11" <%= oldInput.month == '11' ? 'selected' : '' %>>November</option>
+                    <option value="12" <%= oldInput.month == '12' ? 'selected' : '' %>>December</option>
                 </select>
                 <select id="state" name="state" >
                     <option value="">Select State</option>
+                    <option value="India" <%= oldInput.state === 'India' ? 'selected' : '' %>>All India</option>
                     <option value="andhra-pradesh" <%= oldInput.state === 'andhra-pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
                     <option value="arunachal-pradesh" <%= oldInput.state === 'arunachal-pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
                     <option value="assam" <%= oldInput.state === 'assam' ? 'selected' : '' %>>Assam</option>

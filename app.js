@@ -13,6 +13,7 @@ const errorController = require("./controllers/errorController");
 
 const authRoutes = require("./routes/auth");
 const homeRoutes = require("./routes/home");
+const exploreRoutes = require("./routes/explore");
 
 const MONGODB_URI = process.env.MONGODB_CONNECTION; //Using env variables
 
@@ -87,6 +88,7 @@ app.use(
 );
 app.use(authRoutes);
 app.use(homeRoutes);
+app.use("/explore", exploreRoutes);
 
 app.use(errorController.get404);
 

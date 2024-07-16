@@ -1,0 +1,70 @@
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/festivals.css" />
+    <link rel="stylesheet" href="/css/auth/errors.css" />
+    <script src="/js/festivalTimeline.js"></script>
+  </head>
+  <body>
+    <%- include('./includes/navigation.ejs') %>
+
+    <section class="er">
+      <div class="festival-container">
+        <div class="festival-hero-content">
+          <h1 class="main-heading">
+            Glory of Indian <br />
+            Festivals
+          </h1>
+          <p class="sub-heading">
+            Experience the rhythm of India's cultural heartbeat through its
+            myriad festivals, each a unique expression of the nation's living
+            traditions
+          </p>
+          <a style="text-decoration: none;"href="#timeline" id="see"
+            ><button style="padding: 0.8rem 1rem"class="btn-2">See More</button></a
+          >
+        </div>
+        <div class="festival-hero-img">
+          <img
+            src="/images/TimeLine/Hero.jpeg"
+            alt="main-hero-img"
+            id="main-img"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- timeline  -->
+    <div id="timeline">
+      <div class="timeline-container">
+        <div class="timeline-wrapper">
+          <div class="timeline-progress">
+            <div class="timeline-progress-bar"></div>
+          </div>
+
+          <% for(let monthIndex = 0; monthIndex < festivals.length; monthIndex++) { %>
+            <div class="timeline-content">
+                <div class="timeline-left">
+                <div class="month-circle"></div>
+                </div>
+                <div class="timeline-center">
+                <div class="months"><%= months[monthIndex] %></div>
+                </div>
+                <div class="timeline-right">
+                    <% for(let festival of festivals[monthIndex]) { %>
+                        <div class="festival-card">
+                            <div class="festival-card-content">
+                            <h2><%= festival.title %></h2>
+                            <h3><%= months[monthIndex] %></h3>
+                            <p>
+                                <%= festival.description %>
+                            </p>
+                            </div>
+                            <img loading="lazy" src="<%= '/' + festival.imageUrl %>" alt="<%= festival.title %>" />
+                        </div>
+                    <%}%>
+                </div>
+            </div>
+          <%}%>
+        </div>
+        </div>
+        </div>
+<%- include('./includes/end.ejs') %>

@@ -11,7 +11,7 @@ const postSchema = new Schema({
     required: true,
   },
   month: {
-    type: String,
+    type: Number,
   },
   state: {
     type: String,
