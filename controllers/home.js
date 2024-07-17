@@ -245,3 +245,29 @@ exports.deletePost = async (req, res, next) => {
     next(error); // Activate error middleware
   }
 };
+
+exports.getDetails = async (req, res, next) => {
+  const postID = req.params.postID;
+  const post = await Post.findById(postID);
+
+  res.render("user/details", {
+    pageTitle: post.title,
+    normal: false,
+    dark: true,
+    post: post,
+    months: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+  });
+};

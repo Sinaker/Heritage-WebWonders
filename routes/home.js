@@ -73,4 +73,6 @@ router.post(
 
 router.post("/delete/post/:postID", homeController.deletePost);
 
+router.get("/user/post/:postID", homeController.getDetails);
+
 module.exports = router;
