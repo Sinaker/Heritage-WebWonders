@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/css/users/MyPosts.css">
 </head>
 
-<body style="position: absolute; top: 10%;">
+<body style="margin: 10% 0">
     <%- include('../includes/navigation.ejs') %>
   <!-- header  -->
   <h1 id="main_heading_user">Hi, <%= username %></h1>
@@ -40,6 +40,8 @@
       </div>
     </div>
     <% } %>
+  </div>
+    <%-include('../includes/pagination.ejs') %>
 
     <script>
       function clickHandler(event, postID) {
@@ -53,5 +55,4 @@
         window.location.href = `http://localhost:3000/user/post/${postID}`;
       }
     </script>
-</body>
-</html>
+   <%-include('../includes/end.ejs') %>

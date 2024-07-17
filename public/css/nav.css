@@ -193,7 +193,7 @@ hr {
 }
 
 .explore .items a:hover {
-  color: var(--main-text-color);
+  color: var(--main-text-color) !important;
 }
 
 .explore .items a span {

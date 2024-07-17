@@ -1,0 +1,23 @@
+<div class="pagination" style="margin-bottom: 100px">
+  <% if(currentPage > 1) { %>
+  <a class="pagination_end_btn" href="?page=<%=currentPage - 1%>"
+    ><i style="margin-right: 0.3rem" class="fa-solid fa-arrow-left"></i>
+    Previous</a
+  >
+  <a class="pagination_btn" href="?page=1">1</a>
+  <%}%> <% if(currentPage > 2) { %>
+  <a class="pagination_btn">..</a>
+  <%}%>
+  <a class="pagination_btn active" href="?page=<%=currentPage %>"
+    ><%=currentPage%></a
+  >
+
+  <% if(currentPage < totalPages-1) { %>
+  <a class="pagination_btn">..</a>
+  <%}%> <% if(currentPage < totalPages) { %>
+  <a class="pagination_btn" href="?page=<%=totalPages%>"><%=totalPages%></a>
+  <a class="pagination_end_btn" href="?page=<%=currentPage + 1%>"
+    >Next <i style="margin-left: 0.3rem" class="fa-solid fa-arrow-right"></i
+  ></a>
+  <%}%>
+</div>

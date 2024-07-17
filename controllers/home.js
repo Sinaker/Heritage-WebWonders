@@ -5,6 +5,8 @@ const User = require("../models/user");
 const Post = require("../models/post");
 const { validationResult } = require("express-validator");
 
+const POSTS_PER_PAGE = 7;
+
 exports.getHome = (req, res, next) => {
   const login = req.query.login;
   const email = req.query.mailSent;
@@ -20,7 +22,17 @@ exports.getHome = (req, res, next) => {
 
 exports.getDashboard = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user._id).populate("posts").exec();
+    const page = +req.query.page || 1;
+    const totalPosts = await Post.countDocuments({ user: req.user._id });
+    const user = await User.findById(req.user._id)
+      .populate({
+        path: "posts",
+        options: {
+          skip: (page - 1) * POSTS_PER_PAGE,
+          limit: POSTS_PER_PAGE,
+        },
+      })
+      .exec();
     if (!user) {
       const error = new Error("No User found");
       error.httpStatusCode = 404;
@@ -32,6 +44,8 @@ exports.getDashboard = async (req, res, next) => {
       dark: true,
       username: user.username,
       posts: user.posts,
+      currentPage: page,
+      totalPages: Math.ceil(totalPosts / POSTS_PER_PAGE),
     });
   } catch (err) {
     const error = new Error(err);
