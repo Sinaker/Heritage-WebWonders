@@ -30,6 +30,14 @@ const postSchema = new Schema({
     ref: "User",
     required: true,
   },
+  likes: {
+    type: Number,
+    default: 0,
+  },
+  dislikes: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Post", postSchema);

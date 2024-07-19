@@ -121,6 +121,8 @@ hr {
   align-items: center;
   border-radius: 5px;
   cursor: pointer;
+
+  font-family: Comfortaa;
 }
 .left-icon,
 .right-icon {
@@ -256,6 +258,7 @@ hr {
   );
   color: var(--main-text-color);
   text-decoration: none;
+  font-family: Comfortaa;
 }
 
 .btn-2.invert {

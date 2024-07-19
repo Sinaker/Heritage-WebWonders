@@ -1,30 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton+SC&display=swap");
 * {
-    padding: 0; 
-    margin: 0;
-     box-sizing: border-box;
-    /* overflow-y: hidden; */
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* overflow-y: hidden; */
 }
 
 .logo img {
-    /* height: 1%; */
-    width: 90%;
-    margin: 2%;
-    padding: 2%;
-    position: relative;
+  /* height: 1%; */
+  width: 90%;
+  margin: 2%;
+  padding: 2%;
+  position: relative;
 }
 
 .logo {
-    width: 20%;
-    display: flex;
-    justify-content: start;
-    align-content: end;
-    /* align-items: end; */
+  width: 20%;
+  display: flex;
+  justify-content: start;
+  align-content: end;
+  /* align-items: end; */
 }
-.subNav{
-    color: aliceblue;
-    font-size: x-large;
-    margin-top: 2%;
+.subNav {
+  color: aliceblue;
+  font-size: x-large;
+  margin-top: 2%;
 }
 /* #logo-title{
     color: aliceblue;
@@ -35,55 +35,54 @@
     font-weight: bolder;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 } */
-.logo div{
-    width: 50%;
+.logo div {
+  width: 50%;
 }
 
-
 .first {
-    position: relative;
-    /* height: 100vh; */
-    overflow-y: hidden;
+  position: relative;
+  /* height: 100vh; */
+  overflow-y: hidden;
 }
 
 .wrapper {
-    height: 100vh;
-    /* position: relative; */
-    display: flex;
-    perspective: 10px;
-    overflow-x: hidden;
-    /* overflow-y: hidden; */
-    /* align-items: center; */
-    /* overflow-y: hidden; */
+  height: 100vh;
+  /* position: relative; */
+  display: flex;
+  perspective: 10px;
+  overflow-x: hidden;
+  /* overflow-y: hidden; */
+  /* align-items: center; */
+  /* overflow-y: hidden; */
 }
 
 .subParallax {
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
 }
 
 .parallax {
-    transform-style: preserve-3d;
-    width: 100%;
-    height: 100%;
-    /* z-index: -1; */
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  /* z-index: -1; */
 }
 
 /* .parallax{
     position: absolute;
 } */
 .heading {
-    position: absolute;
-    z-index: 1;
-    font-size: 450px;
-    color: aliceblue;
-    /* text-align: center; */
-    /* align-items: center; */
-    margin-left: 10%;
-    /* margin-bottom: 80%; */
-    margin-top: -15%;
-    transform: translateZ(-30px) scale(4);
+  position: absolute;
+  z-index: 1;
+  font-size: 450px;
+  color: aliceblue;
+  /* text-align: center; */
+  /* align-items: center; */
+  margin-left: 10%;
+  /* margin-bottom: 80%; */
+  margin-top: -15%;
+  transform: translateZ(-30px) scale(4);
 }
 
 /* .parallax p {
@@ -92,106 +91,107 @@
 } */
 
 #foreground {
-    z-index: 2;
-    transform: translateZ(-10px) translateY(0px) translateX() scale(2);
+  z-index: 2;
+  transform: translateZ(-10px) translateY(0px) translateX() scale(2);
 }
 
 #background {
-    /* transform: translateZ(-30px); */
-    /* z-index: 1; */
-    transform: translateZ(-30px) scale(4);
-    
+  /* transform: translateZ(-30px); */
+  /* z-index: 1; */
+  transform: translateZ(-30px) scale(4);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton+SC&display=swap");
 
 html,
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
-    height: 69px;
-    width: 100%;
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    z-index: 100;
+  height: 69px;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  height: 100%;
 
-    flex: 1;
+  flex: 1;
 
-    font-family: "Anton SC", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: white;
-    font-size: 2.2rem;
-    letter-spacing: 3px;
+  font-family: "Anton SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  font-size: 2.2rem;
+  letter-spacing: 3px;
 }
 
 .logo-img {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .links {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100%;
-    flex: 1;
-    color: white
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  flex: 1;
+  color: white;
 }
 
 .links {
-    font-size: 23px;
-    font-family: sans-serif;
+  font-size: 23px;
+  font-family: sans-serif;
 }
 
 .explore-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 49px;
-    width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 49px;
+  width: 130px;
 
-    border-radius: 30px;
-    background: linear-gradient(90deg, #ff3131, #ff914d);
+  border-radius: 30px;
+  background: linear-gradient(90deg, #ff3131, #ff914d);
 }
 
-#gradient_effect_button_orange{
-    background-image: linear-gradient(to right,red ,orange);
-    border-radius: 30%;
-    /* width: 200px; */
-    padding: 0 2% 0 2%;
-    height: 50%;
-    /* width: 20%; */
-    transform: scaleX();
+#gradient_effect_button_orange {
+  background-image: linear-gradient(to right, red, orange);
+  border-radius: 30%;
+  /* width: 200px; */
+  padding: 0 2% 0 2%;
+  height: 50%;
+  /* width: 20%; */
+  transform: scaleX();
 }
-.last{
-    position: fixed;
-    background-image: linear-gradient(to right,rgb(72, 22, 101) ,rgb(192, 7, 180));
-    margin-top: 90vh;
-    margin-left: 65vw;
-    width: 500px;
-    border-radius: 20%;
-    padding-top: 1%;
-    /* height: 70%; */
-    z-index: 1;
-    color: aliceblue;
-    font-size: x-large;
+.last {
+  position: fixed;
+  background-image: linear-gradient(
+    to right,
+    rgb(72, 22, 101),
+    rgb(192, 7, 180)
+  );
+  margin-top: 90vh;
+  margin-left: 65vw;
+  width: 500px;
+  border-radius: 20%;
+  padding-top: 1%;
+  /* height: 70%; */
+  z-index: 1;
+  color: aliceblue;
+  font-size: x-large;
 }
-#gradient_effect_button_purple{
-    
-  
-    /* width: 20px; */
-    padding: 0 2% 0 2%;
-    height:50px ;
-    /* width: 20%; */
-    transform: scaleX();
+#gradient_effect_button_purple {
+  /* width: 20px; */
+  padding: 0 2% 0 2%;
+  height: 50px;
+  /* width: 20%; */
+  transform: scaleX();
 }

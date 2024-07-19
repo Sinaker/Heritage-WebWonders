@@ -16,8 +16,10 @@
   align-items: center;
   opacity: 1;
 
+  font-family: Comfortaa;
+
   transition: opacity 0.3s;
-  z-index: 1000;
+  z-index: 50;
 }
 .alert__content {
   display: flex;

@@ -22,6 +22,22 @@ const userSchema = new Schema({
   ],
   resetToken: String,
   resetTokenExpiry: Date,
+  likes: [
+    {
+      post: {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
+      },
+      like: {
+        type: Boolean,
+        default: false,
+      },
+      dislike: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", userSchema);

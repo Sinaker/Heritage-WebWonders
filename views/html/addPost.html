@@ -4,8 +4,209 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: "Comfortaa", sans-serif;
+        box-sizing: border-box;
+        padding-top: 30px;
+        background-color: beige;
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: stretch;
+        gap: 1.5rem;
+      }
+      .post {
+        display: flex;
+        flex-direction: column;
+
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.86);
+        height: 26rem;
+        width: 25rem;
+        background-color: #232433;
+        padding: 0.7rem 0.7rem;
+        border-radius: 5px;
+      }
+
+      .post__img {
+        flex: 5;
+        display: flex;
+      }
+      .post__img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+      .post__content {
+        display: flex;
+        flex-direction: column;
+        flex: 4;
+      }
+      .post__content__heading {
+        font-size: calc(10px + 3vw); /* Responsive font size */
+        text-align: center;
+        font-family: "Teko";
+        font-weight: 800;
+        color: #ffa857;
+      }
+      .post__content__subheading {
+        position: relative;
+        top: -4%;
+        font-size: calc(3px + 1vw); /* Responsive font size */
+        text-align: center;
+        font-family: "Noto Sans";
+        color: white;
+      }
+      .hollow {
+        font-size: calc(10px + 3vw); /* Responsive font size */
+        color: transparent;
+        -webkit-text-stroke: 2px #ffa857; /* Outline width and color */
+      }
+      .post__bottom-row {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+      }
+      .post__buttons {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .post__buttons i {
+        transition: all 0.3s;
+      }
+      .post__buttons i:hover {
+        scale: 1.2;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Playfair+Display:wght@900&family=Teko:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
+
   <body>
-    <div class="post-details"></div>
+    <div class="grid">
+      <div class="post">
+        <div class="post__img">
+          <img src="../../images/RawHero.png" alt="Img" />
+        </div>
+        <div class="post__content">
+          <div class="post__content__heading">
+            <span>Prem</span>
+            <span class="hollow">Mandir</span>
+          </div>
+          <div class="post__content__subheading">Uttar Pradesh</div>
+          <div class="post__bottom-row">
+            <p>By: Kanishk</p>
+            <div class="post__buttons">
+              <i
+                class="fa-solid fa-thumbs-up fa-lg"
+                style="color: #63e6be; font-size: 1.5rem"
+              ></i>
+              <i
+                class="fa-solid fa-thumbs-down"
+                style="color: #e24040; font-size: 1.5rem"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="post__img">
+          <img src="../../images/RawHero.png" alt="Img" />
+        </div>
+        <div class="post__content">
+          <div class="post__content__heading">
+            <span>Prem</span>
+            <span class="hollow">Mandir</span>
+          </div>
+          <div class="post__content__subheading">Uttar Pradesh</div>
+          <div class="post__bottom-row">
+            <p>By: Kanishk</p>
+            <div class="post__buttons">
+              <i
+                class="fa-solid fa-thumbs-up fa-lg"
+                style="color: #63e6be; font-size: 1.5rem"
+              ></i>
+              <i
+                class="fa-solid fa-thumbs-down"
+                style="color: #e24040; font-size: 1.5rem"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="post__img">
+          <img src="../../images/RawHero.png" alt="Img" />
+        </div>
+        <div class="post__content">
+          <div class="post__content__heading">
+            <span>Prem</span>
+            <span class="hollow">Mandir</span>
+          </div>
+          <div class="post__content__subheading">Uttar Pradesh</div>
+          <div class="post__bottom-row">
+            <p>By: Kanishk</p>
+            <div class="post__buttons">
+              <i
+                class="fa-solid fa-thumbs-up fa-lg"
+                style="color: #63e6be; font-size: 1.5rem"
+              ></i>
+              <i
+                class="fa-solid fa-thumbs-down"
+                style="color: #e24040; font-size: 1.5rem"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="post__img">
+          <img src="../../images/RawHero.png" alt="Img" />
+        </div>
+        <div class="post__content">
+          <div class="post__content__heading">
+            <span>Prem</span>
+            <span class="hollow">Mandir</span>
+          </div>
+          <div class="post__content__subheading">Uttar Pradesh</div>
+          <div class="post__bottom-row">
+            <p>By: Kanishk</p>
+            <div class="post__buttons">
+              <i
+                class="fa-solid fa-thumbs-up fa-lg"
+                style="color: #63e6be; font-size: 1.5rem"
+              ></i>
+              <i
+                class="fa-solid fa-thumbs-down"
+                style="color: #e24040; font-size: 1.5rem"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

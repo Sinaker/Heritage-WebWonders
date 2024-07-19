@@ -1,0 +1,140 @@
+
+    <%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/allPost.css" />
+    <link rel="stylesheet" href="/css/auth/errors.css" />
+    </head>
+
+    <body>
+    <div class="alert danger" style="opacity: 0;">
+        <div class="alert__icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="alert__content">
+        <h1 style="font-size: 1.125rem;">Error</h1>
+        <p style="font-size: 0.8rem;"></p>
+        </div>
+        <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+    </div>
+    <%- include('./includes/navigation.ejs') %>
+    <h1 style="margin-block: 5%; text-align: center;">All Posts</h1>
+    <div class="filters"></div>
+        <div style="margin-top:5" class="grid">
+            <% for(let post of posts ) { %>
+                <div class="post" id="<%= post._id %>">
+                    <div class="post__img">
+                    <img src="<%='/'+ post.imageUrl %>" alt="Img" />
+                    </div>
+                    <div class="post__content">
+                    <div class="post__content__heading">
+                        <span><%= post.title%></span>
+                    </div>
+                    <div class="post__content__subheading"><%= post.state %></div>
+                    <div class="post__bottom-row">
+                        <p>By: <%= post.user.username %></p>
+                        <div class="post__buttons">
+                        <div style="display: flex; align-items: center; justify-content: center;">
+                            <span id="like-count-<%=post._id%>" style="display: flex; align-items: flex-end;"><%= post.likes %></span>
+                            <i class="fa-solid fa-thumbs-up fa-lg" style="color: #63e6be; font-size: 1.5rem;" onClick="like(this, '<%=post._id%>')"></i>
+                        </div>
+
+                        <div>
+                            <span id="dislike-count-<%=post._id%>" ><%= post.dislikes %></span>
+                            <i
+                                class="fa-solid fa-thumbs-down"
+                                style="color: #e24040; font-size: 1.5rem"
+                                onClick="dislike(this, '<%=post._id%>')"
+                            ></i>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            <%}%>
+        </div>
+        <script>
+            function like(element, postId) {
+            const likes_span = document.getElementById(`like-count-${postId}`);
+            const dislike_span = document.getElementById(`dislike-count-${postId}`);
+
+            fetch(`/user/${postId}/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ postId: postId }),
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return response.json().then(err => {
+                        throw new Error(err.message);
+                    });
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                return fetch(`/posts/${postId}/ratings`)
+            })
+            .then(response => response.json())
+            .then(data => {
+                likes_span.innerText = data.likes;
+                dislike_span.innerText = data.dislikes;
+                console.log(data)
+            })
+            .catch(error => {
+                //I will display the banner if error is reached
+                const error_banner = document.querySelector(".alert.danger");
+                const errorHeading = error_banner.querySelector("h1");
+                const errorText = error_banner.querySelector("p");
+
+                error_banner.style.opacity = "1";
+                errorHeading.innerText = "Not Authenticated";
+                errorText.innerText = "You must be logged in to like the post!"
+
+                console.log('Error:', error);
+            });
+        }
+
+        function dislike(element, postId) {
+            const likes_span = document.getElementById(`like-count-${postId}`);
+            const dislike_span = document.getElementById(`dislike-count-${postId}`);
+            fetch(`/user/${postId}/dislike`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ postId: postId }),
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return response.json().then(err => {
+                        throw new Error(err.message);
+                    });
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                return fetch(`/posts/${postId}/ratings`)
+            })
+            .then(response => response.json())
+            .then(data => {
+                likes_span.innerText = data.likes;
+                dislike_span.innerText = data.dislikes;
+                console.log(data)
+            })
+            .catch(error => {
+                //I will display the banner if error is reached
+                const error_banner = document.querySelector(".alert.danger");
+                const errorHeading = error_banner.querySelector("h1");
+                const errorText = error_banner.querySelector("p");
+
+                error_banner.style.opacity = "1";
+                errorHeading.innerText = "Not Authenticated";
+                errorText.innerText = "You must be logged in to dislike the post!"
+
+                console.log('Error:', error);
+            });
+        }
+        </script>
+        <%- include('./includes/end.ejs') %>

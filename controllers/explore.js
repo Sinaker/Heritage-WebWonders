@@ -32,3 +32,13 @@ exports.getFestivals = async (req, res, next) => {
     ],
   });
 };
+
+exports.getPosts = async (req, res, next) => {
+  const posts = await Post.find().populate("user", "username").exec();
+  res.render("allPosts", {
+    pageTitle: "Explore Posts",
+    normal: false,
+    dark: true,
+    posts: posts,
+  });
+};

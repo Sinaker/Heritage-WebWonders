@@ -12,6 +12,7 @@ const ULID = require("ulid"); //Unique Idenifier
 const errorController = require("./controllers/errorController");
 
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 const homeRoutes = require("./routes/home");
 const exploreRoutes = require("./routes/explore");
 
@@ -87,8 +88,9 @@ app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("post_img")
 );
 app.use(authRoutes);
-app.use(homeRoutes);
+app.use(userRoutes);
 app.use("/explore", exploreRoutes);
+app.use(homeRoutes);
 
 app.use(errorController.get404);
 
