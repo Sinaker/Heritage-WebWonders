@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-text-color: #262733;
+  --main-bg-color: #faf1ca;
+  --input-change-color: orange;
+  --main-heading-font-family: "Playfair Display", serif;
+  --main-content-font-family: "Comfortaa";
+  --sub-heading-font-family: "Poppins", "sane-serif";
+}
+
+body {
+  background-color: var(--main-bg-color);
+  font-family: var(--sub-heading-font-family);
+}
+
+#about-us {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 5% auto;
+}
+
+.about-us-heading {
+  font-family: var(--main-heading-font-family);
+  color: var(--main-text-color);
+  margin: 20px 0;
+  font-size: 3rem;
+}
+
+.about-us-text {
+  background-color: #c8b99f;
+  padding: 0 15px;
+  border-left: 5px solid var(--main-text-color);
+}
+
+.about-us-text p {
+  padding: 10px 0;
+  margin: 20px 0;
+  font-size: 1rem;
+}
+
+/* for meet the team */
+.meet-team {
+  width: 80vw;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.meet-team-heading {
+  font-size: 2.5rem;
+  color: #333;
+  font-family: var(--main-heading-font-family);
+  margin-bottom: 0.5rem;
+}
+
+.meet-team-sub-heading {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2.5rem;
+}
+
+/* mentor */
+
+
+.all-team {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  justify-content: center;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.team-member{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.background-img {
+  position: absolute;
+  left: 0;
+  top: 70px;
+  width: 100%;
+  height: 100%;
+  background-color: #bbaa8d; 
+  z-index: 1;
+}
+
+.team-member-img {
+  position: relative;
+  width: 300px;
+  height: 350px;
+}
+
+.team-member-img img {
+  position: relative;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.team-member-info {
+  padding: 60px 20px 20px;
+  margin-top: 10px;
+}
+
+.team-member-info h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--main-text-color);
+}
+
+.team-member-info p {
+  color: #666;
+}
+
+.team-member-insta{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+  font-size: 1.1rem;
+}
+.team-member-insta a:hover{
+  text-decoration: underline;
+}
+.team-member-insta i{
+  font-size: 1.5rem;
+}
+
+.team-member-insta a {
+  text-decoration: none;
+  color:var(--main-text-color);
+}
+/* Responsive design */
+@media (max-width: 768px) {
+  .all-team {
+    grid-template-columns: 1fr;
+  }
+
+  .meet-team {
+    width: 90vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .all-team {
+    grid-template-columns: 1fr;
+    width: 70%;
+  }
+}
+
+@media (max-width: 576px) {
+  .all-team {
+    width: 90%;
+  }
+
+  .team-member-img {
+    width: 250px;
+    height: 300px;
+  }
+
+  .background-img{
+    top:60px;
+  }
+
+  .team-member-info {
+    padding: 40px 15px 15px;
+  }
+
+  .team-member-info h2 {
+    font-size: 1.3rem;
+  }
+
+  .team-member-info p {
+    font-size: 0.9rem;
+  }
+}

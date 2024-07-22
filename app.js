@@ -91,6 +91,15 @@ app.use(authRoutes);
 app.use(userRoutes);
 app.use("/explore", exploreRoutes);
 app.use(homeRoutes);
+// about us route
+app.get("/about", (req, res) => {
+  res.render("about", {
+    pageTitle: "About Us",
+    normal: false,
+    dark: true,
+    isAdmin: false,
+  });
+})
 
 app.use(errorController.get404);
 
