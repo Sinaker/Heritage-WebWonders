@@ -14,8 +14,61 @@
         <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
     </div>
     <%- include('./includes/navigation.ejs') %>
-    <h1 style="margin-block: 5%; text-align: center;">All Posts</h1>
-    <div class="filters"></div>
+    <h1 style="margin-top: 5%; text-align: center;">All Posts</h1>
+    <form id="filtersForm" method="GET" action="/posts/filter">
+        <div class="filters">
+            <a style="margin-right: auto;" class="filters__buttons v2">
+                <span>Fitlers </span>
+                <i class="fa-solid fa-filter"></i>
+            </a>
+            <div style="display: flex; gap: 1rem" class="center">
+                <a style="margin-left: auto;" class="filters__dropdown">
+                    <label for="category">Category: </label>
+                    <select name="category" id="category" class="custom-dropdown" onClick="rotateArrow(this)">
+                        <option value="all" selected>All</option>
+                        <option value="heritage">Heritage Site</option>
+                        <option value="festival">Festival</option>
+                    </select>
+                    <span class="custom-arrow">
+                        <i class="fa-solid fa-sort-down"></i>
+                    </span>
+                </a>
+                <a style="margin-left: auto;" class="filters__dropdown">
+                    <label for="category">State: </label>
+                    <select name="state" id="state" class="custom-dropdown" onClick="rotateArrow(this)">
+                        <option value="">All</option>
+                        <option value="">Heritage Site</option>
+                        <option value="">Festival</option>
+                    </select>
+                    <span class="custom-arrow">
+                        <i class="fa-solid fa-sort-down"></i>
+                    </span>
+                </a>
+                <a style="margin-left: auto;" class="filters__dropdown">
+                    <label for="category">Sort By: </label>
+                    <select name="sort" id="sort" class="custom-dropdown" onClick="rotateArrow(this)">
+                        <option value="">Oldest First</option>
+                        <option value="">Newest First</option>
+                        <option value="">Most Popular</option>
+                    </select>
+                    <span class="custom-arrow">
+                        <i class="fa-solid fa-sort-down"></i>
+                    </span>
+                </a>
+            </div>
+            <% if(filter) { %>
+                <a style="margin-left: auto;" class="filters__buttons">
+                    <span>Reset Filters</span>
+                    <i class="fa-solid fa-repeat"></i>
+                </a>
+            <% } else {%>
+                <button type="submit" style="margin-left: auto;" class="filters__buttons">
+                    <span>Apply Filters</span>
+                    <i class="fa-solid fa-repeat"></i>
+                </button>
+            <% } %>
+        </div>
+    </form>
         <div style="margin-top:5" class="grid">
             <% for(let post of posts ) { %>
                 <div class="post" id="<%= post._id %>">
@@ -50,6 +103,14 @@
             <%}%>
         </div>
         <script>
+        let rotationAngle = 0;
+
+        function rotateArrow(element) {
+            const arrow = element.nextElementSibling.firstElementChild;
+            rotationAngle = (rotationAngle + 180) % 360;  // This will keep rotating by 180 degrees
+            arrow.style.transform = `rotate(${rotationAngle}deg)`;
+        }
+
             function like(element, postId) {
             const likes_span = document.getElementById(`like-count-${postId}`);
             const dislike_span = document.getElementById(`dislike-count-${postId}`);
