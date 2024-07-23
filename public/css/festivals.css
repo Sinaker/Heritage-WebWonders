@@ -49,6 +49,29 @@ body {
   font-weight: 800;
   margin-bottom: 2rem;
 }
+.blob {
+  background-image: url(/images/TimeLine/hero.jpg);
+  width: 450px;
+  height: 450px;
+  background-size: cover;
+  background-position: center;
+  margin: 20px;
+  box-shadow: 0 5px 5px 5px #9b8a6d;
+  border: 1px solid var(--main-text-color);
+  animation: blob 4s ease-in-out infinite;
+  transition: all 1s ease-in-out;
+}
+
+@keyframes blob {
+  0%,
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+}
+
 #see {
   scroll-behavior: smooth;
 }
