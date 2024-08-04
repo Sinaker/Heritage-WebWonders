@@ -15,7 +15,7 @@
     </div>
     <%- include('./includes/navigation.ejs') %>
     <h1 style="margin-top: 5%; text-align: center;">All Posts</h1>
-    <form id="filtersForm" method="GET" action="/posts/filter">
+    <form id="filtersForm" method="GET" action="/explore/posts/filter">
         <div class="filters">
             <a style="margin-right: auto;" class="filters__buttons v2">
                 <span>Fitlers </span>
@@ -26,8 +26,10 @@
                     <label for="category">Category: </label>
                     <select name="category" id="category" class="custom-dropdown" onClick="rotateArrow(this)">
                         <option value="all" selected>All</option>
-                        <option value="heritage">Heritage Site</option>
+                        <option value="monuments">Heritage Site</option>
                         <option value="festival">Festival</option>
+                        <option value="hill">Hill</option>
+                        <option value="cave">Caves</option>
                     </select>
                     <span class="custom-arrow">
                         <i class="fa-solid fa-sort-down"></i>
@@ -36,9 +38,35 @@
                 <a style="margin-left: auto;" class="filters__dropdown">
                     <label for="category">State: </label>
                     <select name="state" id="state" class="custom-dropdown" onClick="rotateArrow(this)">
-                        <option value="">All</option>
-                        <option value="">Heritage Site</option>
-                        <option value="">Festival</option>
+                        <option value="all" <%= filters.state === 'India' ? 'selected' : '' %>>All India</option>
+                    <option value="andhra-pradesh" <%= filters.state === 'andhra-pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
+                    <option value="arunachal-pradesh" <%= filters.state === 'arunachal-pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
+                    <option value="assam" <%= filters.state === 'assam' ? 'selected' : '' %>>Assam</option>
+                    <option value="bihar" <%= filters.state === 'bihar' ? 'selected' : '' %>>Bihar</option>
+                    <option value="chhattisgarh" <%= filters.state === 'chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
+                    <option value="goa" <%= filters.state === 'goa' ? 'selected' : '' %>>Goa</option>
+                    <option value="gujarat" <%= filters.state === 'gujarat' ? 'selected' : '' %>>Gujarat</option>
+                    <option value="haryana" <%= filters.state === 'haryana' ? 'selected' : '' %>>Haryana</option>
+                    <option value="himachal-pradesh" <%= filters.state === 'himachal-pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
+                    <option value="jharkhand" <%= filters.state === 'jharkhand' ? 'selected' : '' %>>Jharkhand</option>
+                    <option value="karnataka" <%= filters.state === 'karnataka' ? 'selected' : '' %>>Karnataka</option>
+                    <option value="kerala" <%= filters.state === 'kerala' ? 'selected' : '' %>>Kerala</option>
+                    <option value="madhya-pradesh" <%= filters.state === 'madhya-pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
+                    <option value="maharashtra" <%= filters.state === 'maharashtra' ? 'selected' : '' %>>Maharashtra</option>
+                    <option value="manipur" <%= filters.state === 'manipur' ? 'selected' : '' %>>Manipur</option>
+                    <option value="meghalaya" <%= filters.state === 'meghalaya' ? 'selected' : '' %>>Meghalaya</option>
+                    <option value="mizoram" <%= filters.state === 'mizoram' ? 'selected' : '' %>>Mizoram</option>
+                    <option value="nagaland" <%= filters.state === 'nagaland' ? 'selected' : '' %>>Nagaland</option>
+                    <option value="odisha" <%= filters.state === 'odisha' ? 'selected' : '' %>>Odisha</option>
+                    <option value="punjab" <%= filters.state === 'punjab' ? 'selected' : '' %>>Punjab</option>
+                    <option value="rajasthan" <%= filters.state === 'rajasthan' ? 'selected' : '' %>>Rajasthan</option>
+                    <option value="sikkim" <%= filters.state === 'sikkim' ? 'selected' : '' %>>Sikkim</option>
+                    <option value="tamil-nadu" <%= filters.state === 'tamil-nadu' ? 'selected' : '' %>>Tamil Nadu</option>
+                    <option value="telangana" <%= filters.state === 'telangana' ? 'selected' : '' %>>Telangana</option>
+                    <option value="tripura" <%= filters.state === 'tripura' ? 'selected' : '' %>>Tripura</option>
+                    <option value="uttar-pradesh" <%= filters.state === 'uttar-pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
+                    <option value="uttarakhand" <%= filters.state === 'uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
+                    <option value="west-bengal" <%= filters.state === 'west-bengal' ? 'selected' : '' %>>West Bengal</option>
                     </select>
                     <span class="custom-arrow">
                         <i class="fa-solid fa-sort-down"></i>
@@ -47,9 +75,10 @@
                 <a style="margin-left: auto;" class="filters__dropdown">
                     <label for="category">Sort By: </label>
                     <select name="sort" id="sort" class="custom-dropdown" onClick="rotateArrow(this)">
-                        <option value="">Oldest First</option>
-                        <option value="">Newest First</option>
-                        <option value="">Most Popular</option>
+                        <option value="old">Oldest First</option>
+                        <option value="new">Newest First</option>
+                        <option value="alpha">Order by Name (A-Z)</option>
+                        <option value="revalpha">Order by Name (Z-A)</option>
                     </select>
                     <span class="custom-arrow">
                         <i class="fa-solid fa-sort-down"></i>
@@ -57,49 +86,53 @@
                 </a>
             </div>
             <% if(filter) { %>
-                <a style="margin-left: auto;" class="filters__buttons">
+                <a href="/explore/posts" style="margin-left: auto; text-decoration: none; color: var(--main-text-color);" class="filters__buttons">
                     <span>Reset Filters</span>
                     <i class="fa-solid fa-repeat"></i>
                 </a>
             <% } else {%>
-                <button type="submit" style="margin-left: auto;" class="filters__buttons">
+                <button type="submit" style="height: 55px; margin-left: auto;" class="filters__buttons">
                     <span>Apply Filters</span>
-                    <i class="fa-solid fa-repeat"></i>
+                    <i class="fa-solid fa-list-check"></i>
                 </button>
             <% } %>
         </div>
     </form>
         <div style="margin-top:5" class="grid">
-            <% for(let post of posts ) { %>
-                <div class="post" id="<%= post._id %>">
-                    <div class="post__img">
-                    <img src="<%='/'+ post.imageUrl %>" alt="Img" />
-                    </div>
-                    <div class="post__content">
-                    <div class="post__content__heading">
-                        <span><%= post.title%></span>
-                    </div>
-                    <div class="post__content__subheading"><%= post.state %></div>
-                    <div class="post__bottom-row">
-                        <p>By: <%= post.user.username %></p>
-                        <div class="post__buttons">
-                        <div style="display: flex; align-items: center; justify-content: center;">
-                            <span id="like-count-<%=post._id%>" style="display: flex; align-items: flex-end;"><%= post.likes %></span>
-                            <i class="fa-solid fa-thumbs-up fa-lg" style="color: #63e6be; font-size: 1.5rem;" onClick="like(this, '<%=post._id%>')"></i>
+            <% if(posts.length > 0) { %>
+                <% for(let post of posts ) { %>
+                    <div class="post" id="<%= post._id %>">
+                        <div class="post__img">
+                        <img src="<%='/'+ post.imageUrl %>" alt="Img" />
                         </div>
+                        <div class="post__content">
+                        <div class="post__content__heading">
+                            <span><%= post.title%></span>
+                        </div>
+                        <div class="post__content__subheading"><%= post.state %></div>
+                        <div class="post__bottom-row">
+                            <p>By: <%= post.user.username %></p>
+                            <div class="post__buttons">
+                            <div style="display: flex; align-items: center; justify-content: center;">
+                                <span id="like-count-<%=post._id%>" style="display: flex; align-items: flex-end;"><%= post.likes %></span>
+                                <i class="fa-solid fa-thumbs-up fa-lg" style="color: #63e6be; font-size: 1.5rem;" onClick="like(this, '<%=post._id%>')"></i>
+                            </div>
 
-                        <div>
-                            <span id="dislike-count-<%=post._id%>" ><%= post.dislikes %></span>
-                            <i
-                                class="fa-solid fa-thumbs-down"
-                                style="color: #e24040; font-size: 1.5rem"
-                                onClick="dislike(this, '<%=post._id%>')"
-                            ></i>
+                            <div>
+                                <span id="dislike-count-<%=post._id%>" ><%= post.dislikes %></span>
+                                <i
+                                    class="fa-solid fa-thumbs-down"
+                                    style="color: #e24040; font-size: 1.5rem"
+                                    onClick="dislike(this, '<%=post._id%>')"
+                                ></i>
+                            </div>
+                            </div>
                         </div>
                         </div>
                     </div>
-                    </div>
-                </div>
+                <%}%>
+            <%} else {%>
+                <h2>No Posts...</h2>
             <%}%>
         </div>
         <script>
@@ -197,5 +230,21 @@
                 console.log('Error:', error);
             });
         }
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const progressBarFill = document.querySelector('.progress-bar__fill');
+                const alert = document.querySelector('.alert'); // Update if needed
+
+                // Start filling the progress bar immediately
+                progressBarFill.style.transition = 'width 3s';
+                progressBarFill.style.width = '100%';
+
+                // Hide the alert after 1 second
+                setTimeout(() => {
+                    alert.style.opacity = 0;
+                    setTimeout(() => alert.style.display = 'none', 3000); // Match the duration of the transition
+                }, 3000); // Ensure this matches the duration of the progress bar fill
+            });
         </script>
         <%- include('./includes/end.ejs') %>

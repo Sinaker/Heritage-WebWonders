@@ -1,44 +1,127 @@
 <%- include('../includes/head.ejs') %>
 <link rel="stylesheet" href="/css/users/MyPosts.css">
+<link rel="stylesheet" href="/css/auth/errors.css">
 </head>
 
 <body style="margin: 10% 0">
-    <%- include('../includes/navigation.ejs') %>
+
+  <% if(isAdmin) {%>
+  <div class="status-card">
+        <h2>Status:</h2>
+        <p><%=totalPosts%> posts pending...</p>
+        <div class="divider"></div>
+          <div class="status">
+              <span class="status-text">Overview</span>
+              <div class="status-icons">
+                  <div class="status-icon">
+                      <span class="icon red"></span>
+                      <span><%= rejected %></span>
+                      <span class="tooltip">Rejected</span>
+
+                  </div>
+                  <div class="status-icon">
+                      <span class="icon yellow"></span>
+                      <span><%= totalPosts %></span>
+                      <span class="tooltip">Pending</span>
+
+                  </div>
+                  <div class="status-icon">
+                      <span class="icon green"></span>
+                      <span><%= accepted %></span>
+                      <span class="tooltip">Approved</span>
+
+                  </div>
+            </div>
+        </div>
+    </div>
+  <%} else if(status){%>
+    <div class="alert info">
+        <div class="alert__icon info"><i class="fa-solid fa-circle-info"></i></div>
+        <div class="alert__content info">
+        <h1 style="font-size: 1.125rem;">Welcome Back!</h1>
+        <p style="font-size: 0.8rem;"> 3 posts have been rejected and 6 posts have been accepted so far! </p>
+        </div>
+        <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+        <div class="progress-bar">
+            <div class="progress-bar__fill info"></div>
+        </div>
+    </div>
+  <%}%>
+ <%- include('../includes/navigation.ejs') %>
+    
+    <% if(request) { %>
+        <div class="alert info">
+            <div class="alert__icon info"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="alert__content info">
+              <h1 style="font-size: 1.125rem;">In Queue</h1>
+              <p style="font-size: 0.8rem;">Your Post is in review</p>
+            </div>
+            <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+            <div class="progress-bar">
+                <div class="progress-bar__fill info"></div>
+            </div>
+        </div>
+    <% } %>
   <!-- header  -->
-  <h1 id="main_heading_user">Hi, <%= username %></h1>
+  <h1 id="main_heading_user"> <%= isAdmin ? `Review the Posts` : `Hi, ${username}` %></h1>
   <div class="user_posts">
     <div class="sub_heading_posts">
-      <h3>Your Posts</h3>
-      <a href="/user/add-post" class="new_post"
-        ><span>New Post <i class="fa-solid fa-circle-plus"></i></span
-      ></a>
+      <h3><%= isAdmin ? `Unapproved Posts:` : `Your Posts` %></h3>
+      <% if(!isAdmin) { %>
+        <a href="/user/add-post" class="new_post"
+          ><span>New Post <i class="fa-solid fa-circle-plus"></i></span
+        ></a>
+      <% } %>
     </div>
 
     <% for(let post of posts) { %>
-    <div onClick="clickHandler(event, '<%= post._id %>')" style="cursor: pointer;" class="user_post_card">
-      <div class="user_post_body">
-        <div class="user_post_title">
-          <span><%= post.title %> </span>
+     <div onClick="clickHandler(event, '<%= post._id %>')" 
+          style="
+            cursor: pointer; 
+            border: 2px solid <%= post.isApproved === 'true' ? '#014421' : (post.isApproved === 'false' ? 'red' : '#ffa500') %>; 
+            box-shadow: 0 0 20px <%= post.isApproved === 'true' ? '#014421' : (post.isApproved === 'false' ? 'red' : '#ffa500') %>;"
+          class="user_post_card">
+
+        <div class="user_post_body">
+          <div class="user_post_title">
+            <span><%= post.title %> </span>
+          </div>
+          <div class="user_post_content">
+            <%= post.description %>
+          </div>
         </div>
-        <div class="user_post_content">
-          <%= post.description %>
+        <div class="user_post_buttons">
+          <% if(post.isApproved !== "true") { %>
+            <div class="user_post_edit">
+                <a href="<%= isAdmin ? `/admin/edit-post/${post._id}` : `/user/edit-post/${post._id}` %>" class="edit_post"
+                  ><span><%= isAdmin ? 'Review ' : 'Edit '%>
+                    <i class="<%= isAdmin ? 'fa-solid fa-magnifying-glass': 'fa-solid fa-pen-to-square'%>"></i>
+                    </span
+                ></a>
+              </div>
+          <%}%>
+
+          <% if(!isAdmin) { %>
+            <div class="user_post_delete">
+              <form action="/delete/post/<%= post._id %>" method="POST">
+                  <button type="submit" class="delete_post" style="padding: 0.5rem 1.0625rem">
+                      <span>
+                          <% if (isAdmin) { %>
+                              Reject 
+                              <i class="fa-solid fa-trash-can"></i>
+                          <% } else { %>
+                              Delete 
+                              <i class="fa-solid fa-trash-can"></i>
+                          <% } %>
+                      </span>
+                  </button>
+              </form>
+            </div>
+          <%}%>
+
+
         </div>
       </div>
-      <div class="user_post_buttons">
-        <div class="user_post_edit">
-          <a href="/user/edit-post/<%= post._id %>" class="edit_post"
-            ><span>Edit <i class="fa-solid fa-pen-to-square"></i></span
-          ></a>
-        </div>
-        <div class="user_post_delete">
-            <form action="/delete/post/<%= post._id %>" method="POST">
-            <button type="submit" class="delete_post">
-                <span>Delete<i class="fa-solid fa-trash-can"></i></span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
     <% } %>
   </div>
     <%-include('../includes/pagination.ejs') %>
@@ -55,4 +138,20 @@
         window.location.href = `http://localhost:3000/user/post/${postID}`;
       }
     </script>
+    <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const progressBarFill = document.querySelector('.progress-bar__fill');
+                const alert = document.querySelector('.alert'); // Update if needed
+
+                // Start filling the progress bar immediately
+                progressBarFill.style.transition = 'width 3s';
+                progressBarFill.style.width = '100%';
+
+                // Hide the alert after 1 second
+                setTimeout(() => {
+                    alert.style.opacity = 0;
+                    setTimeout(() => alert.style.display = 'none', 3000); // Match the duration of the transition
+                }, 3000); // Ensure this matches the duration of the progress bar fill
+            });
+        </script>
    <%-include('../includes/end.ejs') %>

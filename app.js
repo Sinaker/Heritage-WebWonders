@@ -15,6 +15,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const homeRoutes = require("./routes/home");
 const exploreRoutes = require("./routes/explore");
+const adminRoutes = require("./routes/admin");
 
 const MONGODB_URI = process.env.MONGODB_CONNECTION; //Using env variables
 
@@ -80,7 +81,8 @@ app.use(async (req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.locals.isLoggedIn = req.session.isLoggedIn;
+  res.locals.isLoggedIn = req.session.isLoggedIn || false;
+  res.locals.isAdmin = req.session.user?.isAdmin || false;
   next();
 }); //Such variables will be available to every rendered view
 
@@ -90,16 +92,8 @@ app.use(
 app.use(authRoutes);
 app.use(userRoutes);
 app.use("/explore", exploreRoutes);
+app.use("/admin", adminRoutes);
 app.use(homeRoutes);
-// about us route
-app.get("/about", (req, res) => {
-  res.render("about", {
-    pageTitle: "About Us",
-    normal: false,
-    dark: true,
-    isAdmin: false,
-  });
-})
 
 app.use(errorController.get404);
 

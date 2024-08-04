@@ -137,6 +137,9 @@
                 <p style="font-size: 0.8rem;"><%= errors[0].msg %></p>
             </div>
             <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+            <div class="progress-bar">
+                <div class="progress-bar__fill danger"></div>
+            </div>
         </div>
     <% } %>
     <div class="container">
@@ -153,9 +156,9 @@
         
         <div class="form-container">
             <h2 class="main-heading" style="font-size: 2.5rem; text-align: left; margin-left: .7rem; margin-top: .5rem;">
-              <%= editing ? 'Edit' : 'New' %> Post
+              <%= isAdmin ? `Review` : editing ? 'Edit' : 'New' %> Post
             </h2>
-            <form action="<%= editing ? `/user/edit-post/${postID}` : '/user/add-post' %>" method="POST" id="postForm" enctype="multipart/form-data">
+            <form action="<%= isAdmin ? `/admin/edit-post/${postID}` : editing ? `/user/edit-post/${postID}` : '/user/add-post' %>" method="POST" id="postForm" enctype="multipart/form-data">
                 <input type="text" id="title" name="title" placeholder="Title" value="<%= oldInput.title %>" >
                 <select id="category" name="category" >
                     <option value="">Select Category</option>
@@ -216,8 +219,21 @@
                 <input type="file" id="post_img" name="post_img" class="image-input">
 
                 
-                <button type="submit" style="padding: .7rem;">Post</button>
-            </form>
+                
+
+                <% if(isAdmin) {%>
+                    <div class="div" style="margin-top: 0.3rem;display: flex; gap: 0.7rem">
+                        <button type="submit" style="background-color: rgb(5, 182, 93); padding: .7rem; width: 50%;">Accept</button>
+                    </form>
+
+                        <form action="<%= `/admin/reject/post/${postID}` %>" method="POST" style="flex-grow: 1;">
+                            <button type="submit" style="background-color: rgb(182, 5, 49); padding: .7rem; ">Reject</button>
+                        </form>
+                    </div>
+                <%} else {%>
+                    <button type="submit" style="padding: .7rem;">Post</button>
+                <% } %>
+                
         </div>
     </div>
     <script>
@@ -268,5 +284,21 @@
             }
         };
     </script>
+    <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const progressBarFill = document.querySelector('.progress-bar__fill');
+                const alert = document.querySelector('.alert'); // Update if needed
+
+                // Start filling the progress bar immediately
+                progressBarFill.style.transition = 'width 3s';
+                progressBarFill.style.width = '100%';
+
+                // Hide the alert after 1 second
+                setTimeout(() => {
+                    alert.style.opacity = 0;
+                    setTimeout(() => alert.style.display = 'none', 3000); // Match the duration of the transition
+                }, 3000); // Ensure this matches the duration of the progress bar fill
+            });
+        </script>
 </body>
 </html>

@@ -14,7 +14,11 @@
             <p style="font-size: 0.8rem;"> <%= errors[0].msg %> </p>
             </div>
             <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+            <div class="progress-bar">
+                <div class="progress-bar__fill danger"></div>
+            </div>
         </div>
+        
     <%}%>
   <section id="resetPassword">
   <div class="reset_password_container">
@@ -30,4 +34,20 @@
     <!-- <p><span>Remember Your Password ? </span><a href="#">Go Back</a></p> -->
   </div>
 </section>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const progressBarFill = document.querySelector('.progress-bar__fill');
+      const alert = document.querySelector('.alert'); // Update if needed
+
+      // Start filling the progress bar immediately
+      progressBarFill.style.transition = 'width 3s';
+      progressBarFill.style.width = '100%';
+
+      // Hide the alert after 1 second
+      setTimeout(() => {
+          alert.style.opacity = 0;
+          setTimeout(() => alert.style.display = 'none', 3000); // Match the duration of the transition
+      }, 3000); // Ensure this matches the duration of the progress bar fill
+  });
+</script>
 </body>

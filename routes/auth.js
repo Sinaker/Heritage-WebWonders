@@ -49,9 +49,10 @@ router.post(
       .withMessage("Username can only contain letters, numbers, _ and .")
       .matches(/(.*[a-zA-Z].*){3,}/)
       .withMessage("The Username must contain at least 3 letters"),
-    check("email", "Email must be a valid email")
+    check("email")
       .trim()
       .isEmail()
+      .withMessage("Email must be a valid email")
       .normalizeEmail(),
     check("password")
       .trim()

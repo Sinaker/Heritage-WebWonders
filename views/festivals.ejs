@@ -45,6 +45,7 @@
                 <div class="months"><%= months[monthIndex] %></div>
                 </div>
                 <div class="timeline-right">
+                  <% if(festivals[monthIndex].length > 0) {%>
                     <% for(let festival of festivals[monthIndex]) { %>
                         <div class="festival-card">
                             <div class="festival-card-content">
@@ -57,6 +58,9 @@
                             <img loading="lazy" src="<%= '/' + festival.imageUrl %>" alt="<%= festival.title %>" />
                         </div>
                     <%}%>
+                  <%} else {%>
+                      <h2>No festival for this month, sign in to make your culture count!</h2>
+                  <%}%>
                 </div>
             </div>
           <%}%>

@@ -7,5 +7,6 @@ const homeController = require("../controllers/home");
 router.get("/", homeController.getHome);
 
 router.post("/send/subscription", homeController.sendSub);
+router.get("/about", homeController.getAbout);
 
 module.exports = router;

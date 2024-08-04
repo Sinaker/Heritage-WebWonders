@@ -15,12 +15,14 @@ const transporter = nodemailer.createTransport({
 exports.getHome = (req, res, next) => {
   const login = req.query.login || false;
   const email = req.query.mailSent || false;
+  const notAuth = req.query.notAuth || false;
   res.render("heropage", {
     pageTitle: "Darshan",
     normal: false,
     dark: false,
     login: login,
     email: email,
+    notAuth: notAuth,
   });
 };
 
@@ -56,4 +58,12 @@ exports.sendSub = async (req, res, next) => {
     console.error("Failed to send subscription email:", error);
     res.redirect("/?mailSent=false");
   }
+};
+
+exports.getAbout = (req, res) => {
+  res.render("about", {
+    pageTitle: "About Us",
+    normal: false,
+    dark: true,
+  });
 };

@@ -29,11 +29,13 @@
       <div class="items">
         <a href="#" style="--i: 1"><span></span>Explore The Hype</a>
         <a href="#" style="--i: 2"><span></span>Explore Near Me</a>
-        <a href="#" style="--i: 3"><span></span>Explore By Category</a>
+        <a href="#featured__line-break" style="--i: 3"><span></span>Explore By Category</a>
       </div>
     </span>
 
-    <% if(isLoggedIn) { %>
+    <% if(isAdmin) { %>
+      <a href="/admin/dashboard">Admin <hr></a>
+    <% } else if(isLoggedIn) { %>
       <a href="/user/dashboard">My Posts <hr></a>
     <%}%>
   </div>

@@ -22,6 +22,7 @@ exports.getHome = (req, res, next) => {
 
 exports.getDashboard = async (req, res, next) => {
   try {
+    const request = req.query.request;
     const page = +req.query.page || 1;
     const totalPosts = await Post.countDocuments({ user: req.user._id });
     const user = await User.findById(req.user._id)
@@ -46,6 +47,8 @@ exports.getDashboard = async (req, res, next) => {
       posts: user.posts,
       currentPage: page,
       totalPages: Math.ceil(totalPosts / POSTS_PER_PAGE),
+      request,
+      status: page === 1,
     });
   } catch (err) {
     const error = new Error(err);
@@ -128,7 +131,7 @@ exports.postAddPost = async (req, res, next) => {
     await post.save();
     await user.save();
 
-    return res.redirect("/user/dashboard");
+    return res.redirect("/user/dashboard?review=true");
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = error.httpStatusCode || 500;

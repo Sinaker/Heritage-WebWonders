@@ -110,6 +110,14 @@ input:focus {
   background-color: black;
   color: orange;
 }
+
+.forgot {
+  color: white;
+  transition: all 0.3s;
+}
+.forgot:hover {
+  color: #f1be60;
+}
 .noaccount {
   font-size: 13px;
   text-align: center;
@@ -122,7 +130,8 @@ input:focus {
   text-decoration: none;
 }
 .noaccount a:hover {
-  text-decoration: underline;
+  text-decoration: hidden;
+  color: #865b0c;
   font-weight: 600;
 }
 

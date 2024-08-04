@@ -1,4 +1,4 @@
-.spacer{
+.spacer {
   aspect-ratio: 900/300;
   width: 100%;
   background-repeat: no-repeat;
@@ -6,8 +6,10 @@
   background-size: cover;
 }
 
-.layer3{
+.layer3 {
   background-image: url(/images/layer3.svg);
+  height: 200px;
+  background-position: bottom;
 }
 
 footer {

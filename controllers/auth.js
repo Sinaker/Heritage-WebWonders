@@ -193,7 +193,7 @@ exports.postResetPass = async (req, res, next) => {
 
   crypto.randomBytes(32, async (err, buffer) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       return res.render("auth/resetpass", {
         path: "/resetpassword",
         pageTitle: "Reset Your Password",
@@ -209,9 +209,20 @@ exports.postResetPass = async (req, res, next) => {
     try {
       const user = await User.findOne({ username });
 
-      //Generating token
+      if (!user) {
+        return res.render("auth/resetpass", {
+          path: "/resetpassword",
+          pageTitle: "Reset Your Password",
+          normal: false,
+          dark: true,
+          errorHeading: "User Not Found",
+          errors: [{ msg: "No user found with this username!" }],
+        });
+      }
+
+      // Generate token and set expiry
       user.resetToken = token;
-      user.resetTokenExpiry = Date.now() + 30 * 60 * 1000; // 30min in milliseconds
+      user.resetTokenExpiry = Date.now() + 30 * 60 * 1000; // 30 minutes in milliseconds
       await user.save();
 
       res.redirect("/?mailSent=true");
@@ -226,22 +237,23 @@ exports.postResetPass = async (req, res, next) => {
         emailData
       );
       const mailOptions = {
-        from: {
-          name: "Darshan support",
-          address: process.env.SENDER,
-        },
+        from: `"Darshan Support" <${process.env.SENDER}>`, // Properly format the 'from' field,
         to: user.email, // Send the email to the user's email address
         subject: "Password Recovery for Darshan",
         html: html,
       };
 
-      const info = await transporter.sendMail(mailOptions);
-      console.log("Email sent " + info.response);
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("Email sent: %s", info.response);
+      });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       const error = new Error(err);
       error.httpStatusCode = 500;
-      next(error); // Activated error middleware
+      next(error); // Activate error middleware
     }
   });
 };

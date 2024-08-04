@@ -10,6 +10,9 @@
                     <h1 style="font-size: 1.125rem;"><%= login ? 'Login Successful' : 'Email Sent' %></h1>
                 </div>
                 <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+                <div class="progress-bar">
+                    <div class="progress-bar__fill success"></div>
+                </div>
             </div>
         <% } %>
 
@@ -21,8 +24,26 @@
                 <p style="font-size: 0.8rem;"> Make sure to check spam! </p>
                 </div>
                 <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+                <div class="progress-bar">
+                    <div class="progress-bar__fill info"></div>
+                </div>
             </div>
         <%}%>
+
+        <% if(notAuth) {%>
+            <div class="alert danger">
+                <div class="alert__icon danger"><i class="fa-solid fa-ban"></i></div>
+                <div class="alert__content danger">
+                <h1 style="font-size: 1.125rem;">Not Authenticated</h1>
+                <p style="font-size: 0.8rem;"> Make sure to have the neccessary permissions! </p>
+                </div>
+                <i style="margin-left: auto; font-size: 1.25rem; margin-right: 3%;" class="fa-solid fa-xmark" onClick="this.parentElement.style.opacity = 0"></i>
+                <div class="progress-bar">
+                    <div class="progress-bar__fill danger"></div>
+                </div>
+            </div>
+        <%}%>
+
         <%- include('includes/navigation.ejs') %>
         <img style="display: inline-block;" class="background exclude-animation" src="/images/RawHero.png"/>
         <h1 class="title exclude-animation">INDIA</h1>
@@ -114,4 +135,21 @@
             },
             });
         </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const progressBarFill = document.querySelector('.progress-bar__fill');
+                const alert = document.querySelector('.alert'); // Update if needed
+
+                // Start filling the progress bar immediately
+                progressBarFill.style.transition = 'width 3s';
+                progressBarFill.style.width = '100%';
+
+                // Hide the alert after 1 second
+                setTimeout(() => {
+                    alert.style.opacity = 0;
+                    setTimeout(() => alert.style.display = 'none', 3000); // Match the duration of the transition
+                }, 3000); // Ensure this matches the duration of the progress bar fill
+            });
+        </script>
+
         <%- include('includes/end.ejs') %>

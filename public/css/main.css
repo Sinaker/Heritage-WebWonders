@@ -153,6 +153,7 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 body {
   overflow-x: hidden;
@@ -258,6 +259,8 @@ body {
 
 .mission-div {
   display: grid;
+
+  font-family: Comfortaa;
 
   grid-template-areas: "title" "image" "textbox" "button";
 
@@ -531,6 +534,7 @@ figure:hover {
 }
 
 .featured-btn {
+  font-family: var(--content-font-family);
   color: var(--main-text-color);
   width: 80px;
   height: 30px;
@@ -615,6 +619,7 @@ textarea:active {
 
 #feedback-submit {
   margin: 20px 10px;
+  font-family: Comfortaa;
   color: var(--main-text-color);
   width: 90px;
   height: 40px;

@@ -88,7 +88,7 @@
   background-color: #70ba5a;
   font-weight: 600;
   border: 1.5px solid var(--main-text-color);
-  padding: 3px 7px;
+  padding: 8px 7px;
   border-radius: 15px;
   margin: 5px 0;
 }
@@ -96,5 +96,91 @@
   background-color: red;
 }
 .edit_post {
-  padding: 3px 13px;
+  padding: 5px 24px;
+}
+
+/* STATUS BAR */
+.status-card {
+  position: absolute;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--main-text-color);
+  padding: 20px;
+  width: 300px;
+  top: 10vh;
+  right: 0.4vw;
+}
+.status-card h2 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "PlayFair Display";
+}
+.status-card p {
+  font-size: 15px;
+  margin-top: 10px;
+  font-family: serif;
+}
+.divider {
+  border-top: 1px solid #6b6969;
+  border-radius: 1px;
+  margin: 15px 0;
+  margin-top: 5px;
+}
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.status-text {
+  color: #0066cc;
+  font-weight: bold;
+}
+.status-icons {
+  display: flex;
+  align-items: center;
+}
+.status-icon {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.icon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+.red {
+  background-color: #ff0000;
+}
+.yellow {
+  background-color: #ffcc00;
+}
+.green {
+  background-color: #00cc00;
+}
+/* Tooltip styles */
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  bottom: 125%; /* Position tooltip above the icon */
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  z-index: 10; /* Ensure tooltip appears above other elements */
+}
+
+.status-icon:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }
