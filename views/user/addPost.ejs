@@ -150,7 +150,9 @@
 
             </div>
             <div class="file_buttons">
-                <button id="uploadNewButton" style="<%= editing ? 'display:block;' : 'display:none;' %>">Upload New Image</button>
+                <% if(!isAdmin) { %>
+                    <button id="uploadNewButton" style="<%= editing ? 'display:block;' : 'display:none;' %>">Upload New Image</button>
+                <%}%>
             </div>
         </div>
         

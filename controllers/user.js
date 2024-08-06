@@ -62,6 +62,15 @@ exports.getDashboard = async (req, res, next) => {
     const request = req.query.request;
     const page = +req.query.page || 1;
     const totalPosts = await Post.countDocuments({ user: req.user._id });
+    const totalApprovedPosts = await Post.countDocuments({
+      user: req.user._id,
+      isApproved: "true",
+    });
+    const totalRejectedPosts = await Post.countDocuments({
+      user: req.user._id,
+      isApproved: "false",
+    });
+
     const user = await User.findById(req.user._id)
       .populate({
         path: "posts",
@@ -86,6 +95,8 @@ exports.getDashboard = async (req, res, next) => {
       totalPages: Math.ceil(totalPosts / POSTS_PER_PAGE),
       request,
       status: page === 1,
+      accepted: totalApprovedPosts,
+      rejected: totalRejectedPosts,
     });
   } catch (err) {
     const error = new Error(err);
@@ -150,7 +161,8 @@ exports.postAddPost = async (req, res, next) => {
       oldInput: { title, category, state, description, month, city },
     });
   }
-  if (!req.file) {
+
+  if (!file) {
     return res.status(402).render("user/addPost", {
       pageTitle: "Add a Post",
       normal: false,
@@ -160,6 +172,8 @@ exports.postAddPost = async (req, res, next) => {
       oldInput: { title, category, state, description, month, city },
     });
   }
+
+  // Only proceed with image processing if city is valid
   const imageUrl = file.path.replace(/\\/g, "/");
   const postData = {
     title,
@@ -176,7 +190,7 @@ exports.postAddPost = async (req, res, next) => {
 
   const post = new Post(postData);
 
-  //We should also update user model
+  // We should also update user model
   try {
     const user = await User.findById(req.user._id);
     if (!user) {
@@ -193,7 +207,7 @@ exports.postAddPost = async (req, res, next) => {
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = error.httpStatusCode || 500;
-    next(error); //Activated error middleware
+    next(error); // Activated error middleware
   }
 };
 

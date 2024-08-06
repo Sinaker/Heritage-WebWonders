@@ -77,9 +77,13 @@ html {
   position: absolute;
   top: 10px;
   left: 10px;
-  padding: 5px 10px;
-  background-color: #ff9900;
+  padding: 1rem 0.8rem;
+  color: orange;
+  background-color: var(--main-text-color);
   border: none;
+  font-weight: bold;
+  font-family: Comfortaa;
+  border-radius: 5px;
   cursor: pointer;
   z-index: 1000;
 }
