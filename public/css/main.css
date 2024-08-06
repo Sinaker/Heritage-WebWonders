@@ -449,7 +449,7 @@ figure:hover {
   display: flex;
   /* gap: -6vmin; */
   position: absolute;
-  left: 50%;
+  left: 0%;
   top: 50%;
   transform: translate(0%, -50%);
 }

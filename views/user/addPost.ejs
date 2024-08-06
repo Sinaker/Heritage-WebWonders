@@ -182,37 +182,40 @@
                     <option value="11" <%= oldInput.month == '11' ? 'selected' : '' %>>November</option>
                     <option value="12" <%= oldInput.month == '12' ? 'selected' : '' %>>December</option>
                 </select>
+
+                <input id="city" placeholder="City" name="city" value="<%= oldInput.city %>" />
+
                 <select id="state" name="state" >
                     <option value="">Select State</option>
                     <option value="India" <%= oldInput.state === 'India' ? 'selected' : '' %>>All India</option>
                     <option value="andhra-pradesh" <%= oldInput.state === 'andhra-pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
                     <option value="arunachal-pradesh" <%= oldInput.state === 'arunachal-pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
-                    <option value="assam" <%= oldInput.state === 'assam' ? 'selected' : '' %>>Assam</option>
-                    <option value="bihar" <%= oldInput.state === 'bihar' ? 'selected' : '' %>>Bihar</option>
-                    <option value="chhattisgarh" <%= oldInput.state === 'chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
-                    <option value="goa" <%= oldInput.state === 'goa' ? 'selected' : '' %>>Goa</option>
-                    <option value="gujarat" <%= oldInput.state === 'gujarat' ? 'selected' : '' %>>Gujarat</option>
-                    <option value="haryana" <%= oldInput.state === 'haryana' ? 'selected' : '' %>>Haryana</option>
-                    <option value="himachal-pradesh" <%= oldInput.state === 'himachal-pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
-                    <option value="jharkhand" <%= oldInput.state === 'jharkhand' ? 'selected' : '' %>>Jharkhand</option>
-                    <option value="karnataka" <%= oldInput.state === 'karnataka' ? 'selected' : '' %>>Karnataka</option>
-                    <option value="kerala" <%= oldInput.state === 'kerala' ? 'selected' : '' %>>Kerala</option>
-                    <option value="madhya-pradesh" <%= oldInput.state === 'madhya-pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
-                    <option value="maharashtra" <%= oldInput.state === 'maharashtra' ? 'selected' : '' %>>Maharashtra</option>
-                    <option value="manipur" <%= oldInput.state === 'manipur' ? 'selected' : '' %>>Manipur</option>
-                    <option value="meghalaya" <%= oldInput.state === 'meghalaya' ? 'selected' : '' %>>Meghalaya</option>
-                    <option value="mizoram" <%= oldInput.state === 'mizoram' ? 'selected' : '' %>>Mizoram</option>
-                    <option value="nagaland" <%= oldInput.state === 'nagaland' ? 'selected' : '' %>>Nagaland</option>
-                    <option value="odisha" <%= oldInput.state === 'odisha' ? 'selected' : '' %>>Odisha</option>
-                    <option value="punjab" <%= oldInput.state === 'punjab' ? 'selected' : '' %>>Punjab</option>
-                    <option value="rajasthan" <%= oldInput.state === 'rajasthan' ? 'selected' : '' %>>Rajasthan</option>
-                    <option value="sikkim" <%= oldInput.state === 'sikkim' ? 'selected' : '' %>>Sikkim</option>
-                    <option value="tamil-nadu" <%= oldInput.state === 'tamil-nadu' ? 'selected' : '' %>>Tamil Nadu</option>
-                    <option value="telangana" <%= oldInput.state === 'telangana' ? 'selected' : '' %>>Telangana</option>
-                    <option value="tripura" <%= oldInput.state === 'tripura' ? 'selected' : '' %>>Tripura</option>
-                    <option value="uttar-pradesh" <%= oldInput.state === 'uttar-pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
-                    <option value="uttarakhand" <%= oldInput.state === 'uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
-                    <option value="west-bengal" <%= oldInput.state === 'west-bengal' ? 'selected' : '' %>>West Bengal</option>
+                    <option value="Assam" <%= oldInput.state === 'Assam' ? 'selected' : '' %>>Assam</option>
+                    <option value="Bihar" <%= oldInput.state === 'Bihar' ? 'selected' : '' %>>Bihar</option>
+                    <option value="Chhattisgarh" <%= oldInput.state === 'Chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
+                    <option value="Goa" <%= oldInput.state === 'Goa' ? 'selected' : '' %>>Goa</option>
+                    <option value="Gujarat" <%= oldInput.state === 'Gujarat' ? 'selected' : '' %>>Gujarat</option>
+                    <option value="Haryana" <%= oldInput.state === 'Haryana' ? 'selected' : '' %>>Haryana</option>
+                    <option value="Himachal Pradesh" <%= oldInput.state === 'Himachal Pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
+                    <option value="Jharkhand" <%= oldInput.state === 'Jharkhand' ? 'selected' : '' %>>Jharkhand</option>
+                    <option value="Karnataka" <%= oldInput.state === 'Karnataka' ? 'selected' : '' %>>Karnataka</option>
+                    <option value="Kerala" <%= oldInput.state === 'Kerala' ? 'selected' : '' %>>Kerala</option>
+                    <option value="Madhya Pradesh" <%= oldInput.state === 'Madhya Pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
+                    <option value="Maharashtra" <%= oldInput.state === 'Maharashtra' ? 'selected' : '' %>>Maharashtra</option>
+                    <option value="Manipur" <%= oldInput.state === 'Manipur' ? 'selected' : '' %>>Manipur</option>
+                    <option value="Meghalaya" <%= oldInput.state === 'Meghalaya' ? 'selected' : '' %>>Meghalaya</option>
+                    <option value="Mizoram" <%= oldInput.state === 'Mizoram' ? 'selected' : '' %>>Mizoram</option>
+                    <option value="Nagaland" <%= oldInput.state === 'Nagaland' ? 'selected' : '' %>>Nagaland</option>
+                    <option value="Odisha" <%= oldInput.state === 'Odisha' ? 'selected' : '' %>>Odisha</option>
+                    <option value="Punjab" <%= oldInput.state === 'Punjab' ? 'selected' : '' %>>Punjab</option>
+                    <option value="Rajasthan" <%= oldInput.state === 'Rajasthan' ? 'selected' : '' %>>Rajasthan</option>
+                    <option value="Sikkim" <%= oldInput.state === 'Sikkim' ? 'selected' : '' %>>Sikkim</option>
+                    <option value="Tamil Nadu" <%= oldInput.state === 'Tamil Nadu' ? 'selected' : '' %>>Tamil Nadu</option>
+                    <option value="Telangana" <%= oldInput.state === 'Telangana' ? 'selected' : '' %>>Telangana</option>
+                    <option value="Tripura" <%= oldInput.state === 'Tripura' ? 'selected' : '' %>>Tripura</option>
+                    <option value="Uttar Pradesh" <%= oldInput.state === 'Uttar Pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
+                    <option value="Uttarakhand" <%= oldInput.state === 'Uttarakhand' ? 'selected' : '' %>>Uttarakhand</option>
+                    <option value="West Bengal" <%= oldInput.state === 'West Bengal' ? 'selected' : '' %>>West Bengal</option>
                 </select>
                 <textarea id="description" name="description" placeholder="Description" rows="4" ><%= oldInput.description %></textarea>
 
@@ -239,10 +242,13 @@
     <script>
         document.getElementById('category').addEventListener('change', function (event) {
             const monthSelect = document.getElementById('month');
+            const citySelect = document.getElementById('city');
             if (event.target.value === 'festival') {
+                citySelect.style.display = "none";
                 monthSelect.style.display = 'block';
             } else {
                 monthSelect.style.display = 'none';
+                citySelect.style.display = "block";
             }
         });
 

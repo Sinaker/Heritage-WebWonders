@@ -8,6 +8,8 @@ router.get("/festivals", exploreController.getFestivals);
 router.get("/posts", exploreController.getPosts);
 router.get("/posts/filter", exploreController.applyFilters);
 
+router.get("/state", exploreController.getStateMap);
+
 // router.get("/post", exploreController.getPosts);
 
 module.exports = router;

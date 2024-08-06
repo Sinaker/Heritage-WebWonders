@@ -25,6 +25,12 @@ router.post(
       if (!value) throw new Error("Please select category");
       else return true;
     }),
+    check("city").custom((value, { req }) => {
+      console.log(value);
+      if (req.body.category !== "festival" && !value) {
+        throw new Error("Please enter a city");
+      } else return true;
+    }),
     check("month").custom((value, { req }) => {
       if (req.body.category === "festival" && !value) {
         throw new Error("Please select Month");
@@ -72,7 +78,7 @@ router.post(
 
 router.post("/delete/post/:postID", userController.deletePost);
 
-router.get("/user/post/:postID", userController.getDetails);
+router.get("/post/:postID", userController.getDetails);
 
 router.get("/posts/:postID/ratings", userController.countRatings);
 

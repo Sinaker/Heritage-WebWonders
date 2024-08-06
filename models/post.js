@@ -14,13 +14,16 @@ const postSchema = new Schema(
     month: {
       type: Number,
     },
+    city: {
+      type: String,
+    },
     state: {
       type: String,
       required: true,
     },
     imageUrl: {
       type: String,
-      requried: true,
+      required: true,
     },
     description: {
       type: String,
@@ -34,6 +37,12 @@ const postSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    longitude: {
+      type: Number,
+    },
+    latitude: {
+      type: Number,
     },
     likes: {
       type: Number,

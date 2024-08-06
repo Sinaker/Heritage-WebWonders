@@ -1,5 +1,9 @@
 exports.isLoggedIn = (req, res, next) => {
-  if (!req.session || !req.session.isLoggedIn)
+  if (
+    !req.session ||
+    !req.session.isLoggedIn ||
+    (req.session.user && req.session.user.isAdmin)
+  )
     return res.status(401).redirect("/?notAuth=true");
 
   next();

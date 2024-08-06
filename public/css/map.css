@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-text-color: #262733;
+  --main-bg-color: #faf1ca;
+  --input-change-color: orange;
+  --main-heading-font-family: "Playfair Display", serif;
+  --main-content-font-family: "Comfortaa";
+  --sub-heading-font-family: "Poppins", "sane-serif";
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f3b65b;
+  box-sizing: border-box;
+}
+.container {
+  display: flex;
+  min-height: 90vh;
+  position: relative;
+  top: 10vh;
+}
+#map-container {
+  width: 50%;
+  height: 100vh;
+  position: fixed;
+  left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.95);
+}
+#india-map {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+#india-map svg {
+  width: 100%;
+  height: 100%;
+}
+#india-map path {
+  fill: #ccc;
+  stroke: var(--main-text-color);
+  stroke-width: 1px;
+  transition: fill 0.3s;
+  cursor: pointer;
+}
+#india-map path:hover {
+  fill: #ff9900;
+}
+#state-popup {
+  display: none;
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  border: 1px solid black;
+  pointer-events: none;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+#back-button {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  background-color: #ff9900;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+.state-active {
+  fill: #ff9900 !important;
+}
+.diagonal {
+  width: 1000px;
+  background-color: #faf1ca;
+  transform: skew(-15deg);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  left: 52%;
+}
+.india-map-content {
+  width: 50%;
+  min-height: 90vh;
+  margin-left: 50%;
+  padding: 20px;
+  display: flex;
+  position: absolute;
+  z-index: 5;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.india-map-content h2 {
+  font-size: 3rem;
+  font-family: var(--main-heading-font-family);
+  font-weight: 700;
+  text-align: center;
+  z-index: 2;
+  padding: 15px 0;
+  margin-bottom: 10px;
+}
+
+.india-map-content h4 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 0;
+  text-align: center;
+}
+#state-cards {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  top: 10vh;
+}
+.card {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 15px;
+  width: 320px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* state map cards */
+
+.map-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px 50px;
+  margin-top: 10px;
+  padding: 60px 50px;
+  z-index: 1;
+}
+
+.map-container .map-card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 350px;
+  height: 300px;
+  background: #c8b99f;
+  border-radius: 20px;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.215);
+  transition: 0.5s;
+}
+
+.map-container .map-card:hover {
+  height: 20rem;
+}
+
+.map-container .map-card .site-img {
+  position: absolute;
+  top: 20px;
+  width: 300px;
+  height: 220px;
+  overflow: hidden;
+  background: #333;
+  border-radius: 15px;
+  transition: 0.5s;
+}
+
+.map-container .map-card:hover .site-img {
+  top: -100px;
+  scale: 0.75;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.407);
+}
+
+.map-container .map-card .site-img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.map-container .map-card .site-info {
+  position: absolute;
+  top: 252px;
+  width: 100%;
+  padding: 0 30px;
+  height: 35px;
+  overflow: hidden;
+  text-align: center;
+  transition: 0.5s;
+}
+
+.map-container .map-card:hover .site-info {
+  top: 130px;
+  height: 250px;
+}
+
+.map-container .map-card .site-info h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 5px 0;
+  color: var(--main-text-color);
+}
+
+.map-container .map-card .site-info p {
+  color: #333;
+  margin: 8px 0;
+}
+.map-container .map-card .site-info a {
+  position: relative;
+  top: 15px;
+  display: inline-block;
+  padding: 12px 25px;
+  background: rgb(255, 149, 0);
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 500;
+  text-decoration: none;
+  animation: shadow-pulse 1.5s infinite;
+}
+
+@keyframes shadow-pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(244, 89, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 7px 25px rgba(244, 155, 0, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    filter: drop-shadow(0 0px 2px rgba(67, 98, 248, 0.7));
+  }
+  50% {
+    filter: drop-shadow(1px 1px 8px rgba(0, 42, 255, 0.9));
+  }
+  100% {
+    filter: drop-shadow(0 0px 0px rgba(67, 98, 248, 0.7));
+  }
+}
+
+.heritage-marker {
+  fill: #4362f8;
+  stroke: none;
+  filter: drop-shadow(0 0 2px rgba(67, 98, 248, 0.7));
+  animation: pulse 2s ease-in-out infinite;
+}

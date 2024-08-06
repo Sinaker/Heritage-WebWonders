@@ -100,3 +100,16 @@ exports.applyFilters = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getStateMap = async (req, res, next) => {
+  const posts = await Post.find({
+    category: { $ne: "festival" },
+    isApproved: "true",
+  });
+  res.status(200).render("map", {
+    pageTitle: "Explore By State",
+    normal: false,
+    dark: true,
+    posts,
+  });
+};

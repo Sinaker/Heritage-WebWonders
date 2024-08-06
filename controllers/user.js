@@ -1,11 +1,48 @@
 const path = require("path");
 const fs = require("node:fs");
+const axios = require("axios");
 
 const User = require("../models/user");
 const Post = require("../models/post");
 const { validationResult } = require("express-validator");
+const post = require("../models/post");
 
 const POSTS_PER_PAGE = 7;
+
+async function getCoordinates(city) {
+  const query = `
+[out:json][timeout:25];
+area(id:3600304716)->.searchArea;
+(
+  node["name"="${city}"]["place"="city"](area.searchArea);
+  way["name"="${city}"]["place"="city"](area.searchArea);
+  relation["name"="${city}"]["place"="city"](area.searchArea);
+);
+out body;
+>;
+out skel qt;
+`; //Overpass turbo query
+  const url = "https://overpass-api.de/api/interpreter";
+  let data;
+
+  try {
+    const response = await axios.post(url, query, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    data = response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+  if (data.elements && data.elements.length > 0) {
+    const element = data.elements[0]; // Assuming you want the first result
+    return [element.lon, element.lat]; // Correct property name for latitude
+  }
+
+  return null;
+}
 
 exports.getHome = (req, res, next) => {
   const login = req.query.login;
@@ -75,49 +112,70 @@ exports.postAddPost = async (req, res, next) => {
   const description = req.body.description;
   const state = req.body.state;
   const month = +req.body.month ?? 0;
+  const city = req.body.city;
 
   const errors = validationResult(req);
+  let longitude = null,
+    latitude = null;
+
+  if (city) {
+    const coordinates = await getCoordinates(city);
+    [latitude = null, longitude = null] = coordinates || [];
+    if (latitude !== null && longitude !== null) {
+      console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    } else {
+      return res.status(402).render("user/addPost", {
+        pageTitle: "Add a Post",
+        normal: false,
+        dark: true,
+        editing: false,
+        errors: [
+          {
+            path: "city",
+            msg: "Please add a valid city. (Try a more popular city)",
+          },
+        ],
+        oldInput: { title, category, state, description, month, city },
+      });
+    }
+  }
 
   if (!errors.isEmpty()) {
-    return res.status(200).render("user/addPost", {
+    return res.status(402).render("user/addPost", {
       pageTitle: "Add a Post",
       normal: false,
       dark: true,
       editing: false,
       errors: errors.array(),
-      oldInput: { title, category, state, description, month },
+      oldInput: { title, category, state, description, month, city },
     });
   }
   if (!req.file) {
-    return res.status(200).render("user/addPost", {
+    return res.status(402).render("user/addPost", {
       pageTitle: "Add a Post",
       normal: false,
       dark: true,
       editing: false,
       errors: [{ path: "post_img", msg: "Please add an image to the post." }],
-      oldInput: { title, category, state, description, month },
+      oldInput: { title, category, state, description, month, city },
     });
   }
-
   const imageUrl = file.path.replace(/\\/g, "/");
-  const post = month
-    ? new Post({
-        title,
-        category,
-        state,
-        imageUrl,
-        description,
-        user: req.user,
-        month,
-      })
-    : new Post({
-        title,
-        category,
-        state,
-        imageUrl,
-        description,
-        user: req.user,
-      });
+  const postData = {
+    title,
+    category,
+    state,
+    imageUrl,
+    description,
+    user: req.user,
+    ...(month && { month }), // Adding parameters if present
+    ...(city && { city }),
+    ...(longitude && { longitude }),
+    ...(latitude && { latitude }),
+  };
+
+  const post = new Post(postData);
+
   //We should also update user model
   try {
     const user = await User.findById(req.user._id);
@@ -157,17 +215,86 @@ exports.getEditPost = async (req, res, next) => {
 
 exports.postEditPost = async (req, res, next) => {
   const postID = req.params.postID;
-
   const updatedTitle = req.body.title;
   const updatedCategory = req.body.category;
   const updatedState = req.body.state;
   const updatedDescription = req.body.description;
+  const updatedMonth = +req.body.month ?? 0; // Convert to number with default
+  const updatedCity = req.body.city;
   const file = req.file;
   const errors = validationResult(req);
 
+  // Fetch the post
+  let post;
+  try {
+    post = await Post.findById(postID);
+    if (!post) return res.redirect("/user/dashboard");
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
+
+  // Initialize imageUrl
+  let imageUrl = post.imageUrl; // Default to existing image
+
+  // Handle file upload
+  if (file) {
+    imageUrl = file.path.replace(/\\/g, "/"); // Update image path
+
+    // Delete old image file
+    fs.unlink(
+      path.join(__dirname, "..", ...post.imageUrl.split("/")),
+      (err) => {
+        if (err) console.log("Error in deleting = ", err);
+      }
+    );
+  }
+
+  // Update city and fetch coordinates if city has changed
+  if (updatedCity && post.city !== updatedCity) {
+    try {
+      const coordinates = await getCoordinates(updatedCity);
+      const [latitude = null, longitude = null] = coordinates || [];
+
+      if (latitude === null || longitude === null) {
+        return res.status(200).render("user/addPost", {
+          pageTitle: "Edit Post",
+          normal: false,
+          dark: true,
+          editing: true,
+          errors: [
+            {
+              path: "city",
+              msg: "Please add a valid city. (Try a more popular city)",
+            },
+          ],
+          oldInput: {
+            title: updatedTitle,
+            category: updatedCategory,
+            state: updatedState,
+            description: updatedDescription,
+            city: updatedCity,
+            month: updatedMonth,
+            imageUrl,
+          },
+          postID: postID,
+        });
+      }
+
+      // Update post with new city and coordinates
+      post.city = updatedCity;
+      post.latitude = latitude;
+      post.longitude = longitude;
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  // Check validation errors
   if (!errors.isEmpty()) {
     return res.status(200).render("user/addPost", {
-      pageTitle: "Add a Post",
+      pageTitle: "Edit Post",
       normal: false,
       dark: true,
       editing: true,
@@ -177,45 +304,30 @@ exports.postEditPost = async (req, res, next) => {
         category: updatedCategory,
         state: updatedState,
         description: updatedDescription,
+        city: updatedCity,
+        month: updatedMonth,
+        imageUrl,
       },
       postID: postID,
     });
   }
 
+  // Update post fields only if they are provided
+  post.title = updatedTitle ?? post.title;
+  post.category = updatedCategory ?? post.category;
+  post.state = updatedState ?? post.state;
+  post.description = updatedDescription ?? post.description;
+  post.month = updatedMonth ?? post.month; // Optional
+  post.imageUrl = imageUrl;
+
   try {
-    const post = await Post.findById(postID);
-    if (!post) return res.redirect("/user/dashboard");
-    let imageUrl = "";
-
-    if (file) {
-      imageUrl = file.path.replace(/\\/g, "/"); //Only change path if file has an image
-    }
-
-    //Updating model
-    post.title = updatedTitle;
-    post.category = updatedCategory;
-    post.state = updatedState;
-    post.description = updatedDescription;
-
-    if (imageUrl) {
-      //If new file is put
-
-      //Delete old file
-      fs.unlink(
-        path.join(__dirname, "..", ...post.imageUrl.split("/")),
-        (err) => console.log("Error in deleting = ", err)
-      ); //Hit and run promise
-    }
-    if (imageUrl) post.imageUrl = imageUrl;
-    //No need to update user model
-
     await post.save();
     console.log("EDIT SUCCESSFUL");
     return res.redirect("/user/dashboard");
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = error.httpStatusCode || 500;
-    next(error); //Activated error middleware
+    next(error); // Activate error middleware
   }
 };
 

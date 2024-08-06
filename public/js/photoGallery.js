@@ -19,8 +19,11 @@ window.onmousemove = (e) => {
   let nextPercentage =
     parseFloat(track.dataset.prevPercentage || "0") + percentage;
 
-  // Clamp the percentage to the range [-100, 0] for simplicity
-  nextPercentage = Math.max(Math.min(nextPercentage, 0), -100);
+  // Ensure nextPercentage is a valid number
+  if (isNaN(nextPercentage)) nextPercentage = 0;
+
+  // Clamp the percentage to the range [-90, 0] for simplicity
+  nextPercentage = Math.max(Math.min(nextPercentage, 0), -90);
 
   track.dataset.percentage = nextPercentage;
 
