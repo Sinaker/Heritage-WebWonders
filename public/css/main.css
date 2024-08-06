@@ -255,6 +255,22 @@ body {
   text-shadow: #522789;
 }
 
+/* Waves */
+.spacer1{
+  aspect-ratio: 900/300;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  top: -10px;
+}
+.layer2{
+  background-image: url(/images/layered-waves-haikei.svg);
+  height: 200px;
+  background-position: top;
+}
+
 /* MISSION PAGE */
 
 .mission-div {
