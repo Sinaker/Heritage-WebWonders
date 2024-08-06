@@ -250,7 +250,7 @@ hr {
   color: #eca655;
 }
 
-.btn-2 {
+.btn-2{
   background-image: linear-gradient(
     to left,
     #eca655 50%,
@@ -259,6 +259,16 @@ hr {
   color: var(--main-text-color);
   text-decoration: none;
   font-family: Comfortaa;
+}
+
+.btn-2 a {
+  color: var(--main-text-color);
+  text-decoration: none;
+  font-family: Comfortaa;
+}
+
+.btn-2:hover a{
+  color: #f1be60;
 }
 
 .btn-2.invert {
