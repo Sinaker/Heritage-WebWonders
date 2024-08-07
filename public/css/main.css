@@ -256,7 +256,7 @@ body {
 }
 
 /* Waves */
-.spacer1{
+.spacer1 {
   aspect-ratio: 900/300;
   width: 100vw;
   background-repeat: no-repeat;
@@ -265,7 +265,7 @@ body {
   position: relative;
   top: -10px;
 }
-.layer2{
+.layer2 {
   background-image: url(/images/layered-waves-haikei.svg);
   height: 200px;
   background-position: top;
@@ -286,7 +286,7 @@ body {
 
   box-sizing: border-box;
   padding: 0 5%;
-  padding-top: 8rem;
+  padding-top: 3rem;
 }
 
 .mission-title {

@@ -60,8 +60,16 @@ exports.sendSub = async (req, res, next) => {
   }
 };
 
-exports.getAbout = (req, res) => {
+exports.getAbout = (req, res, next) => {
   res.render("about", {
+    pageTitle: "About Us",
+    normal: false,
+    dark: true,
+  });
+};
+
+exports.getContribute = (req, res, next) => {
+  res.render("contribute", {
     pageTitle: "About Us",
     normal: false,
     dark: true,

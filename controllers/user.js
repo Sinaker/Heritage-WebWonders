@@ -403,6 +403,7 @@ exports.getDetails = async (req, res, next) => {
       "November",
       "December",
     ],
+    visible: req.user?._id.toString() === post.user.toString(),
   });
 };
 

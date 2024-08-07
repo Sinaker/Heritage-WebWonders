@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const path = require("path");
 
 const express = require("express");
+const compression = require("compression");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
@@ -20,6 +21,7 @@ const adminRoutes = require("./routes/admin");
 const MONGODB_URI = process.env.MONGODB_CONNECTION; //Using env variables
 
 const app = express();
+app.use(compression());
 const store = new MongoDBStore({ uri: MONGODB_URI, collection: "session" });
 
 app.use(bodyParser.urlencoded({ extended: false }));

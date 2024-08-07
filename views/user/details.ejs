@@ -61,6 +61,7 @@
         p {
             margin: 10px 0;
         }
+
         .btns {
             display: flex;
             justify-content: space-between;
@@ -81,23 +82,44 @@
             <h2 class="main-heading" style="margin: 0;">
              <%= post.title %>
             </h2>
-            <p><b>Category:</b> <%= post.category %></p>
-            <p><b>Month:</b> <%= months[post.month] %></p>
-            <p><b>Region:</b> <%= post.state %></p>
-            <p><b>Description:</b> <%= post.description %></p>
-            <div class="btns">
-        <div class="user_post_edit">
-          <a href="/user/edit-post/<%= post._id %>" class="edit_post"
-            ><span>Edit <i class="fa-solid fa-pen-to-square"></i></span
-          ></a>
-        </div>
-        <div class="user_post_delete">
-            <form action="/delete/post/<%= post._id %>" method="POST">
-            <button type="submit" class="delete_post">
-                <span>Delete<i class="fa-solid fa-trash-can"></i></span>
-            </button>
-          </form>
-        </div>
+
+            <% if (post.category) { %>
+                <p><b>Category:</b> <%= post.category %></p>
+            <% } %>
+            
+            <% if (post.month) { %>
+                <p><b>Month:</b> <%= months[post.month] %></p>
+            <% } %>
+            
+            <% if (post.city) { %>
+                <p><b>City:</b> <%= post.city %></p>
+            <% } %>
+            
+            <% if (post.state) { %>
+                <p><b>Region:</b> <%= post.state %></p>
+            <% } %>
+            
+            <% if (post.description) { %>
+                <p><b>Description:</b> <%= post.description %></p>
+            <% } %>
+
+            <% if(isLoggedIn && visible) { %>
+                <div class="btns">
+                    <div class="user_post_edit">
+                        <a href="/user/edit-post/<%= post._id %>" class="edit_post">
+                            <span>Edit <i class="fa-solid fa-pen-to-square"></i></span>
+                        </a>
+                    </div>
+                
+                    <div class="user_post_delete">
+                        <form action="/delete/post/<%= post._id %>" method="POST">
+                            <button type="submit" class="delete_post">
+                                <span>Delete<i class="fa-solid fa-trash-can"></i></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <%}%>
         </div>
     </div>
 </body>
