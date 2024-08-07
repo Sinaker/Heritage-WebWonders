@@ -527,7 +527,7 @@ figure:hover {
   font-weight: 700;
   margin: 15px 0;
 }
-.content {
+.card .content {
   font-family: var(--content-font-family);
   position: absolute;
   bottom: -50rem;
@@ -537,7 +537,7 @@ figure:hover {
   padding: 0 1rem;
   transition: all 0.3s;
 }
-.content p {
+.card .content p {
   font-size: 1rem;
   margin: 8px 0;
   font-weight: 300;
