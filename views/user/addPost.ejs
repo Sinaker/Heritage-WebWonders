@@ -145,13 +145,13 @@
     <div class="container">
         <div class="image-upload">
             <div>
-                <label for="post_img" class="image-label" style="<%= editing ? 'display:none' : '' %>">Upload Image</label>
-                <img id="preview" class="image-preview" alt="Image Preview" style="<%= editing ? 'display:block;' : 'display:none;' %>" src="<%= editing ? '/'+oldInput.imageUrl : '' %>">
+                <label for="post_img" class="image-label" style=<%= editing ? 'display:none' : '' %>>Upload Image</label>
+                <img id="preview" class="image-preview" alt="Image Preview" style=<%= editing ? 'display:block;' : 'display:none;' %>src="<%= editing ? '/'+oldInput.imageUrl : '' %>">
 
             </div>
             <div class="file_buttons">
                 <% if(!isAdmin) { %>
-                    <button id="uploadNewButton" style="<%= editing ? 'display:block;' : 'display:none;' %>">Upload New Image</button>
+                    <button id="uploadNewButton" style=<%= editing ? 'display:block;' : 'display:none;' %>>Upload New Image</button>
                 <%}%>
             </div>
         </div>

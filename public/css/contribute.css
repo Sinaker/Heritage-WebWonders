@@ -104,10 +104,10 @@ body {
 
 .contribute_right video {
   width: 100%;
-  max-width: 400px;
+  max-width: 390px;
   position: relative;
   z-index: 1000;
-  transform: scaleX(1.1) scaleY(1.25);
+  transform: scaleX(1.1) scaleY(1.48);
 }
 .contribute_right img {
   position: absolute;

@@ -35,6 +35,6 @@ router.post(
   adminController.editAndAcceptPost
 );
 
-router.post("/reject/post/:postID", adminController.rejectPost);
+router.post("/reject/post/:postID", isAdmin, adminController.rejectPost);
 
 module.exports = router;

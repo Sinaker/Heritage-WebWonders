@@ -47,7 +47,7 @@ router.post(
   userController.postAddPost
 );
 
-router.get("/user/edit-post/:postID", userController.getEditPost);
+router.get("/user/edit-post/:postID", isLoggedIn, userController.getEditPost);
 
 router.post(
   "/user/edit-post/:postID",
@@ -76,7 +76,7 @@ router.post(
   userController.postEditPost
 );
 
-router.post("/delete/post/:postID", userController.deletePost);
+router.post("/delete/post/:postID", isLoggedIn, userController.deletePost);
 
 router.get("/post/:postID", userController.getDetails);
 

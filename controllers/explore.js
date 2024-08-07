@@ -74,7 +74,7 @@ exports.applyFilters = async (req, res, next) => {
       case "alpha":
         sortOrder = { title: 1 }; // Order by Name (A-Z)
         break;
-      case "rev-alpha":
+      case "revalpha":
         sortOrder = { title: -1 }; // Order by Name (Z-A)
         break;
       default:
