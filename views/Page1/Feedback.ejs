@@ -2,7 +2,7 @@
   <div class="feedback-container">
     <h1 class="main-heading">Share Your Thoughts</h1>
     <span class="feedback-content">Help us preserve India's heritage</span>
-    <form action="" method="" id="feedback-form">
+    <form id="feedback-form">
       <div class="name">
         <input type="text" required placeholder="First Name" />
         <input type="text" required placeholder="Last Name" />
@@ -72,4 +72,14 @@
       id="map-svnit"
     ></iframe>
   </div>
+  <script>
+    document
+      .getElementById("feedback-form")
+      .addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Redirect to the desired URL
+        window.location.href = "/?mailSent=true";
+      });
+  </script>
 </section>
