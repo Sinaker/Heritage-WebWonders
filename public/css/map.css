@@ -38,6 +38,7 @@ html {
   height: 100vh;
   position: fixed;
   left: 20px;
+  top: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
