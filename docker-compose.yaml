@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    env_file:
+      - ./.env
+    volumes:
+      - images:/darshan/images
+    # ports will not be exposed directly, accessed by NGINX
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+    depends_on:
+      - app
+volumes:
+  images:
