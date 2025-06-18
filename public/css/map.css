@@ -26,6 +26,7 @@ html {
   overflow-y: auto;
   background-color: #f3b65b;
   box-sizing: border-box;
+  color: var(--main-text-color);
 }
 .container {
   display: flex;

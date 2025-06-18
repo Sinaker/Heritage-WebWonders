@@ -18,7 +18,7 @@
     <form id="filtersForm" method="GET" action="/explore/posts/filter">
         <div class="filters">
             <a style="margin-right: auto;" class="filters__buttons v2">
-                <span>Fitlers </span>
+                <span>Filters </span>
                 <i class="fa-solid fa-filter"></i>
             </a>
             <div style="display: flex; gap: 1rem" class="center">
@@ -101,9 +101,9 @@
         <div style="margin-top:5" class="grid">
             <% if(posts.length > 0) { %>
                 <% for(let post of posts ) { %>
-                    <div class="post" id="<%= post._id %>">
+                    <div class="post" id="<%= post._id %>" onClick="window.location.href='/post/<%= post._id %>'">
                         <div class="post__img">
-                        <img src="<%='/'+ post.imageUrl %>" alt="Img" />
+                        <img src="<%= post.imageUrl %>" alt="Img" />
                         </div>
                         <div class="post__content">
                         <div class="post__content__heading">

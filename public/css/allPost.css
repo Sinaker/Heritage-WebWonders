@@ -33,9 +33,13 @@ body {
   gap: 0.3rem;
   padding: 0.8rem 1.5rem;
   border-radius: 5px;
+  color: var(--main-text-color);
   transition: all 0.3s;
 }
 
+label {
+  color: var(--main-text-color);
+}
 .v2 {
   background-color: var(--main-text-color);
   color: orange;
@@ -46,7 +50,6 @@ body {
 .v2:hover {
   background-color: #141419 !important;
 }
-
 .filters__buttons:hover {
   background-color: #eb9b50;
 }

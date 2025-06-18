@@ -6,6 +6,7 @@ const User = require("../models/user");
 const Post = require("../models/post");
 const { validationResult } = require("express-validator");
 const post = require("../models/post");
+const { uploadFileToAzure, editFileToAzure } = require("../utils/azure");
 
 const POSTS_PER_PAGE = 7;
 
@@ -117,7 +118,7 @@ exports.getAddPost = (req, res, next) => {
 };
 
 exports.postAddPost = async (req, res, next) => {
-	const file = req.file;
+	const file = req.file; // File uploaded by multer
 	const category = req.body.category;
 	const title = req.body.title;
 	const description = req.body.description;
@@ -172,9 +173,18 @@ exports.postAddPost = async (req, res, next) => {
 			oldInput: { title, category, state, description, month, city },
 		});
 	}
-
+	// Call /upload to upload the image to Azure Blob Storage, pass the file to the server using fetch
+	let imageUrl = ""; // Initialize imageUrl
+	try {
+		imageUrl = await uploadFileToAzure(req.user._id, file);
+	} catch (err) {
+		const error = new Error(err);
+		error.httpStatusCode = error.httpStatusCode || 500;
+		return next(error); // Activated error middleware
+	}
+	
 	// Only proceed with image processing if city is valid
-	const imageUrl = file.path.replace(/\\/g, "/");
+	// const imageUrl = file.path.replace(/\\/g, "/");
 	const postData = {
 		title,
 		category,
@@ -254,15 +264,11 @@ exports.postEditPost = async (req, res, next) => {
 
 	// Handle file upload
 	if (file) {
-		imageUrl = file.path.replace(/\\/g, "/"); // Update image path
-
-		// Delete old image file
-		fs.unlink(
-			path.join(__dirname, "..", ...post.imageUrl.split("/")),
-			(err) => {
-				if (err) console.log("Error in deleting = ", err);
-			},
-		);
+		try {
+			imageUrl = await editFileToAzure(req.user._id, imageUrl, file);
+		} catch(err) {
+			next(err);
+		}
 	}
 
 	// Update city and fetch coordinates if city has changed
@@ -333,6 +339,7 @@ exports.postEditPost = async (req, res, next) => {
 	post.description = updatedDescription ?? post.description;
 	post.month = updatedMonth ?? post.month; // Optional
 	post.imageUrl = imageUrl;
+	post.isApproved = "false"; // Reset approval status on edit
 
 	try {
 		await post.save();

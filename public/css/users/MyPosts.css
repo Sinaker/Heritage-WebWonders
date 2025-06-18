@@ -8,6 +8,7 @@
 .user_posts {
   width: 80vw;
   margin: auto;
+  color: var(--main-text-color);
 }
 .sub_heading_posts {
   width: 100%;

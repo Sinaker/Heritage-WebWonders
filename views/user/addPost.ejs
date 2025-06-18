@@ -16,6 +16,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            color: var(--main-text-color);
         }
 
         .image-upload {
@@ -29,6 +30,7 @@
             margin-top: 0;
             margin-right: 20px;
             flex-wrap: wrap;
+            color: var(--main-text-color);
         }
 
         .image-label {
@@ -58,7 +60,6 @@
             display: flex;
             flex-direction: column;
         }
-
         button {
             margin-bottom: 10px;
             border: 1px solid #ccc;
@@ -81,6 +82,7 @@
             border-bottom: 2px solid var(--main-text-color);
             font-family: var(--sub-heading-font-family);
             font-size: 1rem;
+            color: black;
             transition: all 0.3s;
         }
 
@@ -103,7 +105,7 @@
 
         button {
             background-color: #f0a500;
-            color: white;
+            color: black;
             border: none;
             cursor: pointer;
             font-size: large;
@@ -146,7 +148,7 @@
         <div class="image-upload">
             <div>
                 <label for="post_img" class="image-label" style=<%= editing ? 'display:none' : '' %>>Upload Image</label>
-                <img id="preview" class="image-preview" alt="Image Preview" style=<%= editing ? 'display:block;' : 'display:none;' %> src="<%= editing ? '/'+oldInput.imageUrl : '' %>">
+                <img id="preview" class="image-preview" alt="Image Preview" style=<%= editing ? 'display:block;' : 'display:none;' %> src="<%= editing ? oldInput.imageUrl : '' %>">
 
             </div>
             <div class="file_buttons">
@@ -161,8 +163,8 @@
               <%= isAdmin ? `Review` : editing ? 'Edit' : 'New' %> Post
             </h2>
             <form action="<%= isAdmin ? `/admin/edit-post/${postID}` : editing ? `/user/edit-post/${postID}` : '/user/add-post' %>" method="POST" id="postForm" enctype="multipart/form-data">
-                <input type="text" id="title" name="title" placeholder="Title" value="<%= oldInput.title %>" >
-                <select id="category" name="category" >
+                <input type="text" id="title" name="title" placeholder="Title" value="<%= oldInput.title %>" style="color: black !important;">
+                <select id="category" name="category" style="color: black;">
                     <option value="">Select Category</option>
                     <option value="festival" <%= oldInput.category === 'festival' ? 'selected' : '' %>>Festival</option>
                     <option value="hill" <%= oldInput.category === 'hill' ? 'selected' : '' %>>Hill</option>

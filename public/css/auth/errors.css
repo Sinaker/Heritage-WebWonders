@@ -62,6 +62,10 @@
 .alert__content.info p {
   color: rgb(2, 52, 71);
 }
+.alert__content .fa-solid {
+  color: rgb(3, 66, 91);
+}
+
 
 .fade {
   transition: opacity 0.5s ease, max-height 0.5s ease;

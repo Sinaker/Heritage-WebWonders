@@ -19,38 +19,33 @@ const homeRoutes = require("./routes/home");
 const exploreRoutes = require("./routes/explore");
 const adminRoutes = require("./routes/admin");
 
+
 const MONGODB_URI = process.env.MONGODB_CONNECTION; //Using env variables
 
 const app = express();
 app.use(compression());
-const store = new MongoDBStore({ uri: MONGODB_URI, collection: "session" });
+const store = new MongoDBStore({ uri: MONGODB_URI, databaseName: "test", collection: "session" });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const fileStorage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		const dir = `images/PostImages/${req.user ? req.user.username : "default"}`;
-		fs.mkdirSync(dir, { recursive: true });
-		cb(null, dir);
-	},
-	filename: (req, file, cb) => {
-		cb(null, `${ULID.ulid()}.${file.originalname.split(".")[1]}`);
-	},
-});
+// MULTER OPTIONS
+const fileStorage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
 	if (
 		file.mimetype === "image/png" ||
 		file.mimetype === "image/jpg" ||
-		file.mimetype === "image/jpeg"
+		file.mimetype === "image/jpeg" ||
+		file.mimetype === "image/webp" 
 	)
 		cb(null, true);
 	else cb(null, false);
 };
 
-app.set("view engine", "ejs");
-app.set("views", "views");
-//Express serves these contents as if they were in the root
+app.set("view engine", "ejs"); // Using EJS as the template engine
+app.set("views", "views"); // Express will look for views in the "views" directory
+
+// Express serves these contents as if they were in the root
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
@@ -89,9 +84,12 @@ app.use((req, res, next) => {
 	next();
 }); //Such variables will be available to every rendered view
 
-app.use(
-	multer({ storage: fileStorage, fileFilter: fileFilter }).single("post_img"),
-);
+
+// MULTER + AZURE
+const uploadMiddleware = multer({ storage: fileStorage, fileFilter: fileFilter, limits: {fileSize: 2000000} }).single("post_img");
+
+app.use(uploadMiddleware); //Middleware for handling file uploads
+
 app.use(authRoutes);
 app.use(userRoutes);
 app.use("/explore", exploreRoutes);
@@ -114,11 +112,11 @@ app.use((error, req, res, next) => {
 mongoose
 	.connect(MONGODB_URI)
 	.then(() => {
-		app.listen(3000);
-		console.log(`Connected and on host ${os.hostname()}`);
+		app.listen(process.env.PORT || 3000);
+		console.log(`Connected and on port ${process.env.PORT || 3000}`);
 	})
 	.catch((err) => {
 		const error = new Error(err);
 		error.httpStatusCode = 500;
-		next(error); //Activated error middleware
+		throw error;
 	});

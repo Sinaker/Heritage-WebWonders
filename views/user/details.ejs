@@ -18,7 +18,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         }
-
+        
         .image-upload {
             display: flex;
             flex: 1;
@@ -31,7 +31,7 @@
             max-height: 500px;
             overflow: hidden;
         }
-
+        
         .image-preview {
             max-width: 100%;
             max-height: 100%;
@@ -39,7 +39,7 @@
             object-fit: cover;
             object-position: bottom;
         }
-
+        
         .form-container {
             display: flex;
             flex: 1;
@@ -50,7 +50,7 @@
             border-radius: 8px;
             width: 100%;
         }
-
+        
         h2 {
             font-size: 2.5rem;
             text-align: left;
@@ -60,8 +60,9 @@
 
         p {
             margin: 10px 0;
+            color: var(--main-text-color);
         }
-
+        
         .btns {
             display: flex;
             justify-content: space-between;
@@ -75,7 +76,7 @@
     <%- include('../includes/navigation.ejs') %>
     <div class="container">
         <div class="image-upload">
-            <img id="preview" class="image-preview" alt="Image Preview" src="<%= '/' + post.imageUrl %>">
+            <img id="preview" class="image-preview" alt="Image Preview" src="<%= post.imageUrl %>">
         </div>
         
         <div class="form-container">
