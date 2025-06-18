@@ -37,9 +37,9 @@ This project follows the MVC (Model-View-Controller) architecture:
 - Maps Integration: Overpass API
 - Tech Stack: MEN
 
-### Getting Started
+## Installation Options
 
-To run this project locally:
+### Local Development Setup
 
 1. Clone the repository
 2. Install dependencies: `npm install`
@@ -47,9 +47,46 @@ To run this project locally:
 4. Run the server: `npm start`
 5. Navigate to website: http://localhost:3000/
 
+### Docker Deployment
+
+We now support containerized deployment for easier scaling and management:
+
+
+1. **Dockerfile and Docker Compose Setup:**
+    
+    Our repository includes:
+    - `Dockerfile` - Defines the application environment with Node.js
+    - `docker-compose.yml` - Orchestrates the app and MongoDB services, with NGINX containers
+
+2. **Using Docker Compose for Development:**
+    ```bash
+    # Build and start the containers
+    docker-compose up -d
+
+    # Access the application
+    # Navigate to http://localhost
+    ```
+3. **Stopping the Containers:**
+    ```bash
+    docker-compose down
+    ```
+
+The docker setup made it super easy for you guys to run the application without worrying about environment configurations. Just ensure Docker is installed on your machine.
+
+### Contributing
+We welcome contributions to Heritage WebWonders! If you have ideas for new features, improvements, or bug fixes, please follow these steps:
+1. Fork the repository
+2. Create a new branch for your feature or fix
+3. Make your changes and commit them
+4. Push your changes to your fork
+5. Create a pull request with a clear description of your changes
+
+### License
+This project is licensed under the MIT License.
+
 ### Contact
 
-For any queries or suggestions, please reach out to kanishk.dev@yahoo.com
+For any queries or suggestions, please reach out to kanishkp.dev@gmail.com
 
 Join us in our journey to keep India's rich cultural heritage alive in the digital age!
 
