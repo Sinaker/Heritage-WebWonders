@@ -1,0 +1,29 @@
+name: Build and Publish Docker Image
+on:
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Login to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.AZURE_CLIENT_ID }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+        
+      - name: Docker Buildx
+        uses: docker/build-push-action@v6
+        with:
+          tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:latest
+          push: true
