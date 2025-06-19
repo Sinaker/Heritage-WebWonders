@@ -1,0 +1,32 @@
+name: Build and Publish Docker Image
+on:
+  workflow_dispatch:
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Login to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.AZURE_CLIENT_ID }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+        
+      - name: Docker Buildx app
+        uses: docker/build-push-action@v6
+        with:
+          context: ./app
+          tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:${{github.sha}}
+          push: true
+        
+      - name: Docker Buildx NGNIX
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile_NGINX
+          tags: ${{ vars.ACR_LOGIN_SERVER }}/nginx:${{github.sha}}
+          push: true
