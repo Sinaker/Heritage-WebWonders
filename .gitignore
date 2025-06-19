@@ -1,2 +1,10 @@
 **/node_modules
 *.env
+
+# Terraform files
+terraform.tfvars
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+*.log

@@ -1,20 +1,22 @@
-name: Build and Publish Docker Image
+name: Deploy to Azure Container Apps
 on:
   workflow_dispatch:
 
 jobs:
   publish_images:
     runs-on: ubuntu-latest
+    environment: Production 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      - name: Login to ACR
-        uses: docker/login-action@v3
+      - name: Login to Azure
+        uses: azure/login@v1
         with:
-          registry: ${{ vars.ACR_LOGIN_SERVER }}
-          username: ${{ secrets.AZURE_CLIENT_ID }}
-          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
         
       - name: Docker Buildx app
         uses: docker/build-push-action@v6
@@ -30,3 +32,6 @@ jobs:
           file: Dockerfile_NGINX
           tags: ${{ vars.ACR_LOGIN_SERVER }}/nginx:${{github.sha}}
           push: true
+      - name: Deploy to Azure Container Apps
+        uses: azure/container-apps-deploy-action@v1
+
