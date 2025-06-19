@@ -34,7 +34,7 @@ exports.uploadFileToAzure = async (userId, file) => {
         
         return `https://${accountName}.blob.core.windows.net/${containerName}/${fileName}`; // Return the URL of the uploaded file
     } catch (error) {
-        const err = new Error("Failed to upload file to Azure Blob Storage");
+        const err = new Error(error.message || "Failed azure blob upload");
         err.httpStatusCode = 500;
         throw err;
     }

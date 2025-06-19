@@ -25,5 +25,5 @@ jobs:
       - name: Docker Buildx
         uses: docker/build-push-action@v6
         with:
-          tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:latest
+          tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:${{github.sha}}
           push: true
