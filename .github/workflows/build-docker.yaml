@@ -22,8 +22,16 @@ jobs:
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
         
-      - name: Docker Buildx
+      - name: Docker Buildx app
         uses: docker/build-push-action@v6
         with:
-          tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:${{github.sha}}
+          tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:latest
+          push: true
+        
+      - name: Docker Buildx NGNIX
+        uses: docker/build-push-action@v6
+        with:
+          context: ./nginx
+          file: ./nginx/Dockerfile
+          tags: ${{ vars.ACR_LOGIN_SERVER }}/nginx:latest
           push: true
