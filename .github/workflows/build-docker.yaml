@@ -26,7 +26,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./app
-          file: app/Dockerfile
           tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:latest
           push: true
         
