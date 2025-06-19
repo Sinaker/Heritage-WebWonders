@@ -24,7 +24,6 @@ body {
   overflow-x: hidden;
   color: var(--main-text-color);
 }
-
 .contribute_hero {
   display: flex;
   justify-content: center;
@@ -35,6 +34,7 @@ body {
   max-width: 1200px;
   flex-wrap: wrap;
 }
+
 
 .contribute_left {
   width: 50%;
@@ -107,7 +107,7 @@ body {
   width: 100%;
   max-width: 390px;
   position: relative;
-  z-index: 1000;
+  z-index: 1;
   transform: scaleX(1.1) scaleY(1.48);
 }
 .contribute_right img {

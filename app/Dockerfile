@@ -2,7 +2,7 @@ FROM node AS BUILDER
 WORKDIR /darshan
 COPY package*.json /darshan/
 
-RUN npm install --production
+RUN npm install --omit=dev
 COPY . /darshan/
 
 FROM node:alpine AS Final

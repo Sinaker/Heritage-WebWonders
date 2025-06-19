@@ -1,16 +1,16 @@
 services:
   app:
     build:
+      context: ./app
       dockerfile: Dockerfile
-      context: .
     env_file:
-      - ./.env
+      - ./app/.env
     # ports will not be exposed directly, accessed by NGINX
   nginx:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: Dockerfile_NGINX
     ports:
       - "80:80"
-    volumes:
-      - "./nginx.conf:/etc/nginx/nginx.conf"
     depends_on:
       - app

@@ -25,13 +25,15 @@ jobs:
       - name: Docker Buildx app
         uses: docker/build-push-action@v6
         with:
+          context: ./app
+          file: Dockerfile
           tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:latest
           push: true
         
       - name: Docker Buildx NGNIX
         uses: docker/build-push-action@v6
         with:
-          context: ./nginx
-          file: ./nginx/Dockerfile
+          context: .
+          file: Dockerfile_NGINX
           tags: ${{ vars.ACR_LOGIN_SERVER }}/nginx:latest
           push: true

@@ -45,9 +45,6 @@ const fileFilter = (req, file, cb) => {
 app.set("view engine", "ejs"); // Using EJS as the template engine
 app.set("views", "views"); // Express will look for views in the "views" directory
 
-// Express serves these contents as if they were in the root
-app.use(express.static(path.join(__dirname, "public")));
-app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use(
 	session({
