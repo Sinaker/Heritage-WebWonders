@@ -1,4 +1,7 @@
 # Heritage WebWonders
+---
+
+[![Visit Website](https://img.shields.io/badge/Visit-Website-red?style=for-the-badge&logo=globe)](https://darshan.azurewebsites.net/)
 
 ## Preserving India's Cultural Tapestry
 
@@ -28,6 +31,7 @@ This project follows the MVC (Model-View-Controller) architecture:
 - Geolocation-based discovery of nearby cultural landmarks
 - Educational resources about India's history and cultural significance
 - E-Mail Functionality for password reset
+- A ready to visit deployed version of the website 
 
 ### Technology Stack
 
@@ -36,6 +40,7 @@ This project follows the MVC (Model-View-Controller) architecture:
 - Frontend: EJS, HTML, CSS, JavaScript
 - Maps Integration: Overpass API
 - Tech Stack: MEN
+- Deployment: Docker, NGINX, Azure
 
 ## Installation Options
 

@@ -39,3 +39,11 @@ resource "azurerm_container_registry" "darshanRepo" {
   sku                 = "Basic"
   admin_enabled       = true
 }
+
+resource "azurerm_service_plan" "darshanPlan" {
+  name                = "darshanPlan"
+  resource_group_name = azurerm_resource_group.darshangrp.name
+  location            = azurerm_resource_group.darshangrp.location
+  os_type             = "Linux"
+  sku_name            = "F1"
+}
