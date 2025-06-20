@@ -23,6 +23,7 @@ const adminRoutes = require("./routes/admin");
 const MONGODB_URI = process.env.MONGODB_CONNECTION; //Using env variables
 
 const app = express();
+app.set('trust proxy', true);
 app.use(compression());
 const store = new MongoDBStore({ uri: MONGODB_URI, databaseName: "test", collection: "session" });
 
