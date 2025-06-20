@@ -8,25 +8,32 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
 jobs:
   publish_images:
+    environment: production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      - name: Login to ACR
-        uses: docker/login-action@v3
+      - name: Azure Login
+        uses: azure/login@v2
         with:
-          registry: ${{ vars.ACR_LOGIN_SERVER }}
-          username: ${{ secrets.ACR_USERNAME}}
-          password: ${{ secrets.ACR_PASSWORD }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
+      - name: Login to ACR
+        run: az acr login --name ${{ secrets.ACR_NAME }}
         
       - name: Docker Buildx app
         uses: docker/build-push-action@v6
         with:
           context: ./app
-          tags: ${{ vars.ACR_LOGIN_SERVER }}/darshan:latest
+          tags: ${{ secrets.ACR_NAME }}.azurecr.io/darshan:latest
           push: true
         
       - name: Docker Buildx NGNIX
@@ -34,5 +41,5 @@ jobs:
         with:
           context: .
           file: Dockerfile_NGINX
-          tags: ${{ vars.ACR_LOGIN_SERVER }}/nginx:latest
+          tags: ${{ secrets.ACR_NAME }}.azurecr.io/nginx:latest
           push: true
