@@ -110,7 +110,7 @@ app.use((error, req, res, next) => {
 mongoose
 	.connect(MONGODB_URI)
 	.then(() => {
-		app.listen(process.env.PORT || 3000);
+		app.listen(3000, '0.0.0.0'); // For Docker compatibility
 		console.log(`Connected and on port ${process.env.PORT || 3000}`);
 	})
 	.catch((err) => {
