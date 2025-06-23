@@ -9,7 +9,6 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const multer = require("multer");
-const ULID = require("ulid"); //Unique Idenifier
 
 const errorController = require("./controllers/errorController");
 
