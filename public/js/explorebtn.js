@@ -154,7 +154,9 @@ buttons.forEach((button) => {
   }
 
   // Attach event listeners to each button
-  window.addEventListener("load", loadAnimation);
   button.addEventListener("mouseenter", hoverAnimation);
   button.addEventListener("mouseleave", hoverAnimationReset);
+  
+  // Run load animation for this button
+  loadAnimation();
 });

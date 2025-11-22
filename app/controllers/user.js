@@ -1,5 +1,5 @@
 const path = require("path");
-const fs = require("node:fs");
+const fs = require("node:fs").promises;
 const axios = require("axios");
 
 const User = require("../models/user");
@@ -10,7 +10,17 @@ const { uploadFileToAzure, editFileToAzure } = require("../utils/azure");
 
 const POSTS_PER_PAGE = 7;
 
+// Simple in-memory cache for coordinates to avoid repeated API calls
+const coordinatesCache = new Map();
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
 async function getCoordinates(city) {
+	// Check cache first
+	const cached = coordinatesCache.get(city);
+	if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+		console.log(`Using cached coordinates for ${city}`);
+		return cached.coordinates;
+	}
 	const query = `
 [out:json][timeout:25];
 area(id:3600304716)->.searchArea;
@@ -39,7 +49,15 @@ out skel qt;
 	}
 	if (data.elements && data.elements.length > 0) {
 		const element = data.elements[0]; // Assuming you want the first result
-		return [element.lon, element.lat]; // Correct property name for latitude
+		const coordinates = [element.lon, element.lat]; // Correct property name for latitude
+		
+		// Cache the result
+		coordinatesCache.set(city, {
+			coordinates,
+			timestamp: Date.now()
+		});
+		
+		return coordinates;
 	}
 
 	return null;
@@ -354,25 +372,31 @@ exports.deletePost = async (req, res, next) => {
 	const postID = req.params.postID;
 
 	try {
-		const user = await User.findById(req.user._id);
+		// Use atomic update instead of fetch-modify-save pattern
+		const [user, deletedPost] = await Promise.all([
+			User.findByIdAndUpdate(
+				req.user._id,
+				{ $pull: { posts: postID } },
+				{ new: true }
+			),
+			Post.findByIdAndDelete(postID)
+		]);
+		
 		if (!user) {
 			const error = new Error("No User found");
 			error.httpStatusCode = 404;
 			return next(error);
 		}
 
-		// Remove the postID from the user's posts array
-		user.posts = user.posts.filter((id) => id.toString() !== postID.toString());
-
-		await user.save();
-		const deletedPost = await Post.findByIdAndDelete(postID);
-
-		// Also have to deleted the stored image file
-		const imgUrl = deletedPost.imageUrl.split("/");
-
-		fs.unlink(path.join(__dirname, "..", ...imgUrl), (err) =>
-			console.log("Error in deleting = ", err),
-		); //Hit and run promise
+		if (deletedPost && deletedPost.imageUrl) {
+			// Delete the stored image file asynchronously (non-blocking)
+			// Only if it's a local file path, not Azure blob URL
+			if (!deletedPost.imageUrl.startsWith('http')) {
+				const imgUrl = deletedPost.imageUrl.split("/");
+				fs.unlink(path.join(__dirname, "..", ...imgUrl))
+					.catch(err => console.log("Error in deleting file:", err));
+			}
+		}
 
 		console.log("POST DESTROYED");
 		return res.redirect("/user/dashboard");

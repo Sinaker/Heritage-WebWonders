@@ -1,3 +1,5 @@
+const path = require("path");
+const fs = require("node:fs").promises;
 const { validationResult } = require("express-validator");
 const Post = require("../models/post");
 const POSTS_PER_PAGE = 7;
@@ -100,15 +102,15 @@ exports.editAndAcceptPost = async (req, res, next) => {
     post.isApproved = "true"; //This will be approved now
 
     if (imageUrl) {
-      //If new file is put
-
-      //Delete old file
-      fs.unlink(
-        path.join(__dirname, "..", ...post.imageUrl.split("/")),
-        (err) => console.log("Error in deleting = ", err)
-      ); //Hit and run promise
+      //If new file is put and old file needs to be deleted
+      // Only delete if it's a local file path, not Azure blob URL
+      if (!post.imageUrl.startsWith('http')) {
+        fs.unlink(
+          path.join(__dirname, "..", ...post.imageUrl.split("/"))
+        ).catch(err => console.log("Error in deleting file:", err));
+      }
+      post.imageUrl = imageUrl;
     }
-    if (imageUrl) post.imageUrl = imageUrl;
     //No need to update user model
 
     await post.save();
