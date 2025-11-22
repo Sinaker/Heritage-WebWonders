@@ -57,9 +57,9 @@ const postSchema = new Schema(
 );
 
 // Add indexes for frequently queried fields
-postSchema.index({ isApproved: 1 });
-postSchema.index({ category: 1, isApproved: 1 });
-postSchema.index({ state: 1, isApproved: 1 });
+// Compound index for common query patterns (filter + sort)
+postSchema.index({ isApproved: 1, category: 1, state: 1, createdAt: -1 });
+// Single field indexes for specific lookups
 postSchema.index({ user: 1 });
 postSchema.index({ createdAt: -1 });
 

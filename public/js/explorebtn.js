@@ -1,12 +1,14 @@
-// Select all elements with class ".btn-link"
-const buttons = document.querySelectorAll(".btn-link");
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Select all elements with class ".btn-link"
+  const buttons = document.querySelectorAll(".btn-link");
 
-buttons.forEach((button) => {
-  const title = button.querySelector(".btn-title");
-  const ripple = button.querySelectorAll(".btn-ripple");
+  buttons.forEach((button) => {
+    const title = button.querySelector(".btn-title");
+    const ripple = button.querySelectorAll(".btn-ripple");
 
-  // Define the load animation function
-  function loadAnimation() {
+    // Define the load animation function
+    function loadAnimation() {
     const tl = gsap.timeline();
     tl.set(
       button,
@@ -153,10 +155,11 @@ buttons.forEach((button) => {
     });
   }
 
-  // Attach event listeners to each button
-  button.addEventListener("mouseenter", hoverAnimation);
-  button.addEventListener("mouseleave", hoverAnimationReset);
-  
-  // Run load animation for this button
-  loadAnimation();
+    // Attach event listeners to each button
+    button.addEventListener("mouseenter", hoverAnimation);
+    button.addEventListener("mouseleave", hoverAnimationReset);
+    
+    // Run load animation for this button
+    loadAnimation();
+  });
 });

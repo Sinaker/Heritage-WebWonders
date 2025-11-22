@@ -1,5 +1,5 @@
 const path = require("path");
-const fs = require("node:fs").promises;
+const fsPromises = require("node:fs").promises;
 const axios = require("axios");
 
 const User = require("../models/user");
@@ -94,12 +94,6 @@ exports.getDashboard = async (req, res, next) => {
 				.lean()
 				.exec()
 		]);
-		
-		if (!req.user) {
-			const error = new Error("No User found");
-			error.httpStatusCode = 404;
-			return next(error);
-		}
 		
 		res.status(200).render("user/dashboard", {
 			pageTitle: "Darshan",
@@ -390,10 +384,11 @@ exports.deletePost = async (req, res, next) => {
 
 		if (deletedPost && deletedPost.imageUrl) {
 			// Delete the stored image file asynchronously (non-blocking)
-			// Only if it's a local file path, not Azure blob URL
-			if (!deletedPost.imageUrl.startsWith('http')) {
+			// Only if it's a local file path, not Azure blob URL or external URL
+			if (!deletedPost.imageUrl.startsWith('http://') && 
+			    !deletedPost.imageUrl.startsWith('https://')) {
 				const imgUrl = deletedPost.imageUrl.split("/");
-				fs.unlink(path.join(__dirname, "..", ...imgUrl))
+				fsPromises.unlink(path.join(__dirname, "..", ...imgUrl))
 					.catch(err => console.log("Error in deleting file:", err));
 			}
 		}
