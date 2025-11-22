@@ -56,4 +56,11 @@ const postSchema = new Schema(
   { timestamps: true }
 );
 
+// Add indexes for frequently queried fields
+postSchema.index({ isApproved: 1 });
+postSchema.index({ category: 1, isApproved: 1 });
+postSchema.index({ state: 1, isApproved: 1 });
+postSchema.index({ user: 1 });
+postSchema.index({ createdAt: -1 });
+
 module.exports = mongoose.model( "Post", postSchema);

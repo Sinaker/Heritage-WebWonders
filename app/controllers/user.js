@@ -62,36 +62,33 @@ exports.getDashboard = async (req, res, next) => {
 	try {
 		const request = req.query.request;
 		const page = +req.query.page || 1;
-		const totalPosts = await Post.countDocuments({ user: req.user._id });
-		const totalApprovedPosts = await Post.countDocuments({
-			user: req.user._id,
-			isApproved: "true",
-		});
-		const totalRejectedPosts = await Post.countDocuments({
-			user: req.user._id,
-			isApproved: "false",
-		});
-
-		const user = await User.findById(req.user._id)
-			.populate({
-				path: "posts",
-				options: {
-					skip: (page - 1) * POSTS_PER_PAGE,
-					limit: POSTS_PER_PAGE,
-				},
-			})
-			.exec();
-		if (!user) {
+		
+		// Run count queries in parallel for better performance
+		const [totalPosts, totalApprovedPosts, totalRejectedPosts, posts] = await Promise.all([
+			Post.countDocuments({ user: req.user._id }),
+			Post.countDocuments({ user: req.user._id, isApproved: "true" }),
+			Post.countDocuments({ user: req.user._id, isApproved: "false" }),
+			Post.find({ user: req.user._id })
+				.select('title category state imageUrl description isApproved createdAt')
+				.sort({ createdAt: -1 })
+				.skip((page - 1) * POSTS_PER_PAGE)
+				.limit(POSTS_PER_PAGE)
+				.lean()
+				.exec()
+		]);
+		
+		if (!req.user) {
 			const error = new Error("No User found");
 			error.httpStatusCode = 404;
-			next(error);
+			return next(error);
 		}
+		
 		res.status(200).render("user/dashboard", {
 			pageTitle: "Darshan",
 			normal: false,
 			dark: true,
-			username: user.username,
-			posts: user.posts,
+			username: req.user.username,
+			posts: posts,
 			currentPage: page,
 			totalPages: Math.ceil(totalPosts / POSTS_PER_PAGE),
 			request,
@@ -223,7 +220,8 @@ exports.postAddPost = async (req, res, next) => {
 
 exports.getEditPost = async (req, res, next) => {
 	const postID = req.params.postID;
-	const post = await Post.findById(postID);
+	// Use lean() for faster query when just displaying data
+	const post = await Post.findById(postID).lean();
 	if (!post) return res.redirect("/user/dashboard");
 
 	res.status(200).render("user/addPost", {
@@ -387,7 +385,8 @@ exports.deletePost = async (req, res, next) => {
 
 exports.getDetails = async (req, res, next) => {
 	const postID = req.params.postID;
-	const post = await Post.findById(postID);
+	// Use lean() for read-only operations
+	const post = await Post.findById(postID).lean();
 
 	if (!post) return res.redirect("/user/dashboard");
 
@@ -416,8 +415,11 @@ exports.getDetails = async (req, res, next) => {
 
 exports.likePost = async (req, res, next) => {
 	try {
-		const post = await Post.findById(req.params.postID);
-		const user = await User.findById(req.user);
+		// Fetch post and user in parallel
+		const [post, user] = await Promise.all([
+			Post.findById(req.params.postID).select('likes dislikes'),
+			User.findById(req.user).select('likes')
+		]);
 
 		if (!user) {
 			return res.status(401).json({ message: "You have to be logged in" });
@@ -428,28 +430,27 @@ exports.likePost = async (req, res, next) => {
 
 		let likes = post.likes ?? 0;
 		let dislikes = post.dislikes ?? 0;
-		let index = -1;
+		
+		// Use find instead of findIndex for better readability
+		const existingLike = user.likes.find(
+			(like) => like.post.toString() === post._id.toString()
+		);
 
-		if (user.likes.length > 0) {
-			index = user.likes.findIndex(
-				(like) => like.post.toString() === post._id.toString(),
-			);
-		}
-
-		if (index !== -1) {
+		if (existingLike) {
 			// User has already voted on this post
-			if (user.likes[index].like) {
+			if (existingLike.like) {
 				// Already liked
 				return res.status(200).json({
 					message: "Already liked!",
 					likes: likes,
 					dislikes: dislikes,
 				});
-			} else if (user.likes[index].dislike) {
+			} else if (existingLike.dislike) {
 				// Toggle from dislike to like
 				likes += 1;
 				dislikes -= 1;
-				user.likes[index] = { post: post._id, like: true, dislike: false };
+				existingLike.like = true;
+				existingLike.dislike = false;
 			}
 		} else {
 			// User has not voted on this post
@@ -460,11 +461,11 @@ exports.likePost = async (req, res, next) => {
 		post.likes = likes;
 		post.dislikes = dislikes;
 
-		await post.save();
-		await user.save();
+		// Save both in parallel
+		await Promise.all([post.save(), user.save()]);
 
 		res.status(200).json({
-			message: index !== -1 ? "Toggled from dislike to like" : "Post liked",
+			message: existingLike ? "Toggled from dislike to like" : "Post liked",
 			likes: likes,
 			dislikes: dislikes,
 		});
@@ -476,33 +477,42 @@ exports.likePost = async (req, res, next) => {
 };
 exports.dislikePost = async (req, res, next) => {
 	try {
-		const post = await Post.findById(req.params.postID);
-		const user = await User.findById(req.user);
+		// Fetch post and user in parallel
+		const [post, user] = await Promise.all([
+			Post.findById(req.params.postID).select('likes dislikes'),
+			User.findById(req.user).select('likes')
+		]);
 
 		if (!post) {
 			return res.status(404).json({ message: "Post not found" });
 		}
+		if (!user) {
+			return res.status(401).json({ message: "You have to be logged in" });
+		}
 
 		let likes = post.likes ?? 0;
 		let dislikes = post.dislikes ?? 0;
-		const index = user.likes.findIndex(
-			(like) => like.post.toString() === post._id.toString(),
+		
+		// Use find instead of findIndex for better readability
+		const existingLike = user.likes.find(
+			(like) => like.post.toString() === post._id.toString()
 		);
 
-		if (index !== -1) {
+		if (existingLike) {
 			// User has already voted on this post
-			if (user.likes[index].dislike) {
+			if (existingLike.dislike) {
 				// Already disliked
 				return res.status(200).json({
 					message: "Already disliked!",
 					likes: likes,
 					dislikes: dislikes,
 				});
-			} else if (user.likes[index].like) {
+			} else if (existingLike.like) {
 				// Toggle from like to dislike
 				likes -= 1;
 				dislikes += 1;
-				user.likes[index] = { post: post._id, like: false, dislike: true };
+				existingLike.like = false;
+				existingLike.dislike = true;
 			}
 		} else {
 			// User has not voted on this post
@@ -513,11 +523,11 @@ exports.dislikePost = async (req, res, next) => {
 		post.likes = likes;
 		post.dislikes = dislikes;
 
-		await post.save();
-		await user.save();
+		// Save both in parallel
+		await Promise.all([post.save(), user.save()]);
 
 		res.status(200).json({
-			message: index !== -1 ? "Toggled from like to dislike" : "Post disliked",
+			message: existingLike ? "Toggled from like to dislike" : "Post disliked",
 			likes: likes,
 			dislikes: dislikes,
 		});
@@ -530,7 +540,8 @@ exports.dislikePost = async (req, res, next) => {
 
 exports.countRatings = async (req, res, next) => {
 	try {
-		const post = await Post.findById(req.params.postID);
+		// Only select the fields we need
+		const post = await Post.findById(req.params.postID).select('likes dislikes').lean();
 		if (!post) {
 			return res.status(404).json({ message: "Post not found" });
 		}

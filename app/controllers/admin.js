@@ -6,11 +6,18 @@ exports.getDashboard = async (req, res, next) => {
   try {
     const request = req.query.request;
     const page = +req.query.page || 1;
-    const totalPosts = await Post.countDocuments({ isApproved: "pending" }); //Get the number of posts which are still not approved
-    const posts = await Post.find({ isApproved: "pending" })
-      .skip((page - 1) * POSTS_PER_PAGE)
-      .limit(POSTS_PER_PAGE)
-      .exec();
+    
+    // Run count and find queries in parallel for better performance
+    const [totalPosts, posts] = await Promise.all([
+      Post.countDocuments({ isApproved: "pending" }),
+      Post.find({ isApproved: "pending" })
+        .select('title category state imageUrl description isApproved createdAt user')
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * POSTS_PER_PAGE)
+        .limit(POSTS_PER_PAGE)
+        .lean()
+        .exec()
+    ]);
 
     res.status(200).render("user/dashboard", {
       pageTitle: "Darshan",
@@ -34,7 +41,8 @@ exports.getDashboard = async (req, res, next) => {
 
 exports.getEditPost = async (req, res, next) => {
   const postID = req.params.postID;
-  const post = await Post.findById(postID);
+  // Use lean() for read-only operations
+  const post = await Post.findById(postID).lean();
   if (!post) return res.redirect("/user/dashboard");
 
   res.status(200).render("user/addPost", {
@@ -118,11 +126,10 @@ exports.editAndAcceptPost = async (req, res, next) => {
 
 exports.rejectPost = async (req, res, next) => {
   const postID = req.params.postID;
-  const post = await Post.findById(postID);
-
-  post.isApproved = "false";
-
-  await post.save();
+  
+  // Use findByIdAndUpdate for atomic update - more efficient
+  await Post.findByIdAndUpdate(postID, { isApproved: "false" });
+  
   req.session.rejected = (req.session.rejected || 0) + 1;
   console.log("POST HAS BEEN REJECTED");
 
