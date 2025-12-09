@@ -95,4 +95,4 @@ For any queries or suggestions, please reach out to kanishkp.dev@gmail.com
 
 Join us in our journey to keep India's rich cultural heritage alive in the digital age!
 
-**Team Name: Net Navigators**
+**Team Name: Net Navigatorss**
