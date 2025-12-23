@@ -82,15 +82,13 @@ function focusOnState(stateElement) {
 	stateCards.style.justifyContent = "center";
 	stateCards.style.alignItems = "center";
 
-	const stateCities = document.getElementsByClassName(
-		stateElement.getAttribute("title"),
-	);
+	const stateTitle = stateElement.getAttribute("title");
+	const stateCities = document.getElementsByClassName(stateTitle);
+	// Convert to Set for O(1) lookups instead of O(n) with some()
+	const cityIds = new Set(Array.from(stateCities).map(city => city.id));
+	
 	Array.from(stateCards.children).forEach((card) => {
-		if (Array.from(stateCities).some((city) => city.id === card.id)) {
-			card.style.display = "block";
-		} else {
-			card.style.display = "none";
-		}
+		card.style.display = cityIds.has(card.id) ? "block" : "none";
 	});
 
 	// Show markers for the selected state
@@ -153,28 +151,29 @@ function showMarkersForState(stateName) {
 
 	selectedState = stateName;
 
-	const postsInState = Array.from(document.querySelectorAll(".map-container"))
-		.filter(
-			(container) =>
-				container.dataset.lat &&
-				container.dataset.lng &&
-				container.querySelector(".site-info h4").textContent === stateName,
-		)
-		.map((container) => ({
-			latitude: parseFloat(container.dataset.lat),
-			longitude: parseFloat(container.dataset.lng),
-			name: container.querySelector(".site-info h3").textContent,
-		}));
+	// Use querySelectorAll more efficiently with a combined selector
+	const containers = document.querySelectorAll(".map-container");
+	const postsInState = [];
+	
+	containers.forEach((container) => {
+		if (container.dataset.lat && container.dataset.lng) {
+			const stateH4 = container.querySelector(".site-info h4");
+			if (stateH4 && stateH4.textContent === stateName) {
+				postsInState.push({
+					latitude: parseFloat(container.dataset.lat),
+					longitude: parseFloat(container.dataset.lng),
+					name: container.querySelector(".site-info h3").textContent,
+				});
+			}
+		}
+	});
 
 	postsInState.forEach(addHeritageMarker);
 
-	document.querySelectorAll(".map-container").forEach((card) => {
-		const cardState = card.querySelector(".site-info h4").textContent;
-		if (cardState === stateName) {
-			card.style.display = "block";
-		} else {
-			card.style.display = "none";
-		}
+	// Cache the containers instead of querying multiple times
+	containers.forEach((card) => {
+		const stateH4 = card.querySelector(".site-info h4");
+		card.style.display = (stateH4 && stateH4.textContent === stateName) ? "block" : "none";
 	});
 }
 

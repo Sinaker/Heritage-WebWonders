@@ -40,4 +40,7 @@ const userSchema = new Schema({
   ],
 });
 
+// Add index for frequently queried username field
+userSchema.index({ username: 1 }, { unique: true });
+
 module.exports = mongoose.model("User", userSchema);

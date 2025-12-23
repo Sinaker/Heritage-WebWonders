@@ -63,7 +63,10 @@ app.use(async (req, res, next) => {
 		return next();
 	}
 	try {
-		const user = await User.findById(req.session.user._id);
+		// Only select fields we commonly need, use lean() for better performance
+		const user = await User.findById(req.session.user._id)
+			.select('username email isAdmin posts likes')
+			.lean();
 		if (!user) return next();
 		req.user = user; //Trying to associate user with the req object
 		next();

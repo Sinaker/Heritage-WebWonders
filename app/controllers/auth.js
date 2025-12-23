@@ -55,7 +55,8 @@ exports.postLogin = async (req, res, next) => {
   }
 
   try {
-    const user = await User.findOne({ username });
+    // Only select the fields we need for authentication
+    const user = await User.findOne({ username }).select('username email password isAdmin').lean();
     if (!user) {
       //If no user is returned
       return res.status(422).render("auth/login", {
@@ -129,9 +130,10 @@ exports.postSignUp = async (req, res, next) => {
       oldInput: { username, password, email, cnfPassword },
     });
   }
-  const user = await User.findOne({ username });
+  // Only check for username existence - no need to fetch full document
+  const existingUser = await User.findOne({ username }).select('_id').lean();
 
-  if (user) {
+  if (existingUser) {
     //If user is already defined in the database
     return res.status(422).render("auth/signup", {
       pageTitle: "Sign Up",
@@ -207,7 +209,8 @@ exports.postResetPass = async (req, res, next) => {
     const token = buffer.toString("hex");
 
     try {
-      const user = await User.findOne({ username });
+      // Only select fields needed for password reset
+      const user = await User.findOne({ username }).select('username email resetToken resetTokenExpiry');
 
       if (!user) {
         return res.render("auth/resetpass", {
@@ -261,10 +264,11 @@ exports.postResetPass = async (req, res, next) => {
 exports.getNewPass = async (req, res, next) => {
   const token = req.params.token;
   try {
+    // Only select fields needed for validation
     const user = await User.findOne({
       resetToken: token,
       resetTokenExpiry: { $gt: Date.now() },
-    }); //Checks current token and expiration date
+    }).select('_id resetToken resetTokenExpiry').lean(); //Checks current token and expiration date
 
     if (!user) {
       return res
@@ -317,10 +321,12 @@ exports.postNewPass = async (req, res, next) => {
       _id: userID,
       resetToken: token,
       resetTokenExpiry: { $gt: Date.now() },
-    });
+    }).select('password resetToken resetTokenExpiry');
+    
     if (!user) {
       return res.redirect("/resetpassword?error=");
     }
+    
     const hashedPass = await bcryptjs.hash(newPass, 12);
 
     user.password = hashedPass;
